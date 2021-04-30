@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="#666666">
+
+    <item
+        android:id="@+id/Album"
+        android:icon="@drawable/family"
+        android:title="사진첩"
+        app:cnb_iconColor="@color/colorfamily"/>
+
+    <item
+        android:id="@+id/Diary"
+        android:icon="@drawable/diary"
+        android:title="다이어리"
+        app:cnb_iconColor="@color/colordiary"/>
+
+    <item
+        android:id="@+id/Setting"
+        android:icon="@drawable/profile"
+        android:title="설정"
+        app:cnb_iconColor="@color/colorprofile"/>
+
+</menu>

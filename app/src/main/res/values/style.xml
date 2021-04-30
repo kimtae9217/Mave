@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="defaultButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="urgentButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+</resources>
