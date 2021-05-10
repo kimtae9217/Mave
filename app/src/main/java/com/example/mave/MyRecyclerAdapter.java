@@ -1,5 +1,11 @@
 package com.example.mave;
 
+import android.app.LauncherActivity;
+import android.app.SearchManager;
+import android.content.ClipData;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
@@ -12,105 +18,60 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
+public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.CustomViewHolder> {
 
-    public interface MyRecyclerViewClickListener {
-        void onItemClicked(int position);
-        void onItemLongClicked(int position);
-        void onTitleClicked(int position);
-        void onContentClicked(int position);
-        void onImageViewClicked(int position);
+    private Context context;
+    private ArrayList<ItemData> arrayList;
+
+    public MyRecyclerAdapter(ArrayList<ItemData> arrayList) {
+        this.arrayList = arrayList;
     }
-    private MyRecyclerViewClickListener mListener;
-
-    public void setOnClickListener(MyRecyclerViewClickListener listener){
-        this.mListener = listener;
-    }
-
-    private ArrayList<ItemData> itemData;
-    public MyRecyclerAdapter(ArrayList<ItemData> itemData) {
-        this.itemData = itemData;
-    }
-
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
-        return new ViewHolder(view);
+    public MyRecyclerAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        CustomViewHolder holder = new CustomViewHolder(view);
+        context = parent.getContext();
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ItemData item = itemData.get(position);
-        holder.title.setText(item.getTitle());
-        holder.content.setText(item.getContent());
-        holder.imageView.setImageResource(item.getImage());
+    public void onBindViewHolder(@NonNull MyRecyclerAdapter.CustomViewHolder holder, int position) {
+        holder.familyphoto.setImageResource(arrayList.get(position).getFamilyphoto());
+        holder.content.setText(arrayList.get(position).getContent());
+        holder.title.setText(arrayList.get(position).getTitle());
 
-        if (mListener != null) {
-            final int pos = position;
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onItemClicked(pos);
-                }
-            });
-            holder.title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onTitleClicked(pos);
-                }
-            });
-            holder.content.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onContentClicked(pos);
-                }
-            });
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onImageViewClicked(pos);
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    mListener.onItemLongClicked(holder.getAdapterPosition());
-                    return true;
-                }
-            });
-        }
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), LauncherActivity.ListItem.class);
+                context.startActivity(intent);
+            }
+        });
     }
-
     @Override
     public int getItemCount() {
-        return itemData.size();
+        return (null != arrayList? arrayList.size():0);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, content;
-        ImageView imageView;
-        public ViewHolder(@NonNull View itemView) {
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
+
+        protected ImageView familyphoto;
+        protected TextView content;
+        protected TextView title;
+
+        public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.txt_title);
-            content = itemView.findViewById(R.id.txt_content);
-            imageView = itemView.findViewById(R.id.user_image);
-
-            imageView.setBackground(new ShapeDrawable(new OvalShape()));
-            imageView.setClipToOutline(true);
-        }
-    }
-
-    public void remove (int position){
-        try {
-            itemData.remove(position);
-            notifyDataSetChanged();;
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
+            this.familyphoto = (ImageView)itemView.findViewById(R.id.familypicture);
+            this.content = (TextView)itemView.findViewById(R.id.addContent);
+            this.title = (TextView)itemView.findViewById(R.id.title);
         }
     }
 }

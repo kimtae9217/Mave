@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mave">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".List_insert">
 
         </activity>
 

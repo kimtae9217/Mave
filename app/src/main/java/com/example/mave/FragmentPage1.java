@@ -1,9 +1,11 @@
 package com.example.mave;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,66 +39,72 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FragmentPage1 extends Fragment implements MyRecyclerAdapter.MyRecyclerViewClickListener {
+public class FragmentPage1 extends Fragment {
 
-    private RecyclerView recyclerView;
+    /*private RecyclerView recyclerView;
     private MyRecyclerAdapter adapter_1;
-
-
+    private ArrayList<ItemData> items = new ArrayList<>();
     ArrayList<ItemData> dataList = new ArrayList<>();
-    MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
-    static int i=0;
-    int[] cat = {R.drawable.family, R.drawable.family, R.drawable.family,
-            R.drawable.family, R.drawable.family, R.drawable.family,
-            R.drawable.family, R.drawable.family, R.drawable.family,
-            R.drawable.family};
-    private View view;
-
+    private View view;*/
+    final static int CODE = 1;
+    private ArrayList<ItemData> arrayList;
+    private MyRecyclerAdapter recycleAdapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    ViewGroup viewGroup;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_page_1, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        /*View view = inflater.inflate(R.layout.fragment_page_1, container, false);
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnClickListener(this);
+        MyRecyclerAdapter adapter = new MyRecyclerAdapter(context, items);
+        recyclerView.setAdapter(adapter);*/
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1,container,false);
+        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        arrayList = new ArrayList<>();
+        recycleAdapter = new MyRecyclerAdapter(arrayList);
+        recyclerView.setAdapter(recycleAdapter);
 
-        Button button = (Button)view.findViewById(R.id.btn_insert);
+        Button button = (Button)viewGroup.findViewById(R.id.btn_insert);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final View innerView = getLayoutInflater().inflate(R.layout.list_insert, null);
-                final Dialog mDialog = new Dialog(getContext());
-
-                mDialog.setTitle("Title");
-                mDialog.setContentView(innerView);
-                mDialog.setCancelable(true);
-
-                WindowManager.LayoutParams params = mDialog.getWindow().getAttributes();
-                params.width = WindowManager.LayoutParams.MATCH_PARENT;
-                params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                mDialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-                final EditText editTitle = mDialog.findViewById(R.id.addTitle);
-                final EditText editCont = mDialog.findViewById(R.id.addContent);
-                Button btn_go = mDialog.findViewById(R.id.btn_go);
-
-                String myTitle = editTitle.getText().toString();
-
-                Toast.makeText(getContext(), myTitle, Toast.LENGTH_SHORT).show();
-                mDialog.dismiss();
+                Intent intent = new Intent(getActivity(), List_insert.class);
+                startActivity(intent);
             }
         });
-        /*mDialog.show();*/
-        adapter.notifyDataSetChanged();
 
-        return view;
-        /*final View innerView = getLayoutInflater().inflate(R.layout.list_insert, null);
+        return viewGroup;
+    }
+
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case CODE:
+                ItemData itemdata = new ItemData(R.drawable.family,"그룹 이름", "그룹 인원","그룹 내용");
+                itemdata.setContent(data.getStringExtra("groupName"));
+                itemdata.setTitle(data.getStringExtra("groupContents"));
+                PreferenceManager.setString(getContext(),"rebuild",data.getStringExtra("addTitle"));
+                PreferenceManager.setString(getContext(),"number",data.getStringExtra("addContent"));
+                arrayList.add(itemdata);
+                recycleAdapter.notifyDataSetChanged();
+
+        }
+    }*/
+}
+
+
+/*final View innerView = getLayoutInflater().inflate(R.layout.list_insert, null);
         final Dialog mDialog = new Dialog(getContext());
         mDialog.setTitle("Title");
         mDialog.setContentView(innerView);
@@ -128,76 +136,3 @@ public class FragmentPage1 extends Fragment implements MyRecyclerAdapter.MyRecyc
         adapter.notifyDataSetChanged();
 
         return view;*/
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onItemClicked(int position) {
-        Toast.makeText(getContext(), ""+(position+1), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemLongClicked(int position) {
-        adapter.remove(position);
-        Toast.makeText(getContext(),"리스트 삭제", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onTitleClicked(int position) {
-        Toast.makeText(getContext(),dataList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onContentClicked(int position) {
-        Toast.makeText(getContext(),dataList.get(position).getContent(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onImageViewClicked(int position) {
-        Toast.makeText(getContext(), ""+(position+1), Toast.LENGTH_SHORT).show();
-    }
-   /* public void onMenuInsert(View view) {
-
-        final View innerView = getLayoutInflater().inflate(R.layout.list_insert, null);
-        final Dialog mDialog = new Dialog(getContext());
-        mDialog.setTitle("Title");
-        mDialog.setContentView(innerView);
-        mDialog.setCancelable(true);
-
-        WindowManager.LayoutParams params = mDialog.getWindow().getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        mDialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-        final EditText editTitle = mDialog.findViewById(R.id.addTitle);
-        final EditText editCont = mDialog.findViewById(R.id.addContent);
-        Button btn_go = mDialog.findViewById(R.id.btn_go);
-
-        //입력버튼을 누르면 실행되는 이벤트
-        btn_go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String myTitle = editTitle.getText().toString();
-                String myCont = editCont.getText().toString();
-
-                dataList.add(new ItemData(cat[i], myTitle, myCont));
-                Toast.makeText(getContext(), myTitle, Toast.LENGTH_SHORT).show();
-                mDialog.dismiss();
-                    *//*Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                    startActivityForResult(intent, PICK_FROM_ALBUM);
-                mImageCaptureUri = data.getData();
-
-                Log.d("SmartWheel",mImageCaptureUri.getPath().toString());*//*
-            }
-        });
-
-        mDialog.show();
-        adapter.notifyDataSetChanged();
-    }*/
-
-}

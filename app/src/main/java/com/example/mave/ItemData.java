@@ -1,23 +1,20 @@
 package com.example.mave;
 
 public class ItemData {
-    int image;
-    String title;
-    String content;
+    private int familyphoto;
+    private String content;
+    private String title;
+    private String group_list_numbers;
 
-    public ItemData(int image, String title, String content) {
-        this.image = image;
+    public ItemData(int familyphoto, String title, String content, String 그룹_내용) {
+        this.familyphoto = familyphoto;
         this.title = title;
         this.content = content;
     }
 
-    public int getImage() {
-        return image;
-    }
+    public int getFamilyphoto() { return familyphoto; }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
+    public void setFamilyphoto(int image) { this.familyphoto = familyphoto; }
 
     public String getTitle() {
         return title;
