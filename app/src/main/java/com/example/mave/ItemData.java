@@ -4,7 +4,6 @@ public class ItemData {
     private int familyphoto;
     private String content;
     private String title;
-    private String group_list_numbers;
 
     public ItemData(int familyphoto, String title, String content, String 그룹_내용) {
         this.familyphoto = familyphoto;

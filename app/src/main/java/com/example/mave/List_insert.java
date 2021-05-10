@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -54,13 +55,21 @@ public class List_insert extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+//                Intent intent = new Intent(List_insert.this, FragmentPage1.class);
                 Intent intent = new Intent();
-                intent.putExtra("familyphoto",BitmapToString(bm));
+               /* FragmentPage1 myFragment = new FragmentPage1();
+                Bundle bundle = new Bundle();*/
+                /*intent.putExtra("userimage",BitmapToString(bm));*/
                 intent.putExtra("addTitle", addTitle.getText().toString());
                 intent.putExtra("addContent", addContent.getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
 
+                /*bundle.putString("familyphoto",BitmapToString(bm));
+                bundle.putString("addTitle", addTitle.getText().toString());
+                bundle.putString("addContent", addContent.getText().toString());*/
+               /* myFragment.setArguments(bundle);*/
+                setResult(RESULT_OK, intent);
+
+                finish();
             }
         });
 
@@ -75,6 +84,7 @@ public class List_insert extends AppCompatActivity {
         });
 
     }
+
 
     public void doTakeAlbumAction() {
         Intent intent = new Intent();
@@ -106,11 +116,11 @@ public class List_insert extends AppCompatActivity {
         userimage.setImageBitmap(bm);
     }
 
-    public static String BitmapToString(Bitmap bitmap) {
+    /*public static String BitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
         byte[] bytes = baos.toByteArray();
         String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
         return temp;
-    }
+    }*/
 }

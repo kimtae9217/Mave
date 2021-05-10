@@ -35,7 +35,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
     @NonNull
     @Override
     public MyRecyclerAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent,false);
         CustomViewHolder holder = new CustomViewHolder(view);
         context = parent.getContext();
         return holder;
@@ -43,7 +43,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerAdapter.CustomViewHolder holder, int position) {
-        holder.familyphoto.setImageResource(arrayList.get(position).getFamilyphoto());
+        holder.familypicture.setImageResource(arrayList.get(position).getFamilyphoto());
         holder.content.setText(arrayList.get(position).getContent());
         holder.title.setText(arrayList.get(position).getTitle());
 
@@ -63,13 +63,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView familyphoto;
+        protected ImageView familypicture;
         protected TextView content;
         protected TextView title;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.familyphoto = (ImageView)itemView.findViewById(R.id.familypicture);
+            this.familypicture = (ImageView)itemView.findViewById(R.id.familypicture);
             this.content = (TextView)itemView.findViewById(R.id.addContent);
             this.title = (TextView)itemView.findViewById(R.id.title);
         }
