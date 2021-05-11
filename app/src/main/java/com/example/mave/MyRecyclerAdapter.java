@@ -43,7 +43,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerAdapter.CustomViewHolder holder, int position) {
-        holder.familypicture.setImageResource(arrayList.get(position).getFamilyphoto());
+        /*holder.familypicture.setImageResource(arrayList.get(position).getFamilyphoto());*/
         holder.content.setText(arrayList.get(position).getContent());
         holder.title.setText(arrayList.get(position).getTitle());
 
@@ -52,7 +52,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), LauncherActivity.ListItem.class);
-                context.startActivity(intent);
+                /*context.startActivity(intent);*/
             }
         });
     }
@@ -63,15 +63,15 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView familypicture;
+        /*protected ImageView familypicture;*/
         protected TextView content;
         protected TextView title;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.familypicture = (ImageView)itemView.findViewById(R.id.familypicture);
-            this.content = (TextView)itemView.findViewById(R.id.addContent);
-            this.title = (TextView)itemView.findViewById(R.id.title);
+            /*this.familypicture = (ImageView)itemView.findViewById(R.id.familypicture);*/
+            this.content = (TextView)itemView.findViewById(R.id.txt_content);
+            this.title = (TextView)itemView.findViewById(R.id.txt_title);
         }
     }
 }

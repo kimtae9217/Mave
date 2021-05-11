@@ -45,46 +45,31 @@ public class List_insert extends AppCompatActivity {
         setContentView(R.layout.list_insert);
         mcontext = this;
 
+        /*userimage = (ImageView) findViewById(R.id.user_image);*/
         addContent = (EditText) findViewById(R.id.addContent);
         addTitle = (EditText) findViewById(R.id.addTitle);
         btn_UploadPicture = (Button) findViewById(R.id.btn_UploadPicture);
-        btn_go = (Button) findViewById(R.id.btn_go);
-        userimage = (ImageView) findViewById(R.id.user_image);
 
+        btn_go = (Button) findViewById(R.id.btn_go);
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Intent intent = new Intent(List_insert.this, FragmentPage1.class);
                 Intent intent = new Intent();
-               /* FragmentPage1 myFragment = new FragmentPage1();
-                Bundle bundle = new Bundle();*/
                 /*intent.putExtra("userimage",BitmapToString(bm));*/
                 intent.putExtra("addTitle", addTitle.getText().toString());
                 intent.putExtra("addContent", addContent.getText().toString());
-
-                /*bundle.putString("familyphoto",BitmapToString(bm));
-                bundle.putString("addTitle", addTitle.getText().toString());
-                bundle.putString("addContent", addContent.getText().toString());*/
-               /* myFragment.setArguments(bundle);*/
                 setResult(RESULT_OK, intent);
-
                 finish();
             }
         });
 
-        btn_UploadPicture.setOnClickListener(new View.OnClickListener() {
+        /*btn_UploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent, GET_GALLERY_IMAGE);*/
                 doTakeAlbumAction();
             }
         });
-
     }
-
 
     public void doTakeAlbumAction() {
         Intent intent = new Intent();
@@ -95,11 +80,6 @@ public class List_insert extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        /*if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
-            userimage.setImageURI(selectedImageUri);
-        }*/
         super.onActivityResult(requestCode, resultCode, data);
         InputStream is = null;
         try {
@@ -116,11 +96,12 @@ public class List_insert extends AppCompatActivity {
         userimage.setImageBitmap(bm);
     }
 
-    /*public static String BitmapToString(Bitmap bitmap) {
+    public static String BitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
         byte[] bytes = baos.toByteArray();
         String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
         return temp;
     }*/
+    }
 }

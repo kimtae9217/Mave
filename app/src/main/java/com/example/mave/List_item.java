@@ -1,29 +1,43 @@
 package com.example.mave;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class List_item extends AppCompatActivity {
-    FragmentPage1 fragment_page_1;
+    FrameLayout container;
+    TextView title,content;
+    ImageView familyphoto;
+    Context mcontext;
+    Bitmap bm;
+    private static final int REQUEST_CODE = 0;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_insert);
+        setContentView(R.layout.activity_main);
+        container = (FrameLayout)findViewById(R.id.content_layout);
 
-        Intent intent = getIntent();
-        String title = intent.getStringExtra("addTitle");
-        String content = intent.getStringExtra("addContent");
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.list_item, container, true);
 
-        fragment_page_1 = new FragmentPage1();
-        getSupportFragmentManager().beginTransaction().replace(R.id.list_item, fragment_page_1).commit();
+        mcontext = this;
 
-        Bundle bundle = new Bundle();
-        bundle.putString("addTitle", title);
-        bundle.putString("addContent", content);
+        title = (TextView)findViewById(R.id.txt_title);
+        content = (TextView)findViewById(R.id.txt_content);
+        familyphoto = (ImageView) findViewById(R.id.familypicture);
 
-        fragment_page_1.setArguments(bundle);
+        title.setText(""+PreferenceManager.getString(mcontext,"title"));
+        content.setText(""+PreferenceManager.getString(mcontext,"content"));
     }
 }

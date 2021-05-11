@@ -7,8 +7,13 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,40 +26,38 @@ import java.io.InputStream;
 
 public class FamilyPhoto extends AppCompatActivity {
 
-    FrameLayout container;
-    TextView title,content;
-    ImageView familyphoto;
+    EditText Content,Title;
+    RadioGroup rb;
+    RadioButton radio;
+    Button btn_go;
     Context mcontext;
-    Bitmap bm;
-    private static final int REQUEST_CODE = 0;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_page_1);
-        container = (FrameLayout)findViewById(R.id.photolist);
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.list_item, container, true);
-
+        setContentView(R.layout.list_insert);
         mcontext = this;
 
-        title = (TextView)findViewById(R.id.txt_title);
-        content = (TextView)findViewById(R.id.txt_content);
-        familyphoto = (ImageView) findViewById(R.id.familypicture);
+        Title = (EditText)findViewById(R.id.addTitle);
+        Content = (EditText)findViewById(R.id.addContent);
 
-        title.setText(""+PreferenceManager.getString(mcontext,"title"));
-        content.setText(""+PreferenceManager.getString(mcontext,"content"));
+        btn_go = (Button)findViewById(R.id.btn_go);
+
+        //데이터를 입력받는다.
+        btn_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("Title",Title.getText().toString());
+                intent.putExtra("Content",Content.getText().toString());
 
 
-    }
-    public static String BitmapToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
-        byte[] bytes = baos.toByteArray();
-        String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
-        return temp;
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
+
     }
 
 }
+
