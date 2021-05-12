@@ -1,56 +1,27 @@
 package com.example.mave;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
-import static android.preference.PreferenceManager.*;
 import static com.example.mave.PreferenceManager.setString;
 
 public class FragmentPage1 extends Fragment {
@@ -63,7 +34,10 @@ public class FragmentPage1 extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private GridLayoutManager gridLayoutManager;
     ViewGroup viewGroup;
-    TextView txt_content, txt_title;
+    TextView Page1_content, Page1_title;
+    ImageView Page1_family_picture;
+    String Image;
+    Bitmap bm;
 
 
     @Nullable
@@ -73,15 +47,16 @@ public class FragmentPage1 extends Fragment {
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
-        txt_content = (TextView) viewGroup.findViewById(R.id.txt_content);
-        txt_title = (TextView) viewGroup.findViewById(R.id.txt_title);
+        Page1_content = (TextView) viewGroup.findViewById(R.id.list_item_content);
+        Page1_title = (TextView) viewGroup.findViewById(R.id.list_item_title);
+        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_insert_family_image);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         arrayList = new ArrayList<>();
         recycleAdapter = new MyRecyclerAdapter(arrayList);
         recyclerView.setAdapter(recycleAdapter);
 
-        Button button = (Button) viewGroup.findViewById(R.id.btn_insert);
+        Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,16 +85,24 @@ public class FragmentPage1 extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
             case CODE:
-                ItemData itemData = new ItemData(R.drawable.family, "제목", "내용");
-                /*itemData.setFamilyphoto(data.getStringExtra("groupName"));*/
+                ItemData itemData = new ItemData(R.id.list_insert_family_image, "제목", "내용");
+                PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
+                PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
+                PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
+                /*itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));*/
+                bm = byteArrayToBitmap(data.getByteArrayExtra(("Enroll_user_image")));
+                Page1_family_picture.setImageBitmap(bm);
                 itemData.setTitle(data.getStringExtra("addTitle"));
                 itemData.setContent(data.getStringExtra("addContent"));
-                setString(getContext(), "title", data.getStringExtra("Title"));
-                setString(getContext(), "content", data.getStringExtra("Content"));
                 arrayList.add(itemData);
                 recycleAdapter.notifyDataSetChanged();
-
+                break;
         }
     }
+    public Bitmap byteArrayToBitmap( byte[] $byteArray ) {
+        Bitmap bitmap = BitmapFactory.decodeByteArray( $byteArray, 0, $byteArray.length ) ;
+        return bitmap ;
+    }
+
 }
 

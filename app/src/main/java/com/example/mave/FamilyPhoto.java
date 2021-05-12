@@ -2,27 +2,15 @@ package com.example.mave;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class FamilyPhoto extends AppCompatActivity {
 
@@ -38,10 +26,10 @@ public class FamilyPhoto extends AppCompatActivity {
         setContentView(R.layout.list_insert);
         mcontext = this;
 
-        Title = (EditText)findViewById(R.id.addTitle);
-        Content = (EditText)findViewById(R.id.addContent);
+        Title = (EditText)findViewById(R.id.list_insert_addTitle);
+        Content = (EditText)findViewById(R.id.list_insert_addContent);
 
-        btn_go = (Button)findViewById(R.id.btn_go);
+        btn_go = (Button)findViewById(R.id.list_insert_btn_insert);
 
         //데이터를 입력받는다.
         btn_go.setOnClickListener(new View.OnClickListener() {

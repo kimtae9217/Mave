@@ -25,14 +25,14 @@ public class FragmentPage2 extends Fragment {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_page_2, container, false);
 
 
-        Button button = (Button)viewGroup.findViewById(R.id.imageButton);
+        /*Button button = (Button)viewGroup.findViewById(R.id.imageButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Page2_sub.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return viewGroup;
     }

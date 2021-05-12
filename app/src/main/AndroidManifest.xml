@@ -10,10 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mave">
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".List_insert">
-
-        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".List_insert" />
+        <activity android:name=".List_item" />
 
         <activity android:name=".SplashActivity">
             <intent-filter>

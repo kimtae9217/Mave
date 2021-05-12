@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/user_image"
+            android:id="@+id/list_insert_family_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -28,7 +28,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/addTitle"
+                android:id="@+id/list_insert_addTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="TITLE"
@@ -37,7 +37,7 @@
                 android:textStyle="bold"/>
 
             <EditText
-                android:id="@+id/addContent"
+                android:id="@+id/list_insert_addContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="content"
@@ -55,7 +55,7 @@
         android:padding="3dp">
 
         <Button
-            android:id="@+id/btn_go"
+            android:id="@+id/list_insert_btn_insert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
 
     </LinearLayout>
     <Button
-        android:id="@+id/btn_UploadPicture"
+        android:id="@+id/list_insert_btn_UploadPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

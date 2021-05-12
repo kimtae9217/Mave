@@ -1,27 +1,18 @@
 package com.example.mave;
 
 import android.app.LauncherActivity;
-import android.app.SearchManager;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.CustomViewHolder> {
 
@@ -43,7 +34,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerAdapter.CustomViewHolder holder, int position) {
-        /*holder.familypicture.setImageResource(arrayList.get(position).getFamilyphoto());*/
+        holder.familypicture.setImageResource(arrayList.get(position).getFamilyphoto());
         holder.content.setText(arrayList.get(position).getContent());
         holder.title.setText(arrayList.get(position).getTitle());
 
@@ -63,15 +54,15 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        /*protected ImageView familypicture;*/
+        protected ImageView familypicture;
         protected TextView content;
         protected TextView title;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            /*this.familypicture = (ImageView)itemView.findViewById(R.id.familypicture);*/
-            this.content = (TextView)itemView.findViewById(R.id.txt_content);
-            this.title = (TextView)itemView.findViewById(R.id.txt_title);
+            this.familypicture = (ImageView)itemView.findViewById(R.id.list_item_familypicture);
+            this.content = (TextView)itemView.findViewById(R.id.list_item_content);
+            this.title = (TextView)itemView.findViewById(R.id.list_item_title);
         }
     }
 }
