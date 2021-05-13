@@ -22,8 +22,13 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
-
-
+            <ImageButton
+                android:id="@+id/flower"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/yellowflower">
+            </ImageButton>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,21 +47,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/imageButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/and_note"
-                android:background="#00ff0000"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:id="@+id/flower"
-                app:srcCompat="@drawable/yellowflower">
 
-            </ImageView>
+
         </LinearLayout>
     </FrameLayout>
 

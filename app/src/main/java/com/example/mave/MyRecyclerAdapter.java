@@ -42,8 +42,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), LauncherActivity.ListItem.class);
-                /*context.startActivity(intent);*/
+                Intent intent = new Intent(v.getContext(), FragmentPage1.class);
+                context.startActivity(intent);
             }
         });
     }

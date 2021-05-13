@@ -1,5 +1,6 @@
 package com.example.mave;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import static com.example.mave.FragmentPage1.CODE;
+
 public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
@@ -22,17 +25,17 @@ public class FragmentPage2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         setHasOptionsMenu(true);
-        ViewGroup view = (ViewGroup)inflater.inflate(R.layout.fragment_page_2, container, false);
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_2, container, false);
 
 
-        /*Button button = (Button)viewGroup.findViewById(R.id.imageButton);
+        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.flower);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Page2_sub.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         return viewGroup;
     }
@@ -47,8 +50,6 @@ public class FragmentPage2 extends Fragment {
     public void clickBtn(View view) {
         Intent intent = new Intent(getActivity(), Page2_sub_answer.class);
         startActivity(intent);
-
-
     }
 }
 

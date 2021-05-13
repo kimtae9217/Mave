@@ -23,6 +23,7 @@ public class List_insert extends AppCompatActivity {
 
     private final int GET_IMAGE = 200;
     ImageView List_insert_family_image;
+    final static int CODE = 1;
     Context mcontext;
     EditText List_insert_addTitle, List_insert_addContent;
     Button List_insert_btn_UploadPicture, List_insert_btn_go;
@@ -46,12 +47,15 @@ public class List_insert extends AppCompatActivity {
         List_insert_btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(mcontext, FragmentPage1.class);
+                /*Bundle bundle = new Bundle();
+                bundle.putByteArray("image", bitmapToByteArray(bm));
+                intent.putExtras(bundle);*/
                 intent.putExtra("Enroll_user_image",bitmapToByteArray(bm));
                 intent.putExtra("addTitle", List_insert_addTitle.getText().toString());
                 intent.putExtra("addContent", List_insert_addContent.getText().toString());
-
                 setResult(RESULT_OK, intent);
+/*                startActivity(intent);*/
                 finish();
             }
         });
@@ -90,7 +94,7 @@ public class List_insert extends AppCompatActivity {
 
     public byte[] bitmapToByteArray( Bitmap $bitmap ) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
-        $bitmap.compress( Bitmap.CompressFormat.JPEG, 100, stream) ;
+        $bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream) ;
         byte[] byteArray = stream.toByteArray() ;
         return byteArray ;
     }

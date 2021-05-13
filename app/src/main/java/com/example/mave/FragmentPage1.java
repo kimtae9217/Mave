@@ -49,7 +49,7 @@ public class FragmentPage1 extends Fragment {
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
         Page1_content = (TextView) viewGroup.findViewById(R.id.list_item_content);
         Page1_title = (TextView) viewGroup.findViewById(R.id.list_item_title);
-        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_insert_family_image);
+        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_item_familypicture);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         arrayList = new ArrayList<>();
@@ -64,6 +64,7 @@ public class FragmentPage1 extends Fragment {
                 startActivityForResult(intent, CODE);
             }
         });
+
         return viewGroup;
     }
 
@@ -89,9 +90,9 @@ public class FragmentPage1 extends Fragment {
                 PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
                 PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
                 PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
-                /*itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));*/
-                bm = byteArrayToBitmap(data.getByteArrayExtra(("Enroll_user_image")));
+                bm = byteArrayToBitmap(data.getByteArrayExtra("Enroll_user_image"));
                 Page1_family_picture.setImageBitmap(bm);
+                itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));
                 itemData.setTitle(data.getStringExtra("addTitle"));
                 itemData.setContent(data.getStringExtra("addContent"));
                 arrayList.add(itemData);
@@ -99,7 +100,7 @@ public class FragmentPage1 extends Fragment {
                 break;
         }
     }
-    public Bitmap byteArrayToBitmap( byte[] $byteArray ) {
+    public Bitmap byteArrayToBitmap(byte[] $byteArray ) {
         Bitmap bitmap = BitmapFactory.decodeByteArray( $byteArray, 0, $byteArray.length ) ;
         return bitmap ;
     }

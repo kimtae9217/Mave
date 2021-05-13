@@ -13,6 +13,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".List_insert" />
         <activity android:name=".List_item" />
+        <activity android:name=".Page2_sub" />
+        
 
         <activity android:name=".SplashActivity">
             <intent-filter>

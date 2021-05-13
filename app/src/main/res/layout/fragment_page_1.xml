@@ -21,7 +21,7 @@
 
 
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -32,6 +32,13 @@
             android:onClick="Click"
             android:id="@+id/page1_btn_add_picture"
             android:text="사진 추가"/>
-    </GridLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="Click"
+            android:id="@+id/page1_btn_add_update"
+            android:text="업데이트"/>
+    </LinearLayout>
 
 </LinearLayout>
