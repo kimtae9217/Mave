@@ -32,7 +32,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/todayQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Q. 결혼기념일은?"
