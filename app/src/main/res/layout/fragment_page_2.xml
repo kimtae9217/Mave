@@ -11,43 +11,39 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/and_note" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:srcCompat="@drawable/and_note" />-->
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="95dp"
+                android:fontFamily="@font/the"
+                android:text=" 버뮤 's   다이어리"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="35dp" />
+
             <ImageButton
                 android:id="@+id/flower"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginBottom="100dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/yellowflower">
+                app:srcCompat="@drawable/and_note"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/todo">
             </ImageButton>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="600dp"
-                android:layout_gravity="center"
-                android:layout_weight="3"
-                android:layout_marginTop="95dp"
-                android:text=" 버뮤 's   다이어리"
-                android:textColor="#000000"
-                android:textSize="35dp"
-                android:fontFamily="@font/the" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
 
         </LinearLayout>
     </FrameLayout>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +19,6 @@ import static com.example.mave.FragmentPage1.CODE;
 public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
-    Button button;
 
     @Nullable
     @Override
@@ -29,7 +29,8 @@ public class FragmentPage2 extends Fragment {
 
 
         ImageButton button = (ImageButton)viewGroup.findViewById(R.id.flower);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        button.setOnClickListener(new View.OnClickListener() { // 다이어리를 눌렀을 때 이벤트
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Page2_sub.class);
@@ -39,6 +40,8 @@ public class FragmentPage2 extends Fragment {
 
         return viewGroup;
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

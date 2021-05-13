@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mave">
 
     <application
@@ -10,18 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mave">
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".List_insert" />
-        <activity android:name=".List_item" />
-        <activity android:name=".Page2_sub" />
-        
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity" />
+        <activity android:name=".List_insert" />
+        <activity android:name=".List_item" />
+        <activity android:name=".Page2_sub" />
+        <activity android:name=".Page2_sub_answer" />
+
 
     </application>
 
