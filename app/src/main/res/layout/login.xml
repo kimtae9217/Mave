@@ -54,7 +54,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/li"
         android:text="Welcome !"
         android:textColor="#25722c"
         android:textSize="50dp"
