@@ -6,19 +6,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import static com.example.mave.FragmentPage1.CODE;
 
 public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
+    private Animation fab_open, fab_close;
+    private Boolean isFabOpen = false;
+    private FloatingActionButton fab, fab1, fab2;
+    private TextView DiaryName;
 
     @Nullable
     @Override
@@ -26,7 +36,12 @@ public class FragmentPage2 extends Fragment {
 
         setHasOptionsMenu(true);
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_2, container, false);
-
+        fab_open = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
+        fab = (FloatingActionButton) viewGroup.findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) viewGroup.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) viewGroup.findViewById(R.id.fab2);
+        DiaryName = (TextView) viewGroup.findViewById(R.id.diarytitle);
 
         ImageButton button = (ImageButton)viewGroup.findViewById(R.id.flower);
 
@@ -38,9 +53,47 @@ public class FragmentPage2 extends Fragment {
             }
         });
 
+        FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
+        FloatingButton.setOnClickListener(new View.OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getContext(), "하위 버튼 띄우기", Toast.LENGTH_SHORT).show();
+                anim();
+
+                FloatingActionButton FloatingButton2 = (FloatingActionButton)viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
+                FloatingButton2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Create_Diary dialog = new Create_Diary(getContext());
+                        dialog.setDialogListener(new Create_Diary.CustomDialogListener() {
+                            @Override
+                            public void onPositiveClicked(String diaryname) {
+                                DiaryName.setText(diaryname);
+                            }
+                            @Override
+                            public void onNegativeClicked() {
+
+                            }
+                        });
+                        dialog.show();
+                        anim();
+                    }
+                });
+
+                FloatingActionButton FloatingButton3 = (FloatingActionButton)viewGroup.findViewById(R.id.fab2); //플로팅버튼 눌렀을 때 이벤트(초대 버튼)
+                FloatingButton3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "다이어리에 초대", Toast.LENGTH_SHORT).show();
+                        anim();
+                    }
+                });
+            }
+        });
+
         return viewGroup;
     }
-
 
 
     @Override
@@ -50,9 +103,21 @@ public class FragmentPage2 extends Fragment {
 
     }
 
-    public void clickBtn(View view) {
-        Intent intent = new Intent(getActivity(), Page2_sub_answer.class);
-        startActivity(intent);
+    public void anim() {
+
+        if (isFabOpen) {
+            fab1.startAnimation(fab_close);
+            fab2.startAnimation(fab_close);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isFabOpen = false;
+        } else {
+            fab1.startAnimation(fab_open);
+            fab2.startAnimation(fab_open);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isFabOpen = true;
+        }
     }
 }
 

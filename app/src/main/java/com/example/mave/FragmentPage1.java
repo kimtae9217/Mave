@@ -49,7 +49,7 @@ public class FragmentPage1 extends Fragment {
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
         Page1_content = (TextView) viewGroup.findViewById(R.id.list_item_content);
         Page1_title = (TextView) viewGroup.findViewById(R.id.list_item_title);
-        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_item_familypicture);
+        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_insert_family_image);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         arrayList = new ArrayList<>();
