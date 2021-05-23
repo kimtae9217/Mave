@@ -55,7 +55,7 @@ public class List_insert extends AppCompatActivity {
                 intent.putExtra("addTitle", List_insert_addTitle.getText().toString());
                 intent.putExtra("addContent", List_insert_addContent.getText().toString());
                 setResult(RESULT_OK, intent);
-/*                startActivity(intent);*/
+                /*                startActivity(intent);*/
                 finish();
             }
         });

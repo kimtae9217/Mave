@@ -1,7 +1,9 @@
 package com.example.mave;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,8 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     private EditText editName;
     private Context context;
     private CustomDialogListener customDialogListener;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     public Create_Diary(Context context) {
         super(context);
@@ -34,6 +38,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_diary);
+
 //init
         positiveButton = (Button)findViewById(R.id.btnPositive);
         negativeButton = (Button)findViewById(R.id.btnNegative);

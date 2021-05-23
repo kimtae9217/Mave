@@ -106,4 +106,3 @@ public class FragmentPage1 extends Fragment {
     }
 
 }
-

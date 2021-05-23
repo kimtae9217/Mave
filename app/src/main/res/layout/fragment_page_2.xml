@@ -38,10 +38,11 @@
                 app:srcCompat="@drawable/and_note" />
 
             <ImageView
-                android:id="@+id/fdiary_flower"
-                android:layout_width="match_parent"
-                android:layout_height="400sp"
-                app:srcCompat="@drawable/yellowflower" />
+                android:id="@+id/diary_flower"
+                android:layout_centerInParent="true"
+                android:layout_width="300dp"
+                android:layout_height="350sp"
+                />
 
         </RelativeLayout>
 

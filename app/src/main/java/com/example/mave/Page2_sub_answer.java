@@ -1,5 +1,7 @@
 package com.example.mave;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -21,6 +24,12 @@ public class Page2_sub_answer extends AppCompatActivity {
     private Button btn_add;
     private EditText edt_title;
     private ListViewAdapter adapter;
+    static int count = 0;
+    private ImageView flower;
+    private Context mContext;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -29,6 +38,8 @@ public class Page2_sub_answer extends AppCompatActivity {
         edt_title = (EditText) findViewById(R.id.edt_answer);
         btn_add = (Button) findViewById(R.id.btn_answer);
         listView = (ListView) findViewById(R.id.listMemo);
+        flower = (ImageView) findViewById(R.id.diary_flower);
+        mContext = this;
 
         adapter = new ListViewAdapter(Page2_sub_answer.this);
         listView.setAdapter(adapter);
@@ -39,6 +50,11 @@ public class Page2_sub_answer extends AppCompatActivity {
             public void onClick(View view) {
                 adapter.addItem(edt_title.getText().toString());
                 edt_title.setText("");
+                count++;
+                SharedPreferences sharedPreferences = getSharedPreferences("ansewercount",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("addcount", count);
+                editor.commit();
                 adapter.notifyDataSetChanged();
             }
         });

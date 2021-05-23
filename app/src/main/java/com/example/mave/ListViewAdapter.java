@@ -34,13 +34,13 @@ import java.util.ArrayList;
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            // item.xml 레이아웃을 inflate해서 참조획득
+            // 레이아웃을 inflate해서 참조획득
             if(convertView == null){
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.answer_add_list, parent, false);
             }
 
-            // item.xml 의 참조 획득
+            // 참조 획득
             TextView txt_title = (TextView)convertView.findViewById(R.id.txt_title);
             Answer_Item listItem = listItems.get(position);
             // 가져온 데이터를 텍스트뷰에 입력
