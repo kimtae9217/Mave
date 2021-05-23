@@ -7,12 +7,54 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Page_2"
-        android:textSize="100dp"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
+        <TextView
+            android:id="@+id/groupTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/the"
+            android:text="그룹 다이어리"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="35sp" />
 
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="150dp">
+
+            <ImageButton
+                android:id="@+id/flower"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/todo"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/and_note" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400sp"
+                app:srcCompat="@drawable/yellowflower" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@android:dimen/app_icon_size"
+            android:layout_marginLeft="300dp"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    </FrameLayout>
 
 </LinearLayout>

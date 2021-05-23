@@ -1,21 +1,15 @@
 package com.example.mave;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,15 +19,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static java.security.AccessController.getContext;
-
 public class List_insert extends AppCompatActivity {
 
     private final int GET_IMAGE = 200;
-    ImageView userimage;
+    ImageView List_insert_family_image;
+    final static int CODE = 1;
     Context mcontext;
-    EditText addTitle, addContent;
-    Button btn_UploadPicture, btn_go;
+    EditText List_insert_addTitle, List_insert_addContent;
+    Button List_insert_btn_UploadPicture, List_insert_btn_go;
     private final int GET_GALLERY_IMAGE = 200;
     Bitmap bm;
     private static final int REQUEST_CODE = 0;
@@ -44,36 +37,34 @@ public class List_insert extends AppCompatActivity {
         setContentView(R.layout.list_insert);
         mcontext = this;
 
-        addContent = (EditText) findViewById(R.id.addContent);
-        addTitle = (EditText) findViewById(R.id.addTitle);
-        btn_UploadPicture = (Button) findViewById(R.id.btn_UploadPicture);
-        btn_go = (Button) findViewById(R.id.btn_go);
-        userimage = (ImageView) findViewById(R.id.user_image);
+        List_insert_family_image = (ImageView) findViewById(R.id.list_insert_family_image);
+        List_insert_addContent = (EditText) findViewById(R.id.list_insert_addContent);
+        List_insert_addTitle = (EditText) findViewById(R.id.list_insert_addTitle);
+        List_insert_btn_UploadPicture = (Button) findViewById(R.id.list_insert_btn_UploadPicture);
 
-        btn_go.setOnClickListener(new View.OnClickListener() {
+
+        List_insert_btn_go = (Button) findViewById(R.id.list_insert_btn_insert);
+        List_insert_btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent();
-                intent.putExtra("familyphoto",BitmapToString(bm));
-                intent.putExtra("addTitle", addTitle.getText().toString());
-                intent.putExtra("addContent", addContent.getText().toString());
+                Intent intent = new Intent(mcontext, FragmentPage1.class);
+                /*Bundle bundle = new Bundle();
+                bundle.putByteArray("image", bitmapToByteArray(bm));
+                intent.putExtras(bundle);*/
+                intent.putExtra("Enroll_user_image",bitmapToByteArray(bm));
+                intent.putExtra("addTitle", List_insert_addTitle.getText().toString());
+                intent.putExtra("addContent", List_insert_addContent.getText().toString());
                 setResult(RESULT_OK, intent);
+/*                startActivity(intent);*/
                 finish();
-
             }
         });
-
-        btn_UploadPicture.setOnClickListener(new View.OnClickListener() {
+        List_insert_btn_UploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent, GET_GALLERY_IMAGE);*/
                 doTakeAlbumAction();
             }
         });
-
     }
 
     public void doTakeAlbumAction() {
@@ -85,11 +76,6 @@ public class List_insert extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        /*if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
-            userimage.setImageURI(selectedImageUri);
-        }*/
         super.onActivityResult(requestCode, resultCode, data);
         InputStream is = null;
         try {
@@ -103,14 +89,14 @@ public class List_insert extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        userimage.setImageBitmap(bm);
+        List_insert_family_image.setImageBitmap(bm);
     }
 
-    public static String BitmapToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
-        byte[] bytes = baos.toByteArray();
-        String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
-        return temp;
+    public byte[] bitmapToByteArray( Bitmap $bitmap ) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
+        $bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream) ;
+        byte[] byteArray = stream.toByteArray() ;
+        return byteArray ;
     }
+
 }

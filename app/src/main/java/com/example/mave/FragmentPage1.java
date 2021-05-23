@@ -1,138 +1,109 @@
 package com.example.mave;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import static com.example.mave.PreferenceManager.setString;
 
 public class FragmentPage1 extends Fragment {
 
-    /*private RecyclerView recyclerView;
-    private MyRecyclerAdapter adapter_1;
-    private ArrayList<ItemData> items = new ArrayList<>();
-    ArrayList<ItemData> dataList = new ArrayList<>();
-    private View view;*/
+
     final static int CODE = 1;
     private ArrayList<ItemData> arrayList;
     private MyRecyclerAdapter recycleAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
     ViewGroup viewGroup;
+    TextView Page1_content, Page1_title;
+    ImageView Page1_family_picture;
+    String Image;
+    Bitmap bm;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        /*View view = inflater.inflate(R.layout.fragment_page_1, container, false);
-        Context context = view.getContext();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        MyRecyclerAdapter adapter = new MyRecyclerAdapter(context, items);
-        recyclerView.setAdapter(adapter);*/
-        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1,container,false);
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
+        Page1_content = (TextView) viewGroup.findViewById(R.id.list_item_content);
+        Page1_title = (TextView) viewGroup.findViewById(R.id.list_item_title);
+        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_item_familypicture);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         arrayList = new ArrayList<>();
         recycleAdapter = new MyRecyclerAdapter(arrayList);
         recyclerView.setAdapter(recycleAdapter);
 
-        Button button = (Button)viewGroup.findViewById(R.id.btn_insert);
+        Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), List_insert.class);
-                startActivity(intent);
+                startActivityForResult(intent, CODE);
             }
         });
 
         return viewGroup;
     }
 
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    /*public void startActivityForResult(Intent intent, int requestCode, @Nullable Intent data) {
         switch (requestCode) {
             case CODE:
-                ItemData itemdata = new ItemData(R.drawable.family,"그룹 이름", "그룹 인원","그룹 내용");
-                itemdata.setContent(data.getStringExtra("groupName"));
-                itemdata.setTitle(data.getStringExtra("groupContents"));
-                PreferenceManager.setString(getContext(),"rebuild",data.getStringExtra("addTitle"));
-                PreferenceManager.setString(getContext(),"number",data.getStringExtra("addContent"));
-                arrayList.add(itemdata);
+                ItemData itemData = new ItemData(R.drawable.family,"제목", "내용");
+                *//*itemData.setFamilyphoto(data.getStringExtra("groupName"));*//*
+                itemData.setTitle(data.getStringExtra("groupContents"));
+                itemData.setContent(data.getStringExtra("groupNumbers"));
+                setString(getContext(),"rebuild",data.getStringExtra("groupName"));
+                setString(getContext(),"number",data.getStringExtra("groupNumbers"));
+                arrayList.add(itemData);
                 recycleAdapter.notifyDataSetChanged();
 
         }
     }*/
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case CODE:
+                ItemData itemData = new ItemData(R.id.list_insert_family_image, "제목", "내용");
+                PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
+                PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
+                PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
+                bm = byteArrayToBitmap(data.getByteArrayExtra("Enroll_user_image"));
+                Page1_family_picture.setImageBitmap(bm);
+                itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));
+                itemData.setTitle(data.getStringExtra("addTitle"));
+                itemData.setContent(data.getStringExtra("addContent"));
+                arrayList.add(itemData);
+                recycleAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+    public Bitmap byteArrayToBitmap(byte[] $byteArray ) {
+        Bitmap bitmap = BitmapFactory.decodeByteArray( $byteArray, 0, $byteArray.length ) ;
+        return bitmap ;
+    }
+
 }
 
-
-/*final View innerView = getLayoutInflater().inflate(R.layout.list_insert, null);
-        final Dialog mDialog = new Dialog(getContext());
-        mDialog.setTitle("Title");
-        mDialog.setContentView(innerView);
-        mDialog.setCancelable(true);
-
-        Button button = (Button)view.findViewById(R.id.btn_insert);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                WindowManager.LayoutParams params = mDialog.getWindow().getAttributes();
-                params.width = WindowManager.LayoutParams.MATCH_PARENT;
-                params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                mDialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
-
-                final EditText editTitle = mDialog.findViewById(R.id.addTitle);
-                final EditText editCont = mDialog.findViewById(R.id.addContent);
-                Button btn_go = mDialog.findViewById(R.id.btn_go);
-
-                String myTitle = editTitle.getText().toString();
-                String myCont = editCont.getText().toString();
-
-                dataList.add(new ItemData(cat[i], myTitle, myCont));
-                Toast.makeText(getContext(), myTitle, Toast.LENGTH_SHORT).show();
-                mDialog.dismiss();
-            }
-        });
-        mDialog.show();
-        adapter.notifyDataSetChanged();
-
-        return view;*/

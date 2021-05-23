@@ -1,16 +1,16 @@
-package com.example.mave;
+package com.example.mave.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.mave.BackPressCloseHandler;
+import com.example.mave.FragmentPage1;
+import com.example.mave.FragmentPage2;
+import com.example.mave.FragmentPage3;
+import com.example.mave.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainActivity extends AppCompatActivity {

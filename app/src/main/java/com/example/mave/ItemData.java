@@ -1,34 +1,34 @@
 package com.example.mave;
 
 public class ItemData {
-    private int familyphoto;
-    private String content;
-    private String title;
-    private String group_list_numbers;
+    private int Item_Data_family_photo;
+    private String Item_Data_txt_content;
+    private String Item_Data_txt_title;
 
-    public ItemData(int familyphoto, String title, String content, String 그룹_내용) {
-        this.familyphoto = familyphoto;
-        this.title = title;
-        this.content = content;
+    public ItemData(int familyphoto, String title, String content) {
+        this.Item_Data_family_photo = familyphoto;
+        this.Item_Data_txt_title = title;
+        this.Item_Data_txt_content = content;
     }
 
-    public int getFamilyphoto() { return familyphoto; }
+    public int getFamilyphoto() { return Item_Data_family_photo; }
 
-    public void setFamilyphoto(int image) { this.familyphoto = familyphoto; }
+    public void setFamilyphoto(String image) { this.Item_Data_family_photo = Item_Data_family_photo; }
 
     public String getTitle() {
-        return title;
+        return Item_Data_txt_title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Item_Data_txt_title = title;
     }
 
     public String getContent() {
-        return content;
+        return Item_Data_txt_content;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.Item_Data_txt_content = content;
     }
+
 }

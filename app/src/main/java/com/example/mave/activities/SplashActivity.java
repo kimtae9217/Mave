@@ -1,10 +1,12 @@
-package com.example.mave;
+package com.example.mave.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mave.R;
 
 public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
