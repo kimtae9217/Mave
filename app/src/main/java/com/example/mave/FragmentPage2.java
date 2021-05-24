@@ -102,7 +102,8 @@ public class FragmentPage2 extends Fragment {
             }
         });
 
-        int level = sf.getInt("ansewercount", 0);
+        //int level = sf.getInt("ansewercount", 0);
+        int level = PreferenceManager.getInt(getContext(), "test");
         if (level == 0) {
             flower.setImageResource(R.drawable.state_0);
         }

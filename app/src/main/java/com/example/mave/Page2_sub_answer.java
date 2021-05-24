@@ -51,10 +51,11 @@ public class Page2_sub_answer extends AppCompatActivity {
                 adapter.addItem(edt_title.getText().toString());
                 edt_title.setText("");
                 count++;
-                SharedPreferences sharedPreferences = getSharedPreferences("ansewercount",MODE_PRIVATE);
+                /*SharedPreferences sharedPreferences = getSharedPreferences("ansewercount",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt("addcount", count);
-                editor.commit();
+                editor.commit();*/
+                PreferenceManager.setInt(mContext, "test", count);
                 adapter.notifyDataSetChanged();
             }
         });
