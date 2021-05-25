@@ -1,6 +1,7 @@
 package com.example.mave;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class List_item extends AppCompatActivity {
         List_item_title = (TextView)findViewById(R.id.list_item_title);
         List_item_content = (TextView)findViewById(R.id.list_item_content);
         List_item_family_picture = (ImageView) findViewById(R.id.list_item_familypicture);
-        //bm = StringToBitmap(data.getStringExtra("Enroll_user_image"));
+        bm = StringToBitmap(getIntent().getStringExtra("Enroll_user_image"));
         List_item_family_picture.setImageBitmap(bm);
         List_item_title.setText(""+PreferenceManager.getString(mcontext,"addTitle"));
         List_item_content.setText(""+PreferenceManager.getString(mcontext,"addContent"));

@@ -51,6 +51,11 @@ public class List_insert extends AppCompatActivity {
                 /*Bundle bundle = new Bundle();
                 bundle.putByteArray("image", bitmapToByteArray(bm));
                 intent.putExtras(bundle);*/
+//                Bitmap sendBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.family);
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                sendBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//                byte[] byteArray = stream.toByteArray();
+//                intent.putExtra("Enroll_user_image",byteArray);
                 intent.putExtra("Enroll_user_image",bitmapToByteArray(bm));
                 intent.putExtra("addTitle", List_insert_addTitle.getText().toString());
                 intent.putExtra("addContent", List_insert_addContent.getText().toString());
@@ -92,9 +97,9 @@ public class List_insert extends AppCompatActivity {
         List_insert_family_image.setImageBitmap(bm);
     }
 
-    public byte[] bitmapToByteArray( Bitmap $bitmap ) {
+    public byte[] bitmapToByteArray( Bitmap bitmap ) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
-        $bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream) ;
+        bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream) ;
         byte[] byteArray = stream.toByteArray() ;
         return byteArray ;
     }
