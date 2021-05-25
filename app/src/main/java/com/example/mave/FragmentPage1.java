@@ -3,7 +3,9 @@ package com.example.mave;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -43,7 +47,6 @@ public class FragmentPage1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
         recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
@@ -82,6 +85,7 @@ public class FragmentPage1 extends Fragment {
 
         }
     }*/
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
