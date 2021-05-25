@@ -36,7 +36,7 @@ public class FragmentPage2 extends Fragment {
     private ImageView flower;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-
+    final int[] flower_num = {R.drawable.state_0, R.drawable.state_1, R.drawable.state_2, R.drawable.state_3, R.drawable.yellowflower};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,17 +51,6 @@ public class FragmentPage2 extends Fragment {
         DiaryName = (TextView) viewGroup.findViewById(R.id.diarytitle);
         flower = (ImageView) viewGroup.findViewById(R.id.diary_flower);
         SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
-
-        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.flower);
-
-        button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Page2_sub.class);
-                startActivity(intent);
-            }
-        });
-
 
         FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
         FloatingButton.setOnClickListener(new OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)
@@ -80,6 +69,8 @@ public class FragmentPage2 extends Fragment {
                             @Override
                             public void onPositiveClicked(String diaryname) {
                                 DiaryName.setText(diaryname);
+                                flower.setImageResource(flower_num[4]);
+
                             }
                             @Override
                             public void onNegativeClicked() {
@@ -99,6 +90,20 @@ public class FragmentPage2 extends Fragment {
                         anim();
                     }
                 });
+            }
+        });
+
+        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.flower);
+        button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
+            @Override
+            public void onClick(View v) {
+                if (!flower.equals(R.drawable.yellowflower)) {
+                    Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
+                    dig.show();
+                } else {
+                    Intent intent = new Intent(getActivity(), Page2_sub.class);
+                    startActivity(intent);
+                }
             }
         });
 
