@@ -15,7 +15,8 @@
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#fff"
+        android:background="@drawable/button_background"
+        android:elevation="10dp"
         android:hint="아이디"
         android:paddingLeft="5dp" />
 
@@ -27,7 +28,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:background="#fff"
+        android:background="@drawable/button_background"
         android:hint="닉네임"
         android:paddingLeft="5dp" />
 
@@ -38,7 +39,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:background="#fff"
+        android:background="@drawable/button_background"
         android:hint="비밀번호"
         android:inputType="textPassword"
         android:paddingLeft="5dp" />
@@ -50,7 +51,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:background="#C4425B"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#C4425B"
         android:textSize="20dp"
         android:text="회원가입"
         android:textColor="#fff" />

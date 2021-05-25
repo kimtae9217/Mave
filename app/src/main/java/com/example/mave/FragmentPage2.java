@@ -3,10 +3,13 @@ package com.example.mave;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -64,7 +67,13 @@ public class FragmentPage2 extends Fragment {
                 FloatingButton2.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Create_Diary dialog = new Create_Diary(getContext());
+
+                        // 커스텀 다이얼로그 배경 투명
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                         dialog.setDialogListener(new Create_Diary.CustomDialogListener() {
                             @Override
                             public void onPositiveClicked(String diaryname) {
@@ -77,6 +86,7 @@ public class FragmentPage2 extends Fragment {
                                 //취소버튼 눌렀을 경우 구현될 코드 작성
                             }
                         });
+
                         dialog.show();
                         anim();
                     }
