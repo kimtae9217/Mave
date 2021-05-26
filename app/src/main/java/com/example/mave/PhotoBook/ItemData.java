@@ -1,4 +1,4 @@
-package com.example.mave;
+package com.example.mave.PhotoBook;
 
 public class ItemData {
     private int Item_Data_family_photo;

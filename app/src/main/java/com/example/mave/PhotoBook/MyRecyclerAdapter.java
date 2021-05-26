@@ -1,6 +1,5 @@
-package com.example.mave;
+package com.example.mave.PhotoBook;
 
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mave.R;
 
 import java.util.ArrayList;
 

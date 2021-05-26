@@ -2,11 +2,14 @@ package com.example.mave.Diary;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,8 +69,8 @@ public class Page2_sub_answer extends AppCompatActivity {
             public void onClick(View v) {
                 Create_Question dia = new Create_Question(Page2_sub_answer.this);
                 // 커스텀 다이얼로그 배경 투명
-                //dia.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                //dia.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dia.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dia.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 dia.setDialogListener(new Create_Question.CustomDialogListener() {
                     @Override

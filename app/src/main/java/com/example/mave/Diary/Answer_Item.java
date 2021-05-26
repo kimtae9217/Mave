@@ -1,4 +1,4 @@
-package com.example.mave;
+package com.example.mave.Diary;
 
 public class Answer_Item {
 

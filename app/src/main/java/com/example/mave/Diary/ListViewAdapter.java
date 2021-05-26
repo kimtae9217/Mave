@@ -1,15 +1,12 @@
 package com.example.mave.Diary;
 
-import android.app.LauncherActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.mave.Answer_Item;
 import com.example.mave.R;
 
 import java.util.ArrayList;

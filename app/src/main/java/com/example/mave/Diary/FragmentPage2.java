@@ -52,6 +52,7 @@ public class FragmentPage2 extends Fragment {
         DiaryName = (TextView) viewGroup.findViewById(R.id.diarytitle);
         flower = (ImageView) viewGroup.findViewById(R.id.diary_flower);
         SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
+        //PreferenceManager.clear(getContext()); // 프리퍼런스매니저 초기화(꽃 없애기)
 
         FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
         FloatingButton.setOnClickListener(new OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)

@@ -1,11 +1,10 @@
-package com.example.mave;
+package com.example.mave.PhotoBook;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mave.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;

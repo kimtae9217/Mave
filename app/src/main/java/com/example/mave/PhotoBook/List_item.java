@@ -1,4 +1,4 @@
-package com.example.mave;
+package com.example.mave.PhotoBook;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mave.PreferenceManager;
+import com.example.mave.R;
 
 public class List_item extends AppCompatActivity {
     GridLayout container;
@@ -41,7 +44,7 @@ public class List_item extends AppCompatActivity {
         List_item_family_picture = (ImageView) findViewById(R.id.list_item_familypicture);
         bm = StringToBitmap(getIntent().getStringExtra("Enroll_user_image"));
         List_item_family_picture.setImageBitmap(bm);
-        List_item_title.setText(""+PreferenceManager.getString(mcontext,"addTitle"));
+        List_item_title.setText(""+ PreferenceManager.getString(mcontext,"addTitle"));
         List_item_content.setText(""+PreferenceManager.getString(mcontext,"addContent"));
     }
     public static Bitmap StringToBitmap(String encodedString) {
