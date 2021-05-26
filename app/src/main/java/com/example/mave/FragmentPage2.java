@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.example.mave.FragmentPage1.CODE;
 import static com.example.mave.Page2_sub_answer.count;
 
-public class FragmentPage2_rename extends Fragment {
+public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
     private Animation fab_open, fab_close;
@@ -57,24 +53,21 @@ public class FragmentPage2_rename extends Fragment {
         fab2 = (FloatingActionButton) viewGroup.findViewById(R.id.fab2);
         DiaryName = (TextView) viewGroup.findViewById(R.id.diarytitle);
         flower = (ImageView) viewGroup.findViewById(R.id.diary_flower);
-        SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount", MODE_PRIVATE);
-
+        SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
 
         FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
         FloatingButton.setOnClickListener(new OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getContext(), "하위 버튼 클릭", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "하위 버튼 띄우기", Toast.LENGTH_SHORT).show();
                 anim();
 
                 FloatingActionButton FloatingButton2 = (FloatingActionButton)viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
                 FloatingButton2.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Create_Diary dialog = new Create_Diary(getContext());
-
                         // 커스텀 다이얼로그 배경 투명
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -83,7 +76,8 @@ public class FragmentPage2_rename extends Fragment {
                             @Override
                             public void onPositiveClicked(String diaryname) {
                                 DiaryName.setText(diaryname);
-                                flower.setImageResource(flower_num[0]);
+                                flower.setImageResource(flower_num[5]);
+
                             }
                             @Override
                             public void onNegativeClicked() {
@@ -119,36 +113,28 @@ public class FragmentPage2_rename extends Fragment {
 
                     dig.show();
                 } else {
-                String text1 = DiaryName.getText().toString();
-                if (text1 != "") {
                     Intent intent = new Intent(getActivity(), Page2_sub.class);
                     startActivity(intent);
-                } else if (text1 == ""){
-                    Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
-                    dig.show();
-                }
-                else {
-                    Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
-                    dig.show();
                 }
             }
         });
 
+        //int level = sf.getInt("ansewercount", 0);
         int level = PreferenceManager.getInt(getContext(), "test");
-        if (level == 0) {
-            flower.setImageResource(R.drawable.state_2);
-        }
-        else if(level == 1) {
-            flower.setImageResource(R.drawable.state_3);
+        if (level == 1) {
+            flower.setImageResource(R.drawable.state_1);
         }
         else if(level == 2) {
-            flower.setImageResource(R.drawable.state_4);
+            flower.setImageResource(R.drawable.state_2);
         }
         else if(level == 3) {
-            flower.setImageResource(R.drawable.state_5);
+            flower.setImageResource(R.drawable.state_3);
+        }
+        else if(level == 4) {
+            flower.setImageResource(R.drawable.state_4);
         }
         else if(level == 5) {
-            flower.setImageResource(R.drawable.yellowflower);
+            flower.setImageResource(R.drawable.state_5);
         }
         return viewGroup;
     }
@@ -157,9 +143,12 @@ public class FragmentPage2_rename extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     public void anim() {
+
         if (isFabOpen) {
             fab1.startAnimation(fab_close);
             fab2.startAnimation(fab_close);
@@ -175,4 +164,3 @@ public class FragmentPage2_rename extends Fragment {
         }
     }
 }
-

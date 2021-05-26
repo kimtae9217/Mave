@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.mave.BackPressCloseHandler;
 import com.example.mave.FragmentPage1;
-import com.example.mave.FragmentPage2_rename;
+import com.example.mave.FragmentPage2;
 import com.example.mave.FragmentPage3;
 import com.example.mave.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment=new FragmentPage1();
                         break;
                     case R.id.Diary:
-                        fragment=new FragmentPage2_rename();
+                        fragment=new FragmentPage2();
                         break;
                     case R.id.Setting:
                         fragment=new FragmentPage3();
