@@ -130,7 +130,7 @@ public class FragmentPage2 extends Fragment {
         else if(level == 4) {
             flower.setImageResource(R.drawable.state_4);
         }
-        else if(level == 5) {
+        else if(level >= 5) {
             flower.setImageResource(R.drawable.state_5);
         }
         return viewGroup;
