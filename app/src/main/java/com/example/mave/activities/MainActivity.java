@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
 import com.example.mave.BackPressCloseHandler;
-import com.example.mave.FragmentPage1;
-import com.example.mave.FragmentPage2;
+import com.example.mave.PhotoBook.FragmentPage1;
+import com.example.mave.Diary.FragmentPage2;
 import com.example.mave.FragmentPage3;
 import com.example.mave.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;

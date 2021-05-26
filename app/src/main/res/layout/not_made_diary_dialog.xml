@@ -9,10 +9,10 @@
      <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="center"
         android:textColor="#ffffff"
-        android:textSize="16dp"
+        android:textSize="20dp"
          android:background="@drawable/button_background2"
         android:text="아직 다이어리를 만들지 않았습니다."
          style="@style/Widget.AppCompat.Button.Borderless"
@@ -32,12 +32,12 @@
         <Button
             android:id="@+id/btndiaryyes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="확인"
             android:textColor="#000000"
-            android:textSize="16dp"
+            android:textSize="22dp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/white"/>
