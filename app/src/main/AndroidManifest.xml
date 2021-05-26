@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/mave_logo2"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -28,8 +28,8 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".List_insert" />
         <activity android:name=".List_item" />
-        <activity android:name=".Page2_sub" />
-        <activity android:name=".Page2_sub_answer" />
+        <activity android:name=".Diary.Page2_sub" />
+        <activity android:name=".Diary.Page2_sub_answer" />
     </application>
 
 </manifest>
