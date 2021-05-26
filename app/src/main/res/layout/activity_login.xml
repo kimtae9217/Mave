@@ -45,7 +45,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:textSize="20dp"
-        android:onClick="loginUser"
         android:background="@drawable/button_background"
         android:backgroundTint="#C4425B"
         android:text="로그인"
@@ -58,7 +57,6 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="회원가입"
-        android:onClick="registerUser"
         android:textColor="#fff"
         android:textSize="20sp" />
 

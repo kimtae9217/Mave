@@ -29,11 +29,10 @@ public class Page2_sub extends AppCompatActivity {
         TextView textview = (TextView)findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
         Button notibutton = (Button)findViewById(R.id.notifi);
 
-        textview.setOnClickListener(new View.OnClickListener() { // 오늘의 질문을 눌렀을 때 이벤트
+        notibutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Page2_sub.this, Page2_sub_answer.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                NotificationSomethings();
             }
         });
 
