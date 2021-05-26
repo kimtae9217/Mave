@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -38,7 +41,6 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_diary);
-
 //init
         positiveButton = (Button)findViewById(R.id.btnPositive);
         negativeButton = (Button)findViewById(R.id.btnNegative);
