@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,12 +59,13 @@ public class FragmentPage2 extends Fragment {
         flower = (ImageView) viewGroup.findViewById(R.id.diary_flower);
         SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
 
+
         FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
         FloatingButton.setOnClickListener(new OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getContext(), "하위 버튼 띄우기", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "하위 버튼 클릭", Toast.LENGTH_SHORT).show();
                 anim();
 
                 FloatingActionButton FloatingButton2 = (FloatingActionButton)viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
@@ -79,7 +84,6 @@ public class FragmentPage2 extends Fragment {
                             public void onPositiveClicked(String diaryname) {
                                 DiaryName.setText(diaryname);
                                 flower.setImageResource(flower_num[4]);
-
                             }
                             @Override
                             public void onNegativeClicked() {
@@ -115,13 +119,21 @@ public class FragmentPage2 extends Fragment {
 
                     dig.show();
                 } else {
+                String text1 = DiaryName.getText().toString();
+                if (text1 != "") {
                     Intent intent = new Intent(getActivity(), Page2_sub.class);
                     startActivity(intent);
+                } else if (text1 == ""){
+                    Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
+                    dig.show();
+                }
+                else {
+                    Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
+                    dig.show();
                 }
             }
         });
 
-        //int level = sf.getInt("ansewercount", 0);
         int level = PreferenceManager.getInt(getContext(), "test");
         if (level == 0) {
             flower.setImageResource(R.drawable.state_0);
