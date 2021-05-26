@@ -109,6 +109,10 @@ public class FragmentPage2 extends Fragment {
             public void onClick(View v) {
                 if (!flower.equals(R.drawable.yellowflower)) {
                     Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
+                    // 커스텀 다이얼로그 배경 투명
+                    dig.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dig.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                     dig.show();
                 } else {
                     Intent intent = new Intent(getActivity(), Page2_sub.class);

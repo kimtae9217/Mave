@@ -6,7 +6,8 @@
     android:background="#45704B"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.RegisterActivity">
+    tools:context=".activities.RegisterActivity"
+    >
 
 
     <EditText
