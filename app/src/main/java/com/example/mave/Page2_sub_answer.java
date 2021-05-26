@@ -21,7 +21,7 @@ import android.widget.ListView;
 public class Page2_sub_answer extends AppCompatActivity {
 
     private ListView listView;
-    private Button btn_add;
+    private Button btn_add, btn_custom;
     private EditText edt_title;
     private ListViewAdapter adapter;
     static int count = 0;
@@ -39,6 +39,7 @@ public class Page2_sub_answer extends AppCompatActivity {
         btn_add = (Button) findViewById(R.id.btn_answer);
         listView = (ListView) findViewById(R.id.listMemo);
         flower = (ImageView) findViewById(R.id.diary_flower);
+        btn_custom = (Button) findViewById(R.id.customquestion);
         mContext = this;
 
         adapter = new ListViewAdapter(Page2_sub_answer.this);
@@ -46,6 +47,20 @@ public class Page2_sub_answer extends AppCompatActivity {
 
         // 데이터 추가하기
         btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.addItem(edt_title.getText().toString());
+                edt_title.setText("");
+                count++;
+                /*SharedPreferences sharedPreferences = getSharedPreferences("ansewercount",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("addcount", count);
+                editor.commit();*/
+                PreferenceManager.setInt(mContext, "test", count);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        btn_custom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 adapter.addItem(edt_title.getText().toString());
