@@ -35,13 +35,6 @@ public class Page2_sub extends AppCompatActivity {
                 NotificationSomethings();
             }
         });
-
-        notibutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NotificationSomethings();
-            }
-        });
     }
     public void NotificationSomethings() {
 

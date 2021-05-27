@@ -8,22 +8,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.mave.Dto.JoinMemberRequest;
-import com.example.mave.Dto.JoinMemberResponse;
+import com.example.mave.CreateRetrofit;
+import com.example.mave.Dto.memeberDto.JoinMemberRequest;
+import com.example.mave.Dto.memeberDto.JoinMemberResponse;
 import com.example.mave.R;
+import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.MemberRetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    static final String TAG = "Mave";
+
     public Button registerBtn;
     public EditText userID, userName, userPW;
-    static final String TAG = "Mave";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.211.1:8080/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                MemberRetrofitService memberJoinService = retrofit.create(MemberRetrofitService.class);
+                MemberRetrofitService memberJoinService = CreateRetrofit.createRetrofit().create(MemberRetrofitService.class);
                 JoinMemberRequest request = new JoinMemberRequest(userID.getText().toString(), userName.getText().toString(), userPW.getText().toString());
                 Call<JoinMemberResponse> call = memberJoinService.joinMember(request);
 
@@ -53,7 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             JoinMemberResponse body = response.body();
                             Log.d(TAG,"response 성공!!");
-//                            textTest.setText(body.getUserId().toString());
+                            MemberRepository instance = MemberRepository.getInstance();
+                            instance.setUserId(userID.getText().toString());
+
                         }else{
                             Log.d(TAG,"response 실패 ㅠㅠ");
 
