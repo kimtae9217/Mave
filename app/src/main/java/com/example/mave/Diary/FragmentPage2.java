@@ -54,15 +54,24 @@ public class FragmentPage2 extends Fragment {
         SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
         //PreferenceManager.clear(getContext()); // 프리퍼런스매니저 초기화(꽃 없애기)
 
+        /**
+         *  그룹 이룸, 이미지 띄워주기
+         *  그룹추가 버튼 막아주기
+         *  초대 관련 만들고
+         *
+         */
+
         FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
         FloatingButton.setOnClickListener(new OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)
             @Override
             public void onClick(View v) {
 
+
                 Toast.makeText(getContext(), "하위 버튼 띄우기", Toast.LENGTH_SHORT).show();
                 anim();
 
                 FloatingActionButton FloatingButton2 = (FloatingActionButton)viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
+
                 FloatingButton2.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -106,6 +115,7 @@ public class FragmentPage2 extends Fragment {
                 if (text1 != "") {
                     Intent intent = new Intent(getActivity(), Page2_sub.class);
                     startActivity(intent);
+
                 } else {
                     Not_Made_Diary_Dialog dig = new Not_Made_Diary_Dialog(getActivity(), Not_Made_Diary_Dialog.class);
                     // 커스텀 다이얼로그 배경 투명

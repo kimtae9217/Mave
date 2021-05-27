@@ -27,6 +27,7 @@ import com.example.mave.R;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
 
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -88,6 +89,11 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    LocalTime questionTime = LocalTime.of(hourOfDay, minute);
+                                    MemberRepository instance = MemberRepository.getInstance();
+                                    instance.setQuestionTime(questionTime);
+                                }
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
                         },mHour, mMinute, false);
