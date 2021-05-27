@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.211.1:8080/")
+                        .baseUrl("http://192.168.173.164:8080/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 

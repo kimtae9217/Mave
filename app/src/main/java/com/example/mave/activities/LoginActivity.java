@@ -16,9 +16,6 @@ import com.example.mave.Diary.Page2_sub_answer;
 import com.example.mave.Dto.LoginRequest;
 import com.example.mave.Dto.LoginResponse;
 import com.example.mave.R;
-import com.example.mave.models.ApiResponse;
-import com.example.mave.retrofitUtil.ApiClient;
-import com.example.mave.retrofitUtil.ApiInterface;
 import com.example.mave.service.MemberRetrofitService;
 
 import butterknife.BindView;
@@ -48,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.211.1:8080/")
+                        .baseUrl("http://192.168.173.164:8080/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
