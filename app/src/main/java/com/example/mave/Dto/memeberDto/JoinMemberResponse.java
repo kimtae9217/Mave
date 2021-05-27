@@ -1,4 +1,4 @@
-package com.example.mave.Dto;
+package com.example.mave.Dto.memeberDto;
 
 import com.google.gson.annotations.SerializedName;
 

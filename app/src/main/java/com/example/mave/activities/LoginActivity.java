@@ -1,27 +1,24 @@
 package com.example.mave.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.example.mave.Dto.LoginRequest;
-import com.example.mave.Dto.LoginResponse;
+
+import com.example.mave.CreateRetrofit;
+import com.example.mave.Dto.memeberDto.LoginRequest;
+import com.example.mave.Dto.memeberDto.LoginResponse;
 import com.example.mave.R;
 import com.example.mave.service.MemberRetrofitService;
 import com.royrodriguez.transitionbutton.TransitionButton;
 import com.royrodriguez.transitionbutton.utils.WindowUtils;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.mave.activities.RegisterActivity.TAG;
 
@@ -55,12 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         /* ---------------------------Retrofit 통신--------------------------------------- */
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("http://192.168.211.1:8080/")
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-
-                        MemberRetrofitService memberRetrofitService = retrofit.create(MemberRetrofitService.class);
+                        MemberRetrofitService memberRetrofitService = CreateRetrofit.createRetrofit().create(MemberRetrofitService.class);
                         LoginRequest request = new LoginRequest(userID.getText().toString(), userPW.getText().toString());
                         Call<LoginResponse> call = memberRetrofitService.login(request);
 
@@ -70,34 +62,47 @@ public class LoginActivity extends AppCompatActivity {
                                 if (response.isSuccessful()) {
                                     LoginResponse body = response.body();
                                     Log.d(TAG, "response 성공!!");
-                                    isSuccessful = true;
+                                    transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                        @Override
+                                        public void onAnimationStopEnd() {
+                                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+//                                    isSuccessful = true;
+
                                 } else {
                                     Log.d(TAG, "response 실패 ㅠㅠ");
-                                    isSuccessful = false;
+                                    transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+//                                    isSuccessful = false;
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<LoginResponse> call, Throwable t) {
                                 Log.d(TAG, "onFailure => " + t.getMessage());
-                                isSuccessful = false;
+                                transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+//                                isSuccessful = false;
                             }
                         });
 
-                        // Choose a stop animation if your call was succesful or not
-                        if (isSuccessful) {
-                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
-                                @Override
-                                public void onAnimationStopEnd() {
-                                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                }
-                            });
-
-                        } else {
-                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                        }
+//                        // Choose a stop animation if your call was succesful or not
+//                        if (isSuccessful) {
+//                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+//                                @Override
+//                                public void onAnimationStopEnd() {
+//                                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//                            });
+//
+//                        } else {
+//                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
+//                        }
                     }
                 }, 1000);
             }
