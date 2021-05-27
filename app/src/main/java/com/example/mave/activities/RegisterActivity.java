@@ -39,9 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              
+
+                MemberRetrofitService memberRetrofitService = CreateRetrofit.createRetrofit().create(MemberRetrofitService.class);
                 JoinMemberRequest request = new JoinMemberRequest(userID.getText().toString(), userName.getText().toString(), userPW.getText().toString());
-                Call<JoinMemberResponse> call = memberJoinService.joinMember(request);
+                Call<JoinMemberResponse> call = memberRetrofitService.joinMember(request);
 
                 call.enqueue(new Callback<JoinMemberResponse>() {
                     @Override

@@ -56,7 +56,6 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
     interface CustomDialogListener{
         void onPositiveClicked(String diary_name);
-        void onTimeSetting(String Setting_Time, String Real_Time);
         void onNegativeClicked();
     }
     public void setDialogListener(CustomDialogListener customDialogListener){
@@ -90,6 +89,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
+
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                                     LocalTime questionTime = LocalTime.of(hourOfDay, minute);
