@@ -41,7 +41,7 @@ public class Page2_sub extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+      
         notibutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +70,7 @@ public class Page2_sub extends AppCompatActivity {
                 dia.show();
             }
         });
+
     }
 
     public void NotificationSomethings() {
