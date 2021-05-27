@@ -27,7 +27,7 @@ import com.example.mave.Dto.groupDto.CreateGroupResponse;
 import com.example.mave.R;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
-
+import java.time.LocalTime;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -90,21 +90,13 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) { // 타이머에서 시간 설정하고 확인 누르면 동작하는 코드
-                                // 현재 시스템 시간 구하기
-                                long systemTime = System.currentTimeMillis();
-                                // 출력 형태를 위한 formmater
-                                SimpleDateFormat formatter = new SimpleDateFormat("HH시mm분", Locale.KOREA);
-                                // format에 맞게 출력하기 위한 문자열 변환
-                                String realtime = formatter.format(systemTime);
-                                String settingtime = hourOfDay + "시" + minute + "분";
-                                customDialogListener.onTimeSetting(settingtime, realtime);
-                                if ((settingtime).equals(realtime)) {
-                                    Toast.makeText(getContext(), "같다", Toast.LENGTH_SHORT).show();
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    LocalTime questionTime = LocalTime.of(hourOfDay, minute);
+                                    MemberRepository instance = MemberRepository.getInstance();
+                                    instance.setQuestionTime(questionTime);
                                 }
-                                else {
-                                    Toast.makeText(getContext(), "다르다", Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
                         },mHour, mMinute, false);
                 timePickerDialog.show();
