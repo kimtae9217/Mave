@@ -27,7 +27,7 @@ import com.example.mave.Dto.groupDto.CreateGroupResponse;
 import com.example.mave.R;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
-
+import java.time.LocalTime;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -89,7 +89,14 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) { // 타이머에서 시간 설정하고 확인 누르면 동작하는 코드
+
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                    LocalTime questionTime = LocalTime.of(hourOfDay, minute);
+                                    MemberRepository instance = MemberRepository.getInstance();
+                                    instance.setQuestionTime(questionTime);
+                                }
+                                Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
                         },mHour, mMinute, false);
                 timePickerDialog.show();
