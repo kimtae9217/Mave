@@ -63,28 +63,6 @@ public class Page2_sub_answer extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-        FloatingActionButton FloatingButton = (FloatingActionButton)findViewById(R.id.customquestion);
-        FloatingButton.setOnClickListener(new View.OnClickListener() { //플로팅버튼 눌렀을 때 이벤트
-            @Override
-            public void onClick(View v) {
-                Create_Question dia = new Create_Question(Page2_sub_answer.this);
-                // 커스텀 다이얼로그 배경 투명
-                dia.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dia.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                dia.setDialogListener(new Create_Question.CustomDialogListener() {
-                    @Override
-                    public void onPositiveClicked(String custom_question) {
-                        Toast.makeText(getApplication(), custom_question, Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onNegativeClicked() {
-                        //취소버튼 눌렀을 경우 구현될 코드 작성
-                    }
-                });
-                dia.show();
-            }
-        });
     }
 }
 

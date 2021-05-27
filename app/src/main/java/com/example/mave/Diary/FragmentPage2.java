@@ -86,6 +86,7 @@ public class FragmentPage2 extends Fragment {
                                 DiaryName.setText(diaryname);
                                 flower.setImageResource(flower_num[5]);
                             }
+
                             @Override
                             public void onNegativeClicked() {
                                 //취소버튼 눌렀을 경우 구현될 코드 작성

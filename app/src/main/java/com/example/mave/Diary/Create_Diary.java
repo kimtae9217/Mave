@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,9 +27,10 @@ import com.example.mave.Dto.groupDto.CreateGroupResponse;
 import com.example.mave.R;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
-
 import java.time.LocalTime;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +56,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
     interface CustomDialogListener{
         void onPositiveClicked(String diary_name);
+        void onTimeSetting(String Setting_Time, String Real_Time);
         void onNegativeClicked();
     }
     public void setDialogListener(CustomDialogListener customDialogListener){
@@ -71,9 +74,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
         //버튼 클릭 리스너 등록
         positiveButton.setOnClickListener(this);
         negativeButton.setOnClickListener(this);
-
     }
-
     @Override
     public void onClick(View v) {
         final Calendar c = Calendar.getInstance();
@@ -84,6 +85,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 //각각의 변수에 EidtText에서 가져온 값을 저장
                 diaryName = editName.getText().toString();
                 //인터페이스의 함수를 호출하여 변수에 저장된 값들을 Activity로 전달
+
                 customDialogListener.onPositiveClicked(diaryName);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
@@ -104,7 +106,6 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 cancel();
                 break;
         }
-
         // 그룹 생성 api 요청!!
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
         String userId = MemberRepository.getInstance().getUserId();
@@ -129,7 +130,5 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 Log.d(TAG, "onFailure => " + t.getMessage());
             }
         });
-
-
     }
 }

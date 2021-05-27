@@ -6,15 +6,20 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle; import androidx.annotation.Nullable; import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mave.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import static com.example.mave.Diary.Page2_sub_answer.count;
 
@@ -29,17 +34,47 @@ public class Page2_sub extends AppCompatActivity {
         TextView textview = (TextView)findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
         Button notibutton = (Button)findViewById(R.id.notifi);
 
+        textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Page2_sub_answer.class);
+                startActivity(intent);
+            }
+        });
+      
         notibutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NotificationSomethings();
             }
         });
+
+        FloatingActionButton FloatingButton = (FloatingActionButton)findViewById(R.id.customquestion);
+        FloatingButton.setOnClickListener(new View.OnClickListener() { //플로팅버튼 눌렀을 때 이벤트
+            @Override
+            public void onClick(View v) {
+                Create_Question dia = new Create_Question(Page2_sub.this);
+                // 커스텀 다이얼로그 배경 투명
+                dia.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dia.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dia.setDialogListener(new Create_Question.CustomDialogListener() {
+                    @Override
+                    public void onPositiveClicked(String custom_question) {
+                        Toast.makeText(getApplication(), custom_question, Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onNegativeClicked() {
+                        //취소버튼 눌렀을 경우 구현될 코드 작성
+                    }
+                });
+                dia.show();
+            }
+        });
+
     }
+
     public void NotificationSomethings() {
-
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mave_logo)) //BitMap 이미지 요구
                 .setContentTitle("다이어리에 질문이 도착했습니다!")
@@ -48,28 +83,22 @@ public class Page2_sub extends AppCompatActivity {
                 //.setStyle(new NotificationCompat.BigTextStyle().bigText("더 많은 내용을 보여줘야 하는 경우..."))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
-
         //OREO API 26 이상에서는 채널 필요
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             builder.setSmallIcon(R.drawable.mave_logo2); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
             CharSequence channelName  = "노티페케이션 채널";
             String description = "오레오 이상을 위한 것임";
             int importance = NotificationManager.IMPORTANCE_HIGH;
-
             NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName , importance);
             channel.setDescription(description);
-
             // 노티피케이션 채널을 시스템에 등록
             assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
-
         }else builder.setSmallIcon(R.mipmap.ic_launcher); // Oreo 이하에서 mipmap 사용하지 않으면 Couldn't create icon: StatusBarIcon 에러남
-
         assert notificationManager != null;
         notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
-
     }
+
 }
 
 
