@@ -28,7 +28,7 @@
             android:id="@+id/activuty_main">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/answer_for_question"
                 android:layout_width="match_parent"
                 android:layout_height="88dp"
                 android:gravity="center"
