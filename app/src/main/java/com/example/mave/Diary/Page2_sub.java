@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,10 @@ public class Page2_sub extends AppCompatActivity {
     LocalTime questionTime;
     Boolean isCalled = false;
 
+    private ListView listView;
+    private ListViewAdapterForSub2 adapter;
+    private Context mContext;
+
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -50,6 +55,14 @@ public class Page2_sub extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub);
+
+        mContext = this;
+
+        adapter = new ListViewAdapterForSub2(Page2_sub.this);
+        listView.setAdapter(adapter);
+
+//        adapter.addItem(변수); << 아답타에 아이템 넣는 코드
+//        adapter.notifyDataSetChanged(); << 아답타 새로고침 해주는 기능
 
         TextView todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
         Button notibutton = (Button) findViewById(R.id.notifi);
