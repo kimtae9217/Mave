@@ -56,10 +56,13 @@ public class Page2_sub extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub);
 
+        listView = findViewById(R.id.questionlist);
+
         mContext = this;
 
         adapter = new ListViewAdapterForSub2(Page2_sub.this);
         listView.setAdapter(adapter);
+
 
 //        adapter.addItem(변수); << 아답타에 아이템 넣는 코드
 //        adapter.notifyDataSetChanged(); << 아답타 새로고침 해주는 기능

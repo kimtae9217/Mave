@@ -76,7 +76,7 @@ public class Page2_sub_answer extends AppCompatActivity {
         Log.d(TAG, "질문 가져오자!!");
         answerForQuestion.setText(todayQuestion);
 
-        Log.d(TAG,"답변 가져오자");
+        Log.d(TAG,"답변 가져오자!!");
         takeAllAnswer(adapter);
 
         // 데이터 추가하기
