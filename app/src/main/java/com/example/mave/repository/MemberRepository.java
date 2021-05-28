@@ -10,8 +10,8 @@ public class MemberRepository {
     private static final MemberRepository memberRepository = new MemberRepository();
 
     private static  Map<String,String> userInfo = new HashMap<>();
-    private static  Map<String, LocalTime> questionTime = new HashMap<>();
-    private static int sequence = 0;
+
+
 
 
     private  MemberRepository() {
@@ -32,12 +32,5 @@ public class MemberRepository {
         return userId;
     }
 
-    public void setQuestionTime(LocalTime localTime){
-        questionTime.put("questionTime",localTime);
-    }
-
-    public LocalTime getQuestionTime(){
-        return questionTime.get("questionTime");
-    }
 
 }
