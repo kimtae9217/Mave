@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#59886B"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activities.RegisterActivity"
+    >
+
+
+    <EditText
+        android:id="@+id/userID"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_background"
+        android:elevation="10dp"
+        android:hint="아이디"
+        android:paddingLeft="5dp" />
+
+
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_background"
+        android:hint="닉네임"
+        android:paddingLeft="5dp" />
+
+    <EditText
+        android:id="@+id/userPW"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_background"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:paddingLeft="5dp" />
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#C4425B"
+        android:textSize="20dp"
+        android:text="회원가입"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/backToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="이미 아이디가 있으시다면?"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+</LinearLayout>

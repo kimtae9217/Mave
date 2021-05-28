@@ -7,16 +7,17 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_height="match_parent"
-    tools:context=".FragmentPage1">
+    tools:context=".PhotoBook.FragmentPage1">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:id="@+id/photolist"
         android:background="#F0F0F0" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,11 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="Click"
-            android:id="@+id/btn_insert"
+            android:id="@+id/page1_btn_add_picture"
             android:text="사진 추가"/>
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/page1_btn_add_update"
+            android:text="업데이트"/>
     </LinearLayout>
-
 
 </LinearLayout>

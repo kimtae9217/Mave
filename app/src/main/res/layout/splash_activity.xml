@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity">
+    tools:context=".activities.SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view_3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:lottie_fileName="1_mave.json"
+        app:lottie_fileName="maver4k.json"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
