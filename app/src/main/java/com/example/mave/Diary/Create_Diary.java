@@ -40,6 +40,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HEAD;
 
 public class Create_Diary extends Dialog implements View.OnClickListener {
 
@@ -120,9 +121,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 cancel();
                 break;
         }
-
         Log.d(TAG,"설정한 그룹 이름은!? - " + diaryName);
-
     }
 
     private void requestCreateGroup(int hour, int minute) {
