@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -56,10 +57,12 @@ public class Page2_sub_answer extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub_answer);
         getSupportActionBar().hide();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); // EditText 사용시 키보드 자판이 UI 가릴 때 영향 안주는 것
         edt_title = (EditText) findViewById(R.id.edt_answer);
         btn_add = (Button) findViewById(R.id.btn_answer);
         listView = (ListView) findViewById(R.id.listMemo);
@@ -80,6 +83,14 @@ public class Page2_sub_answer extends AppCompatActivity {
         Log.d(TAG,"답변 화면 - 답변 가져오자!!");
         takeAllAnswer(adapter);
 
+//        if(listView != null) {
+//            Level_Up_Dialog dig = new Level_Up_Dialog(getApplication(), Level_Up_Dialog.class);
+//            // 커스텀 다이얼로그 배경 투명
+//            dig.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dig.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            dig.show();
+//        }
+
         // 데이터 추가하기
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +105,7 @@ public class Page2_sub_answer extends AppCompatActivity {
                 editor.commit();*/
                 PreferenceManager.setInt(mContext, "test", count);
                 adapter.notifyDataSetChanged();
+
             }
         });
     }

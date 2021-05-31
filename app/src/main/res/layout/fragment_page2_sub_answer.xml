@@ -52,14 +52,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/activuty_main">
+            android:id="@+id/activity_main">
 
             <EditText
                 android:id="@+id/edt_answer"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:autofillHints=""
+                android:textSize="25sp"
                 android:ems="10"
                 android:fontFamily="@font/app_main_font"
                 android:hint="@string/answerQuestion"
@@ -73,7 +75,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#C4425B"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="25sp"
                 android:elevation="30dp"
                 android:fontFamily="@font/app_main_font"
                 android:background="@drawable/button_background"

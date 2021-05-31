@@ -8,15 +8,15 @@
 
     <TextView
         android:id="@+id/title"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/button_background2"
-        android:backgroundTint="#59886B"
+        android:layout_height="100dp"
         android:gravity="center"
-        android:text="아직 다이어리를 만들지 않았습니다."
         android:textColor="#ffffff"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:background="@drawable/button_background2"
+        android:text="축하드립니다! 레벨업 하셨습니다!"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:backgroundTint="#45704B" />
 
     <View
         android:layout_width="match_parent"
@@ -30,9 +30,9 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btndiaryyes"
+            android:id="@+id/btn_level_up"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="확인"

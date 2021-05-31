@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -42,6 +43,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HEAD;
 
 public class Create_Diary extends Dialog implements View.OnClickListener {
 
@@ -108,16 +110,20 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                 GroupRepository instance = GroupRepository.getInstance();
                                 // 질문 받을 시간 내부 db에 저장
                                 instance.setQuestionTime(questionTime);
-                                Log.d(TAG, "질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
 
+                                Log.d(TAG, "질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
 
                                 requestCreateGroup(hourOfDay, minute);
 
 
+                                requestCreateGroup(hourOfDay, minute);
+
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
                         }, mHour, mMinute, false);
+
                 timePickerDialog.show();
+
                 dismiss();
                 break;
             case R.id.btnNegative: //취소 버튼을 눌렀을 때
