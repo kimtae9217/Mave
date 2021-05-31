@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -54,38 +55,45 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     TimePickerDialog timePickerDialog;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    Calendar c;
+    int hour_;
+    int minute_;
 
     public Create_Diary(Context context) {
         super(context);
         this.context = context;
     }
 
-    interface CustomDialogListener{
+    interface CustomDialogListener {
         void onPositiveClicked(String diary_name);
+
         void onNegativeClicked();
     }
-    public void setDialogListener(CustomDialogListener customDialogListener){
+
+    public void setDialogListener(CustomDialogListener customDialogListener) {
         this.customDialogListener = customDialogListener;
     }
-@Override
-    protected void onCreate(Bundle savedInstanceState){
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_diary);
 //init
-        positiveButton = (Button)findViewById(R.id.btnPositive);
-        negativeButton = (Button)findViewById(R.id.btnNegative);
-        editName = (EditText)findViewById(R.id.editName);
+        positiveButton = (Button) findViewById(R.id.btnPositive);
+        negativeButton = (Button) findViewById(R.id.btnNegative);
+        editName = (EditText) findViewById(R.id.editName);
 
         //버튼 클릭 리스너 등록
         positiveButton.setOnClickListener(this);
         negativeButton.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         final Calendar c = Calendar.getInstance();
         int mHour = c.get(Calendar.HOUR);
         int mMinute = c.get(Calendar.MINUTE);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnPositive: //확인 버튼을 눌렀을 때
                 //각각의 변수에 EidtText에서 가져온 값을 저장
                 diaryName = editName.getText().toString();
@@ -99,29 +107,33 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                                    LocalTime questionTime = LocalTime.of(hourOfDay, minute);
-                                    GroupRepository instance = GroupRepository.getInstance();
-                                    // 질문 받을 시간 내부 db에 저장
-                                    instance.setQuestionTime(questionTime);
-                                    instance.plusDate();
-                                    Log.d(TAG,"질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
-                                    Log.d(TAG,"며칠째인가?? - " + instance.getDate().toString());
+                                LocalTime questionTime = LocalTime.of(hourOfDay, minute);
+                                GroupRepository instance = GroupRepository.getInstance();
+                                // 질문 받을 시간 내부 db에 저장
+                                instance.setQuestionTime(questionTime);
+                                instance.plusDate();
+                                Log.d(TAG, instance.getQuestionTime().toString());
+                                Log.d(TAG, instance.getDate().toString());
+                                Calendar c = Calendar.getInstance();
+                                hour_ = c.get(Calendar.HOUR_OF_DAY);
+                                minute_ = c.get(Calendar.MINUTE);
+                                Log.d(TAG, "질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
+                                Log.d(TAG, "며칠째인가?? - " + instance.getDate().toString());
 
-                                    requestCreateGroup(hourOfDay,minute);
-
-
+                                requestCreateGroup(hourOfDay, minute);
 
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
-                        },mHour, mMinute, false);
+                        }, mHour, mMinute, DateFormat.is24HourFormat(getContext()));
                 timePickerDialog.show();
+
                 dismiss();
                 break;
             case R.id.btnNegative: //취소 버튼을 눌렀을 때
                 cancel();
                 break;
         }
-        Log.d(TAG,"설정한 그룹 이름은!? - " + diaryName);
+        Log.d(TAG, "설정한 그룹 이름은!? - " + diaryName);
     }
 
     private void requestCreateGroup(int hour, int minute) {
@@ -129,7 +141,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
         MemberRepository.getInstance().setUserId("hello1");
         String userId = MemberRepository.getInstance().getUserId();
-        CreateGroupRequest request = new CreateGroupRequest(userId,diaryName,hour,minute);
+        CreateGroupRequest request = new CreateGroupRequest(userId, diaryName, hour, minute);
 
         Call<CreateGroupResponse> call = groupRetrofitService.createGroup(request);
 

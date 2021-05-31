@@ -46,6 +46,7 @@
         <activity android:name=".Diary.Page2_sub" />
         <activity android:name=".Diary.Page2_sub_answer" />
         <activity android:name=".Settings.StateOfFlower" />
+
     </application>
 
 </manifest>
