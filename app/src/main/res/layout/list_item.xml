@@ -11,18 +11,12 @@
     android:columnCount="2">
 
     <ImageView
-<<<<<<< HEAD
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_item_familypicture"
         android:src="@drawable/family"
         android:scaleType="centerCrop"
-=======
-        android:id="@+id/list_item_familypicture"
         android:layout_width="wrap_content"
->>>>>>> e2fbbc876ecc4964de6b3e2dd2c38eae07a011b9
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/family" />
+        android:layout_height="wrap_content" />
 
     <GridLayout
         android:layout_width="wrap_content"

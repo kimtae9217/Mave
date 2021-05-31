@@ -194,8 +194,6 @@ public class Page2_sub extends AppCompatActivity {
         assert notificationManager != null;
         notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
     }
-
-
 }
 
 
