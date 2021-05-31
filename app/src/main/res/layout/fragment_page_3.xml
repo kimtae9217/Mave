@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         android:background="#426D49"
         android:gravity="top"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,20 +31,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.723" />
+            app:layout_constraintVertical_bias="0.502" />
 
         <ImageView
-            android:id="@+id/ProfilePicture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/NickName"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/flower_red"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.673"
-            app:srcCompat="@drawable/family" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,42 +56,52 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0">
-
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/flowerState"
-            android:layout_width="355dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="160dp"
-            android:layout_marginBottom="1dp"
+            android:layout_width="224dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="64dp"
             android:fontFamily="@font/app_main_font"
             android:gravity="center"
             android:text="꽃 단계 설명"
             android:textSize="40dp"
-            app:layout_constraintBottom_toTopOf="@+id/logout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/stateimg"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/stateimg"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginBottom="4dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/logoutimg"
-            app:layout_constraintEnd_toStartOf="@+id/logout"
-            app:srcCompat="@drawable/help" />
 
         <ImageView
             android:id="@+id/logoutimg"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginBottom="296dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="325dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/logout"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:srcCompat="@drawable/logout_icon" />
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="224dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="63dp"
+            android:fontFamily="@font/app_main_font"
+            android:gravity="center"
+            android:text="로그아웃"
+            android:textSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flowerState" />
+
+        <ImageView
+            android:id="@+id/stateimg"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="68dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/logoutimg"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/help" />
 
@@ -105,19 +112,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/blank"
             tools:layout_editor_absoluteX="7dp" />
-
-        <TextView
-            android:id="@+id/logout"
-            android:layout_width="355dp"
-            android:layout_height="51dp"
-            android:layout_marginBottom="302dp"
-            android:fontFamily="@font/app_main_font"
-            android:gravity="center"
-            android:text="로그아웃"
-            android:textSize="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/stateimg" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

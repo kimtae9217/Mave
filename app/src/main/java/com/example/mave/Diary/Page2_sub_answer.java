@@ -51,7 +51,7 @@ public class Page2_sub_answer extends AppCompatActivity {
     static int count = 0;
     private ImageView flower;
     private Context mContext;
-    private TextView answerForQuestion;
+    private TextView TodayQuestion;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -59,12 +59,12 @@ public class Page2_sub_answer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub_answer);
-
+        getSupportActionBar().hide();
         edt_title = (EditText) findViewById(R.id.edt_answer);
         btn_add = (Button) findViewById(R.id.btn_answer);
         listView = (ListView) findViewById(R.id.listMemo);
         flower = (ImageView) findViewById(R.id.diary_flower);
-        answerForQuestion = (TextView) findViewById(R.id.answer_for_question);
+        TodayQuestion = (TextView) findViewById(R.id.todayQuestion);
         //btn_custom = (Button) findViewById(R.id.customquestion);
         mContext = this;
         Intent intent = getIntent();
@@ -74,7 +74,7 @@ public class Page2_sub_answer extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         Log.d(TAG, "질문 가져오자!!");
-        answerForQuestion.setText(todayQuestion);
+        TodayQuestion.setText(todayQuestion);
 
         Log.d(TAG,"답변 가져오자!!");
         takeAllAnswer(adapter);
