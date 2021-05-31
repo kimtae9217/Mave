@@ -73,10 +73,11 @@ public class Page2_sub_answer extends AppCompatActivity {
         adapter = new ListViewAdapter(Page2_sub_answer.this);
         listView.setAdapter(adapter);
 
-        Log.d(TAG, "질문 가져오자!!");
+
+        Log.d(TAG, "답변 화면 - 질문 가져오자!!");
         TodayQuestion.setText(todayQuestion);
 
-        Log.d(TAG,"답변 가져오자!!");
+        Log.d(TAG,"답변 화면 - 답변 가져오자!!");
         takeAllAnswer(adapter);
 
         // 데이터 추가하기
@@ -109,7 +110,7 @@ public class Page2_sub_answer extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     RegistAnswerResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
-//                            textTest.setText(body.getUserId().toString());
+
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
 

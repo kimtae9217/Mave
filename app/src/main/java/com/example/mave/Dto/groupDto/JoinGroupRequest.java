@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName;
 public class JoinGroupRequest {
 
     @SerializedName("userId")
-    private Long userId;
+    private String userId;
 
     public JoinGroupRequest() {
     }
 
-    public JoinGroupRequest(Long userId) {
+    public JoinGroupRequest(String userId) {
         this.userId = userId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }

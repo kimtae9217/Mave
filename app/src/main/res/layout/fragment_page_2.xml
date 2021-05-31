@@ -39,6 +39,7 @@
                 android:id="@+id/diarytitle"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="72dp"
                 android:fontFamily="@font/ant"
                 android:textAlignment="center"
