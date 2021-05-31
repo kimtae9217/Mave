@@ -117,7 +117,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 break;
         }
 
-        Log.d(TAG,diaryName);
+//        Log.d(TAG,diaryName);
         // 그룹 생성 api 요청!!
         requestCreateGroup();
     }
