@@ -55,7 +55,7 @@ public class Page2_sub extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub);
-
+        getSupportActionBar().hide();
         listView = findViewById(R.id.questionlist);
 
         mContext = this;
