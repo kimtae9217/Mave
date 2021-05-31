@@ -26,24 +26,45 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/calendar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundwall"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/todayFlower" />
+
+        <TextView
+            android:id="@+id/todayQuestion"
+            android:layout_width="286dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/app_main_font"
+            android:gravity="center"
+            android:text="부모님의 결혼기념일은?"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/todayQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Q. 결혼기념일은?"
-                android:textSize="25sp" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="알림받기 임시버튼"
                 android:textSize="20dp"
-                android:fontFamily="@font/the"
+                android:fontFamily="@font/app_main_font"
                 android:id="@+id/notifi"
                 />
 

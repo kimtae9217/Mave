@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/Album"
-        android:icon="@drawable/family"
+        android:icon="@drawable/photo_library"
         android:title="사진첩"
         app:cnb_iconColor="@color/colorfamily"/>
 
