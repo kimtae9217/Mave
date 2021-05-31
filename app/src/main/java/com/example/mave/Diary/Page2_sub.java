@@ -42,7 +42,8 @@ import static com.example.mave.Diary.Create_Diary.TAG;
 public class Page2_sub extends AppCompatActivity {
 
     LocalTime questionTime;
-    Boolean isCalled = false;
+    static Boolean isCalled = false;
+    static Boolean isAlarmed = false;
 
     private ListView listView;
     private ListViewAdapterForSub2 adapter;
@@ -70,21 +71,18 @@ public class Page2_sub extends AppCompatActivity {
         TextView todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
         Button notibutton = (Button) findViewById(R.id.notifi);
 
-        // 현재 시간과 설정한 시간 비교
         questionTimeCheck();
 
-        if(!isCalled) {
-            questionRequest(todayQuestion);
-            isCalled = true;
-        }
+        // 질문을 받아왔는지 체크
+        isCalledCheck(todayQuestion);
 
 
         todayQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Page2_sub_answer.class);
-                Log.d(TAG,"답변 화면으로 가기 전!! " + todayQuestion.getText().toString());
-                intent.putExtra("todayQuestion",todayQuestion.getText().toString());
+                Log.d(TAG, "답변 화면으로 가기 전!! " + todayQuestion.getText().toString());
+                intent.putExtra("todayQuestion", todayQuestion.getText().toString());
                 startActivity(intent);
             }
         });
@@ -92,7 +90,7 @@ public class Page2_sub extends AppCompatActivity {
         notibutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                questionRequest(todayQuestion);
+                questionTimeCheck();
 
             }
         });
@@ -122,14 +120,38 @@ public class Page2_sub extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void isAlarmCheck() {
+        if (!isAlarmed) {
+            Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isAlarmed));
+            NotificationSomethings();
+            isAlarmed = true;
+        } else {
+            Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isCalled));
+
+        }
+    }
+
+    private void isCalledCheck(TextView todayQuestion) {
+        if (!isCalled) {
+            Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
+            questionRequest(todayQuestion);
+            isCalled = true;
+        } else {
+            Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
+
+            todayQuestion.setText(QuestionRepository.getInstance().getTodayQuestion());
+        }
+    }
+
     private void questionRequest(TextView todayQuestion) {
-        // 알림 받기
-        NotificationSomethings();
         // 서버에서 질문 받아오기
         GroupRepository instance = GroupRepository.getInstance();
         QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
-        Log.d(TAG, instance.getGroupId().toString());
-        Log.d(TAG, instance.getDate().toString());
+
+        Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + instance.getGroupId().toString());
+        Log.d(TAG, "우리 그룹은 며칠째인가!? - " + instance.getDate().toString());
+
         TakeQuestionRequest request = new TakeQuestionRequest(instance.getGroupId());
         Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(instance.getDate(), request);
 
@@ -139,7 +161,8 @@ public class Page2_sub extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     TakeQuestionResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
-                    Log.d(TAG, body.getQuestionContent());
+                    Log.d(TAG, "오늘의 질문은 !? - " + body.getQuestionContent());
+                    QuestionRepository.getInstance().setTodayQuestion(body.getQuestionContent());
 
                     todayQuestion.setText(body.getQuestionContent());
 
@@ -160,11 +183,16 @@ public class Page2_sub extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void questionTimeCheck() {
         questionTime = GroupRepository.getInstance().getQuestionTime();
+        Log.d(TAG, "설정한 시간은?? - " + questionTime);
+        LocalTime nowTime = LocalTime.now();
+        Log.d(TAG, "지금 시간은?? - " + nowTime);
 
-        if (LocalTime.now().isAfter(questionTime)) {
-            NotificationSomethings(); // < 지우고 질문 받아오는 코드 넣으면 될 거 같슴다.
+        Log.d(TAG, String.valueOf(nowTime.isAfter(questionTime)));
+        if (nowTime.isAfter(questionTime)) {
+            isAlarmCheck();
         } else {
-            Log.i("123", String.valueOf(LocalTime.now().isBefore(questionTime))); // 아니면 말고 코드 넣으면 될 거 같습니다.
+            Log.d(TAG, "아직 질문이 도착하지 않았습니다!"); // 아니면 말고 코드 넣으면 될 거 같습니다.
+            Toast.makeText(getApplicationContext(), "아직 질문이 도착하지 않았습니다 ㅠㅠ", Toast.LENGTH_LONG).show();
         }
     }
 

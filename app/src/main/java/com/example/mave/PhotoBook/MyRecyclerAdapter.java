@@ -61,7 +61,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Cu
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.familypicture = (ImageView)itemView.findViewById(R.id.list_item_familypicture);
+//            this.familypicture = (ImageView)itemView.findViewById(R.id.list_item_familypicture);
             this.content = (TextView)itemView.findViewById(R.id.list_item_content);
             this.title = (TextView)itemView.findViewById(R.id.list_item_title);
         }
