@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.mave.CreateRetrofit;
@@ -33,6 +35,10 @@ import com.example.mave.repository.GroupRepository;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -174,6 +180,7 @@ public class FragmentPage2 extends Fragment {
         Call<FindGroupResponse> call = groupRetrofitService.findGroup(request);
 
         call.enqueue(new Callback<FindGroupResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<FindGroupResponse> call, Response<FindGroupResponse> response) {
                 if (response.isSuccessful()) {
@@ -185,6 +192,11 @@ public class FragmentPage2 extends Fragment {
                         DiaryName.setText(GroupRepository.getInstance().getGroupName());
                         flower.setVisibility(View.VISIBLE);
                         flower.setImageResource(flower_num[GroupRepository.getInstance().getFlowerStatus()]);
+                        LocalDateTime parse = LocalDateTime.parse(body.getQuestionTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        LocalTime questionTime = LocalTime.of(parse.getHour(), parse.getMinute());
+                        Log.d(TAG,"설정 시간은 !? - " + questionTime );
+                        Log.d(TAG,"D-day는 !? - " + body.getDiaryDate());
+
                     }
 
                 } else {

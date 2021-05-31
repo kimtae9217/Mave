@@ -2,6 +2,7 @@ package com.example.mave.Dto.groupDto;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class CreateGroupRequest {
@@ -12,21 +13,17 @@ public class CreateGroupRequest {
     @SerializedName("groupName")
     private String groupName;
 
-    @SerializedName("questionTimeHour")
-    private int questionTimeHour;
-
-    @SerializedName("questionTimeMinute")
-    private int questionTimeMinute;
+    @SerializedName("questionTime")
+    private String questionTime;
 
 
     public CreateGroupRequest() {
     }
 
-    public CreateGroupRequest(String userId, String groupName, int questionTimeHour, int questionTimeMinute) {
+    public CreateGroupRequest(String userId, String groupName, String questionTime) {
         this.userId = userId;
         this.groupName = groupName;
-        this.questionTimeHour = questionTimeHour;
-        this.questionTimeMinute = questionTimeMinute;
+        this.questionTime = questionTime;
 
     }
 

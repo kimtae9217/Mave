@@ -83,6 +83,14 @@ public class Page2_sub_answer extends AppCompatActivity {
         Log.d(TAG,"답변 화면 - 답변 가져오자!!");
         takeAllAnswer(adapter);
 
+//        if(listView != null) {
+//            Level_Up_Dialog dig = new Level_Up_Dialog(getApplication(), Level_Up_Dialog.class);
+//            // 커스텀 다이얼로그 배경 투명
+//            dig.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dig.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            dig.show();
+//        }
+
         // 데이터 추가하기
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +105,7 @@ public class Page2_sub_answer extends AppCompatActivity {
                 editor.commit();*/
                 PreferenceManager.setInt(mContext, "test", count);
                 adapter.notifyDataSetChanged();
+
             }
         });
     }
