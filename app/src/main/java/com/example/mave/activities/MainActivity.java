@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             //mBottomNV.setItemSelected(R.id.content_layout, true);
             fragmentManager = getSupportFragmentManager();
-            FragmentPage1 fragmentPage1 = new FragmentPage1();
-            fragmentManager.beginTransaction().replace(R.id.content_layout, fragmentPage1).commit();
+            FragmentPage2 fragmentPage2 = new FragmentPage2();
+            fragmentManager.beginTransaction().replace(R.id.content_layout, fragmentPage2).commit();
         }
         mBottomNV = findViewById(R.id.nav_view_chip);
-        mBottomNV.setItemSelected(R.id.Album, true);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, new FragmentPage1()).commit();
+        mBottomNV.setItemSelected(R.id.Diary, true);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, new FragmentPage2()).commit();
         mBottomNV.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int i) {

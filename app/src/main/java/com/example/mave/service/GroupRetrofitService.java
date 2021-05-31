@@ -4,6 +4,7 @@ package com.example.mave.service;
 
 import com.example.mave.Dto.groupDto.CreateGroupRequest;
 import com.example.mave.Dto.groupDto.CreateGroupResponse;
+import com.example.mave.Dto.groupDto.FindGroupResponse;
 import com.example.mave.Dto.groupDto.JoinGroupRequest;
 import com.example.mave.Dto.groupDto.JoinGroupResponse;
 
@@ -20,4 +21,7 @@ public interface GroupRetrofitService {
     @POST("api/groups/{groupId}")
     Call<JoinGroupResponse> joinGroup(@Path("groupId") Long id,
                                       @Body JoinGroupRequest request);
+
+    @POST("api/findGroups")
+    Call<FindGroupResponse> findGroup(@Body JoinGroupRequest request);
 }

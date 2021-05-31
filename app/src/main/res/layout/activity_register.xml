@@ -17,7 +17,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/button_background"
+        android:fontFamily="@font/app_main_font"
         android:elevation="10dp"
+        android:textSize="25sp"
         android:hint="아이디"
         android:paddingLeft="5dp" />
 
@@ -29,7 +31,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
+        android:textSize="25sp"
         android:background="@drawable/button_background"
+        android:fontFamily="@font/app_main_font"
         android:hint="닉네임"
         android:paddingLeft="5dp" />
 
@@ -40,7 +44,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
+        android:textSize="25sp"
         android:background="@drawable/button_background"
+        android:fontFamily="@font/app_main_font"
         android:hint="비밀번호"
         android:inputType="textPassword"
         android:paddingLeft="5dp" />
@@ -54,7 +60,8 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/button_background"
         android:backgroundTint="#C4425B"
-        android:textSize="20dp"
+        android:textSize="25sp"
+        android:fontFamily="@font/app_main_font"
         android:text="회원가입"
         android:textColor="#fff" />
 
@@ -65,6 +72,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="이미 아이디가 있으시다면?"
+        android:fontFamily="@font/app_main_font"
         android:textColor="#fff"
         android:textSize="20sp" />
 

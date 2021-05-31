@@ -14,14 +14,17 @@
             android:background="@drawable/answer_circle"
             android:fontFamily="@font/app_main_font"
             android:textColor="#000000"
-            android:textSize="40sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/app_main_font"
             android:layout_weight="1"
-            android:textSize="40sp"
+            android:gravity="center_vertical"
+            android:textSize="30sp"
+            android:text="안녕"
             android:textColor="#000000" />
 
 </LinearLayout>

@@ -8,5 +8,5 @@
     <string name="calender">TODO</string>
     <string name="questionflower">TODO</string>
     <string name="answerQuestion">질문에 답변해주세요.</string>
-    <string name="pleaseAnswer">눌러서 답변해!</string>
+    <string name="pleaseAnswer">답변하기</string>
 </resources>
