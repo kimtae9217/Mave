@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,13 +23,10 @@ import java.io.InputStream;
 
 public class List_insert extends AppCompatActivity {
 
-    private final int GET_IMAGE = 200;
     ImageView List_insert_family_image;
-    final static int CODE = 1;
     Context mcontext;
     EditText List_insert_addTitle, List_insert_addContent;
     Button List_insert_btn_UploadPicture, List_insert_btn_go;
-    private final int GET_GALLERY_IMAGE = 200;
     Bitmap bm;
     private static final int REQUEST_CODE = 0;
 
@@ -49,25 +47,18 @@ public class List_insert extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mcontext, FragmentPage1.class);
-                /*Bundle bundle = new Bundle();
-                bundle.putByteArray("image", bitmapToByteArray(bm));
-                intent.putExtras(bundle);*/
-//                Bitmap sendBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.family);
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                sendBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-//                intent.putExtra("Enroll_user_image",byteArray);
+
                 intent.putExtra("Enroll_user_image",bitmapToByteArray(bm));
                 intent.putExtra("addTitle", List_insert_addTitle.getText().toString());
                 intent.putExtra("addContent", List_insert_addContent.getText().toString());
                 setResult(RESULT_OK, intent);
-                /*                startActivity(intent);*/
                 finish();
             }
         });
         List_insert_btn_UploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 doTakeAlbumAction();
             }
         });
@@ -83,20 +74,41 @@ public class List_insert extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        InputStream is = null;
-        try {
-            is = getContentResolver().openInputStream(data.getData());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    InputStream in = getContentResolver().openInputStream(data.getData());
+
+                    bm = BitmapFactory.decodeStream(in);
+                    in.close();
+                    List_insert_family_image.setImageBitmap(bm);
+
+                } catch (Exception e) {
+
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
+            }
         }
-        bm = BitmapFactory.decodeStream(is);
-        try {
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        List_insert_family_image.setImageBitmap(bm);
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        InputStream is = null;
+//        try {
+//            is = getContentResolver().openInputStream(data.getData());
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        bm = BitmapFactory.decodeStream(is);
+//        try {
+//            is.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        List_insert_family_image.setImageBitmap(bm);
+//    }
 
     public byte[] bitmapToByteArray( Bitmap bitmap ) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream() ;

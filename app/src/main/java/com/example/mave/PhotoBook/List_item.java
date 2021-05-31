@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mave.PreferenceManager;
 import com.example.mave.R;
 
+
 public class List_item extends AppCompatActivity {
     GridLayout container;
     TextView List_item_title, List_item_content;
