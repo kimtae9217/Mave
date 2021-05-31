@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -53,6 +54,9 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     TimePickerDialog timePickerDialog;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    Calendar c;
+    int hour_;
+    int minute_;
 
     public Create_Diary(Context context) {
         super(context);
@@ -105,11 +109,15 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                     instance.plusDate();
                                     Log.d(TAG,instance.getQuestionTime().toString());
                                     Log.d(TAG,instance.getDate().toString());
+                                Calendar c = Calendar.getInstance();
+                                hour_ = c.get(Calendar.HOUR_OF_DAY);
+                                minute_ = c.get(Calendar.MINUTE);
 
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
-                        },mHour, mMinute, false);
+                        },mHour, mMinute, DateFormat.is24HourFormat(getContext()));
                 timePickerDialog.show();
+
                 dismiss();
                 break;
             case R.id.btnNegative: //취소 버튼을 눌렀을 때
