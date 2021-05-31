@@ -1,9 +1,13 @@
 package com.example.mave.PhotoBook;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -78,7 +84,6 @@ public class FragmentPage1 extends Fragment {
                 setString(getContext(),"number",data.getStringExtra("groupNumbers"));
                 arrayList.add(itemData);
                 recycleAdapter.notifyDataSetChanged();
-
         }
     }*/
 
@@ -87,12 +92,16 @@ public class FragmentPage1 extends Fragment {
         switch (requestCode) {
             case CODE:
                 ItemData itemData = new ItemData(R.id.list_insert_family_image, "제목", "내용");
+
 //                PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
 //                PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
 //                PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
 
                 bm = byteArrayToBitmap(data.getByteArrayExtra("Enroll_user_image"));
+                Log.d("Test","값없움???"+bm);
                 Page1_family_picture.setImageBitmap(bm);
+
+                Log.d("Test","값들어감?"+bm);
 
                 itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));
                 itemData.setTitle(data.getStringExtra("addTitle"));
@@ -106,5 +115,4 @@ public class FragmentPage1 extends Fragment {
         Bitmap bitmap = BitmapFactory.decodeByteArray( $byteArray, 0, $byteArray.length ) ;
         return bitmap ;
     }
-
 }
