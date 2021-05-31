@@ -124,7 +124,9 @@ public class FragmentPage2 extends Fragment {
             }
         });
 
-        ImageButton button = (ImageButton) viewGroup.findViewById(R.id.flower);
+
+        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.diary);
+
         button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
             @Override
             public void onClick(View v) {

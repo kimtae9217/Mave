@@ -3,4 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
+    <string name="alarm">알림받기 임시버튼</string>
+    <string name="todayquestion">부모님의 결혼기념일은?</string>
+    <string name="calender">TODO</string>
+    <string name="questionflower">TODO</string>
+    <string name="answerQuestion">질문에 답변해주세요.</string>
+    <string name="pleaseAnswer">답변하기</string>
 </resources>
