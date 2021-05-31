@@ -103,8 +103,12 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                     // 질문 받을 시간 내부 db에 저장
                                     instance.setQuestionTime(questionTime);
                                     instance.plusDate();
-                                    Log.d(TAG,instance.getQuestionTime().toString());
-                                    Log.d(TAG,instance.getDate().toString());
+                                    Log.d(TAG,"질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
+                                    Log.d(TAG,"며칠째인가?? - " + instance.getDate().toString());
+
+                                    requestCreateGroup(hourOfDay,minute);
+
+
 
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
@@ -117,17 +121,17 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 break;
         }
 
-        Log.d(TAG,diaryName);
-        // 그룹 생성 api 요청!!
-        requestCreateGroup();
+        Log.d(TAG,"설정한 그룹 이름은!? - " + diaryName);
+
     }
 
-    private void requestCreateGroup() {
+    private void requestCreateGroup(int hour, int minute) {
 
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
         MemberRepository.getInstance().setUserId("hello1");
         String userId = MemberRepository.getInstance().getUserId();
-        CreateGroupRequest request = new CreateGroupRequest(userId,diaryName);
+        CreateGroupRequest request = new CreateGroupRequest(userId,diaryName,hour,minute);
+
         Call<CreateGroupResponse> call = groupRetrofitService.createGroup(request);
 
         call.enqueue(new Callback<CreateGroupResponse>() {
@@ -139,9 +143,11 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
                     // 그룹 id를 내부 db에 저장
                     GroupRepository.getInstance().setGroupId(body.getGroupId());
+                    Log.d(TAG, "그룹 id 내부 db에 저장 완료!");
 
                     // 그룹 이름을 내부 db에 저장
                     GroupRepository.getInstance().setGroupName(diaryName);
+                    Log.d(TAG, "그룹 이름 내부 db에 저장 완료!");
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
