@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class GroupRepository {
 
-    private static Long date = 0l;
+    private static Long diaryDate = 0l;
 
     private static final GroupRepository groupRepository = new GroupRepository();
 
@@ -58,12 +58,14 @@ public class GroupRepository {
         return questionTime.get("questionTime");
     }
 
-    public void plusDate(){
-        date++;
+    public void setDiaryDate(Long date){
+        this.diaryDate = date;
     }
 
-    public Long getDate(){
-        return date;
+    public Long getDiaryDate(){
+        return diaryDate;
     }
+
+
 
 }

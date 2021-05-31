@@ -150,10 +150,10 @@ public class Page2_sub extends AppCompatActivity {
         QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
 
         Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + instance.getGroupId().toString());
-        Log.d(TAG, "우리 그룹은 며칠째인가!? - " + instance.getDate().toString());
+        Log.d(TAG, "우리 그룹은 며칠째인가!? - " + instance.getDiaryDate().toString());
 
         TakeQuestionRequest request = new TakeQuestionRequest(instance.getGroupId());
-        Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(instance.getDate(), request);
+        Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(instance.getDiaryDate(), request);
 
         call.enqueue(new Callback<TakeQuestionResponse>() {
             @Override
