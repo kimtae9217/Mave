@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
@@ -19,14 +20,18 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.groupDto.CreateGroupRequest;
 import com.example.mave.Dto.groupDto.CreateGroupResponse;
 import com.example.mave.R;
+import com.example.mave.repository.GroupRepository;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
+
+import java.security.acl.Group;
 import java.time.LocalTime;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -88,14 +93,19 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 customDialogListener.onPositiveClicked(diaryName);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
                         new TimePickerDialog.OnTimeSetListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
 
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
                                     LocalTime questionTime = LocalTime.of(hourOfDay, minute);
-                                    MemberRepository instance = MemberRepository.getInstance();
+                                    GroupRepository instance = GroupRepository.getInstance();
+                                    // 질문 받을 시간 내부 db에 저장
                                     instance.setQuestionTime(questionTime);
-                                }
+                                    instance.plusDate();
+                                    Log.d(TAG,instance.getQuestionTime().toString());
+                                    Log.d(TAG,instance.getDate().toString());
+
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
                         },mHour, mMinute, false);
@@ -106,8 +116,16 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 cancel();
                 break;
         }
+
+        Log.d(TAG,diaryName);
         // 그룹 생성 api 요청!!
+        requestCreateGroup();
+    }
+
+    private void requestCreateGroup() {
+
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
+        MemberRepository.getInstance().setUserId("hello1");
         String userId = MemberRepository.getInstance().getUserId();
         CreateGroupRequest request = new CreateGroupRequest(userId,diaryName);
         Call<CreateGroupResponse> call = groupRetrofitService.createGroup(request);
@@ -118,7 +136,13 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     CreateGroupResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
-//                            textTest.setText(body.getUserId().toString());
+
+                    // 그룹 id를 내부 db에 저장
+                    GroupRepository.getInstance().setGroupId(body.getGroupId());
+
+                    // 그룹 이름을 내부 db에 저장
+                    GroupRepository.getInstance().setGroupName(diaryName);
+
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
 

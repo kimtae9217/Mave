@@ -92,10 +92,17 @@ public class FragmentPage1 extends Fragment {
         switch (requestCode) {
             case CODE:
                 ItemData itemData = new ItemData(R.id.list_insert_family_image, "제목", "내용");
+
+//                PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
+//                PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
+//                PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
+
                 bm = byteArrayToBitmap(data.getByteArrayExtra("Enroll_user_image"));
                 Log.d("Test","값없움???"+bm);
                 Page1_family_picture.setImageBitmap(bm);
+
                 Log.d("Test","값들어감?"+bm);
+
                 itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));
                 itemData.setTitle(data.getStringExtra("addTitle"));
                 itemData.setContent(data.getStringExtra("addContent"));

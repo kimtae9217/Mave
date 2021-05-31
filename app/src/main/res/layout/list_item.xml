@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,12 +11,18 @@
     android:columnCount="2">
 
     <ImageView
+<<<<<<< HEAD
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_item_familypicture"
         android:src="@drawable/family"
         android:scaleType="centerCrop"
+=======
+        android:id="@+id/list_item_familypicture"
+        android:layout_width="wrap_content"
+>>>>>>> e2fbbc876ecc4964de6b3e2dd2c38eae07a011b9
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/family" />
 
     <GridLayout
         android:layout_width="wrap_content"

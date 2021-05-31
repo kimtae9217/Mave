@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mave.PreferenceManager;
 import com.example.mave.R;
+import com.example.mave.repository.GroupRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -54,6 +55,16 @@ public class FragmentPage2 extends Fragment {
         SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
         //PreferenceManager.clear(getContext()); // 프리퍼런스매니저 초기화(꽃 없애기)
 
+
+        if(GroupRepository.getInstance().getGroupName() == null){
+            DiaryName.setText("그룹에 가입해주세욤");
+        }else{
+            String groupName = GroupRepository.getInstance().getGroupName();
+            DiaryName.setText(groupName);
+
+        }
+
+
         /**
          *  그룹 이룸, 이미지 띄워주기
          *  그룹추가 버튼 막아주기
@@ -68,9 +79,11 @@ public class FragmentPage2 extends Fragment {
 
 
                 Toast.makeText(getContext(), "하위 버튼 띄우기", Toast.LENGTH_SHORT).show();
+
                 anim();
 
                 FloatingActionButton FloatingButton2 = (FloatingActionButton)viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
+
 
                 FloatingButton2.setOnClickListener(new OnClickListener() {
                     @Override
@@ -112,8 +125,7 @@ public class FragmentPage2 extends Fragment {
         button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
             @Override
             public void onClick(View v) {
-                String text1 = DiaryName.getText().toString();
-                if (text1 != "") {
+                if (GroupRepository.getInstance().getGroupName() != null) {
                     Intent intent = new Intent(getActivity(), Page2_sub.class);
                     startActivity(intent);
 
@@ -155,6 +167,8 @@ public class FragmentPage2 extends Fragment {
 
     }
 
+
+
     public void anim() {
 
         if (isFabOpen) {
@@ -168,6 +182,7 @@ public class FragmentPage2 extends Fragment {
             fab2.startAnimation(fab_open);
             fab1.setClickable(true);
             fab2.setClickable(true);
+
             isFabOpen = true;
         }
     }
