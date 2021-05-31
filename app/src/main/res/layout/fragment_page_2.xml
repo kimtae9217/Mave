@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:fontFamily="@font/the"
+            android:fontFamily="@font/app_main_font"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="35sp" />
