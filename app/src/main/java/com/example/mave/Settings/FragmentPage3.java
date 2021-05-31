@@ -24,11 +24,7 @@ public class FragmentPage3 extends Fragment {
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_3, container, false);
 
-<<<<<<< HEAD
-//        FlowerState = (TextView) viewGroup.findViewById(R.id.FlowerState);
-=======
         FlowerState = (TextView) viewGroup.findViewById(R.id.flowerState);
->>>>>>> 2d266af40c31712d9609ec691a46f2510a2dc9b4
 
         FlowerState.setOnClickListener(new View.OnClickListener() {
             @Override
