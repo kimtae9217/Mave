@@ -2,7 +2,6 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,37 +19,39 @@
             android:id="@+id/imageButton2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="355dp"
+            android:layout_marginStart="355dp"
             android:background="#00ff0000"
             android:onClick="showDataPicker"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/calendar" />
+            app:srcCompat="@drawable/calendar"
+            android:contentDescription="@string/calender" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/backgroundwall"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="@drawable/backgroundwall"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/todayFlower" />
+            <ImageView
+                android:layout_width="108dp"
+                android:layout_height="95dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/flowerdaisy"
+                android:contentDescription="@string/questionflower" />
 
-        <TextView
-            android:id="@+id/todayQuestion"
-            android:layout_width="286dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/app_main_font"
-            android:gravity="center"
-            android:text="부모님의 결혼기념일은?"
-            android:textSize="30sp" />
+            <TextView
+                android:id="@+id/todayQuestion"
+                android:layout_width="286dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/ant"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:text="@string/todayquestion"
+                android:textSize="30sp" />
 
-    </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,25 +63,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="알림받기 임시버튼"
-                android:textSize="20dp"
+                android:text="@string/alarm"
+                android:textSize="20sp"
                 android:fontFamily="@font/app_main_font"
                 android:id="@+id/notifi"
                 />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -88,8 +86,7 @@
                 <ListView
                     android:id="@+id/questionlist"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -103,5 +100,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="15sp"
         android:backgroundTint="#9500ff"
-        android:src="@drawable/settings" />
+        android:src="@drawable/settings"
+        android:contentDescription="@string/todo" />
 </FrameLayout>

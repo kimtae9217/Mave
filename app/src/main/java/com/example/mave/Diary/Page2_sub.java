@@ -55,7 +55,7 @@ public class Page2_sub extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub);
-
+        getSupportActionBar().hide();
         listView = findViewById(R.id.questionlist);
 
         mContext = this;
@@ -194,8 +194,6 @@ public class Page2_sub extends AppCompatActivity {
         assert notificationManager != null;
         notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
     }
-
-
 }
 
 

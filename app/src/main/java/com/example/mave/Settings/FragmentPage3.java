@@ -21,9 +21,10 @@ public class FragmentPage3 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_3, container, false);
 
-        FlowerState = (TextView) viewGroup.findViewById(R.id.FlowerState);
+        FlowerState = (TextView) viewGroup.findViewById(R.id.flowerState);
 
         FlowerState.setOnClickListener(new View.OnClickListener() {
             @Override

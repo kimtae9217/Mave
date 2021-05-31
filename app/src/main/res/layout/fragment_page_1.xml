@@ -30,12 +30,7 @@
             android:layout_weight="1"
             android:id="@+id/page1_btn_add_picture"
             android:text="사진 추가"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/page1_btn_add_update"
-            android:text="업데이트"/>
+
     </LinearLayout>
 
 </LinearLayout>

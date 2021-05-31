@@ -16,10 +16,37 @@
             android:id="@+id/imageButton2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="355dp"
+            android:layout_marginStart="355dp"
             android:background="#00ff0000"
             android:scaleType="fitCenter"
-            android:src="@drawable/calendar"/>
+            android:src="@drawable/calendar"
+            android:contentDescription="@string/todo" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="@drawable/backgroundwall"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="108dp"
+                android:layout_height="95dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/flowerdaisy"
+                android:contentDescription="@string/questionflower" />
+
+            <TextView
+                android:id="@+id/todayQuestion"
+                android:layout_width="286dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/ant"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:text="@string/todayquestion"
+                android:textSize="30sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,25 +54,15 @@
             android:orientation="vertical"
             android:id="@+id/activuty_main">
 
-            <TextView
-                android:id="@+id/answer_for_question"
-                android:layout_width="match_parent"
-                android:layout_height="88dp"
-                android:gravity="center"
-                android:text="부모님의 결혼기념일은?"
-                android:fontFamily="@font/app_main_font"
-                android:background="@drawable/backgroundwall"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
-
             <EditText
                 android:id="@+id/edt_answer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="72dp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
-                android:hint="질문에 답변해주세요."
                 android:fontFamily="@font/app_main_font"
+                android:hint="@string/answerQuestion"
                 android:inputType="textPersonName" />
 
             <Button
@@ -54,20 +71,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:backgroundTint="#59886B"
+                android:backgroundTint="#C4425B"
                 android:textColor="@color/white"
+                android:textSize="20dp"
                 android:elevation="30dp"
                 android:fontFamily="@font/app_main_font"
                 android:background="@drawable/button_background"
-                android:text="눌러서 답변해!" />
+                android:text="@string/pleaseAnswer" />
         </LinearLayout>
 
         <ListView
             android:id="@+id/listMemo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/flower_wallpaper"
-            android:backgroundTint="@android:color/transparent"/>
+            android:background="@drawable/flower_wallpaper" />
 
     </LinearLayout>
 
