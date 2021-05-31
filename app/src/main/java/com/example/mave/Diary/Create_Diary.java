@@ -55,9 +55,6 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     TimePickerDialog timePickerDialog;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-    Calendar c;
-    int hour_;
-    int minute_;
 
     public Create_Diary(Context context) {
         super(context);
@@ -114,9 +111,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                 instance.plusDate();
                                 Log.d(TAG, instance.getQuestionTime().toString());
                                 Log.d(TAG, instance.getDate().toString());
-                                Calendar c = Calendar.getInstance();
-                                hour_ = c.get(Calendar.HOUR_OF_DAY);
-                                minute_ = c.get(Calendar.MINUTE);
+
                                 Log.d(TAG, "질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
                                 Log.d(TAG, "며칠째인가?? - " + instance.getDate().toString());
 
