@@ -11,6 +11,17 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/ant"
+            android:text="일차"
+            android:textSize="50dp"
+            android:gravity="center"
+            />
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -83,6 +94,8 @@
             android:layout_margin="15sp"
             android:backgroundTint="#9500ff"
             android:src="@drawable/settings" />
+
+
 
     </FrameLayout>
 
