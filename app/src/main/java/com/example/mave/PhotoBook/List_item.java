@@ -42,7 +42,7 @@ public class List_item extends AppCompatActivity {
 
         List_item_title = (TextView)findViewById(R.id.list_item_title);
         List_item_content = (TextView)findViewById(R.id.list_item_content);
-        List_item_family_picture = (ImageView) findViewById(R.id.list_item_familypicture);
+//        List_item_family_picture = (ImageView) findViewById(R.id.list_item_familypicture);
         bm = StringToBitmap(getIntent().getStringExtra("Enroll_user_image"));
         List_item_family_picture.setImageBitmap(bm);
         List_item_title.setText(""+ PreferenceManager.getString(mcontext,"addTitle"));

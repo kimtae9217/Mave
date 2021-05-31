@@ -15,6 +15,7 @@ public class GroupRepository {
 
     private String groupId;
     private String groupName;
+    private String flowerStatus;
 
     private GroupRepository(){
 
@@ -39,6 +40,15 @@ public class GroupRepository {
     public void setGroupName(String groupName) {
        groupInfo.put("groupName",groupName);
     }
+
+    public int getFlowerStatus() {
+        return Integer.parseInt(groupInfo.get("flowerStatus"));
+    }
+
+    public void setFlowerStatus(int flowerStatus) {
+        groupInfo.put("flowerStatus",String.valueOf(flowerStatus));
+    }
+
 
     public void setQuestionTime(LocalTime localTime){
         questionTime.put("questionTime",localTime);

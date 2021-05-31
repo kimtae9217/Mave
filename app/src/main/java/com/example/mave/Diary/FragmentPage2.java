@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,24 +22,37 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mave.CreateRetrofit;
+import com.example.mave.Dto.groupDto.CreateGroupRequest;
+import com.example.mave.Dto.groupDto.CreateGroupResponse;
+import com.example.mave.Dto.groupDto.FindGroupResponse;
+import com.example.mave.Dto.groupDto.JoinGroupRequest;
 import com.example.mave.PreferenceManager;
 import com.example.mave.R;
 import com.example.mave.repository.GroupRepository;
+import com.example.mave.repository.MemberRepository;
+import com.example.mave.service.GroupRetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.mave.Diary.Create_Diary.TAG;
 
 public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
+
+
     private Animation fab_open, fab_close;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
     private TextView DiaryName;
     private ImageView flower;
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
     final int[] flower_num = {R.drawable.state_1, R.drawable.state_2, R.drawable.state_3, R.drawable.state_4, R.drawable.state_5, R.drawable.yellowflower};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,37 +66,25 @@ public class FragmentPage2 extends Fragment {
         fab2 = (FloatingActionButton) viewGroup.findViewById(R.id.fab2);
         DiaryName = (TextView) viewGroup.findViewById(R.id.diarytitle);
         flower = (ImageView) viewGroup.findViewById(R.id.diary_flower);
-        SharedPreferences sf = this.getActivity().getSharedPreferences("flowercount",MODE_PRIVATE);
-        //PreferenceManager.clear(getContext()); // 프리퍼런스매니저 초기화(꽃 없애기)
+
+        flower.setVisibility(View.INVISIBLE);
+
+        // 가입된 그룹이 있는지 찾아온다.
+        findGroup();
+
+        // 가입된 그룹이 없다면 그룹 이름에 가입하라고 띄워준다.
+        firstComeCheck();
 
 
-        if(GroupRepository.getInstance().getGroupName() == null){
-            DiaryName.setText("그룹에 가입해주세욤");
-        }else{
-            String groupName = GroupRepository.getInstance().getGroupName();
-            DiaryName.setText(groupName);
-
-        }
-
-
-        /**
-         *  그룹 이룸, 이미지 띄워주기
-         *  그룹추가 버튼 막아주기
-         *  초대 관련 만들고
-         *
-         */
-
-        FloatingActionButton FloatingButton = (FloatingActionButton)viewGroup.findViewById(R.id.fab);
+        FloatingActionButton FloatingButton = (FloatingActionButton) viewGroup.findViewById(R.id.fab);
         FloatingButton.setOnClickListener(new OnClickListener() { //플로팅버튼 눌렀을 때 이벤트 (하위 버튼 띄우기)
             @Override
             public void onClick(View v) {
 
 
-                Toast.makeText(getContext(), "하위 버튼 띄우기", Toast.LENGTH_SHORT).show();
-
                 anim();
 
-                FloatingActionButton FloatingButton2 = (FloatingActionButton)viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
+                FloatingActionButton FloatingButton2 = (FloatingActionButton) viewGroup.findViewById(R.id.fab1); //플로팅버튼 눌렀을 때 이벤트(다이어리 만드는 버튼)
 
 
                 FloatingButton2.setOnClickListener(new OnClickListener() {
@@ -97,7 +99,8 @@ public class FragmentPage2 extends Fragment {
                             @Override
                             public void onPositiveClicked(String diaryname) {
                                 DiaryName.setText(diaryname);
-                                flower.setImageResource(flower_num[5]);
+                                flower.setVisibility(View.VISIBLE);
+                                flower.setImageResource(flower_num[0]);
                             }
 
                             @Override
@@ -110,7 +113,7 @@ public class FragmentPage2 extends Fragment {
                     }
                 });
 
-                FloatingActionButton FloatingButton3 = (FloatingActionButton)viewGroup.findViewById(R.id.fab2); //플로팅버튼 눌렀을 때 이벤트(초대 버튼)
+                FloatingActionButton FloatingButton3 = (FloatingActionButton) viewGroup.findViewById(R.id.fab2); //플로팅버튼 눌렀을 때 이벤트(초대 버튼)
                 FloatingButton3.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -121,7 +124,7 @@ public class FragmentPage2 extends Fragment {
             }
         });
 
-        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.flower);
+        ImageButton button = (ImageButton) viewGroup.findViewById(R.id.flower);
         button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
             @Override
             public void onClick(View v) {
@@ -143,20 +146,56 @@ public class FragmentPage2 extends Fragment {
         int level = PreferenceManager.getInt(getContext(), "test");
         if (level == 1) {
             flower.setImageResource(R.drawable.state_1);
-        }
-        else if(level == 2) {
+        } else if (level == 2) {
             flower.setImageResource(R.drawable.state_2);
-        }
-        else if(level == 3) {
+        } else if (level == 3) {
             flower.setImageResource(R.drawable.state_3);
-        }
-        else if(level == 4) {
+        } else if (level == 4) {
             flower.setImageResource(R.drawable.state_4);
-        }
-        else if(level >= 5) {
+        } else if (level >= 5) {
             flower.setImageResource(R.drawable.state_5);
         }
         return viewGroup;
+    }
+
+    private void firstComeCheck() {
+        if (GroupRepository.getInstance().getGroupName() == null) {
+            DiaryName.setText("그룹에 가입해주세욤");
+        }
+    }
+
+    private void findGroup() {
+        GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
+        MemberRepository.getInstance().setUserId("hello1");
+        String userId = MemberRepository.getInstance().getUserId();
+        JoinGroupRequest request = new JoinGroupRequest(userId);
+        Call<FindGroupResponse> call = groupRetrofitService.findGroup(request);
+
+        call.enqueue(new Callback<FindGroupResponse>() {
+            @Override
+            public void onResponse(Call<FindGroupResponse> call, Response<FindGroupResponse> response) {
+                if (response.isSuccessful()) {
+                    FindGroupResponse body = response.body();
+                    Log.d(TAG, "response 성공!!");
+                    if(body.getGroupName() != null) {
+                        GroupRepository.getInstance().setGroupName(body.getGroupName());
+                        GroupRepository.getInstance().setFlowerStatus(body.getFlowerStatus());
+                        DiaryName.setText(GroupRepository.getInstance().getGroupName());
+                        flower.setVisibility(View.VISIBLE);
+                        flower.setImageResource(flower_num[GroupRepository.getInstance().getFlowerStatus()]);
+                    }
+
+                } else {
+                    Log.d(TAG, "response 실패 ㅠㅠ");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FindGroupResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure => " + t.getMessage());
+            }
+        });
     }
 
 
@@ -166,7 +205,6 @@ public class FragmentPage2 extends Fragment {
 
 
     }
-
 
 
     public void anim() {
