@@ -33,8 +33,10 @@ import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
 
 import java.security.acl.Group;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -108,18 +110,18 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                 GroupRepository instance = GroupRepository.getInstance();
                                 // 질문 받을 시간 내부 db에 저장
                                 instance.setQuestionTime(questionTime);
-                                instance.plusDate();
-                                Log.d(TAG, instance.getQuestionTime().toString());
-                                Log.d(TAG, instance.getDate().toString());
 
                                 Log.d(TAG, "질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
-                                Log.d(TAG, "며칠째인가?? - " + instance.getDate().toString());
+
+                                requestCreateGroup(hourOfDay, minute);
+
 
                                 requestCreateGroup(hourOfDay, minute);
 
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
-                        }, mHour, mMinute, DateFormat.is24HourFormat(getContext()));
+                        }, mHour, mMinute, false);
+
                 timePickerDialog.show();
 
                 dismiss();
@@ -128,15 +130,28 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                 cancel();
                 break;
         }
+
         Log.d(TAG, "설정한 그룹 이름은!? - " + diaryName);
+
     }
 
-    private void requestCreateGroup(int hour, int minute) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void requestCreateGroup(int hourOfDay, int minute) {
+        LocalDateTime fullDateTime = LocalDateTime.of(
+                LocalDateTime.now().getYear(),
+                LocalDateTime.now().getMonth(),
+                LocalDateTime.now().getDayOfMonth(),
+                hourOfDay,
+                minute
+        );
+
+        String format = fullDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
 
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
         MemberRepository.getInstance().setUserId("hello1");
         String userId = MemberRepository.getInstance().getUserId();
-        CreateGroupRequest request = new CreateGroupRequest(userId, diaryName, hour, minute);
+        CreateGroupRequest request = new CreateGroupRequest(userId, diaryName,format);
 
         Call<CreateGroupResponse> call = groupRetrofitService.createGroup(request);
 
@@ -154,6 +169,9 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                     // 그룹 이름을 내부 db에 저장
                     GroupRepository.getInstance().setGroupName(diaryName);
                     Log.d(TAG, "그룹 이름 내부 db에 저장 완료!");
+
+                    GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
+                    Log.d(TAG, "그룹 D-Day 내부 db에 저장 완료!");
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");

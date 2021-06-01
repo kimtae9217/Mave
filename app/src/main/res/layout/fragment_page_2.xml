@@ -12,13 +12,13 @@
         android:layout_height="fill_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/diaryDate"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/ant"
-            android:text="일차"
-            android:textSize="50dp"
+            android:fontFamily="@font/app_main_font"
+            android:text="D+ day"
+            android:textSize="50sp"
             android:gravity="center"
             />
 

@@ -7,11 +7,15 @@ public class CreateGroupResponse {
     @SerializedName("groupId")
     private Long groupId;
 
+    @SerializedName("diaryDate")
+    private Long diaryDate;
+
     public CreateGroupResponse() {
     }
 
-    public CreateGroupResponse(Long groupId) {
+    public CreateGroupResponse(Long groupId,Long diaryDate) {
         this.groupId = groupId;
+        this.diaryDate = diaryDate;
     }
 
     public Long getGroupId() {
@@ -20,5 +24,13 @@ public class CreateGroupResponse {
 
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
+    }
+
+    public Long getDiaryDate() {
+        return diaryDate;
+    }
+
+    public void setDiaryDate(Long diaryDate) {
+        this.diaryDate = diaryDate;
     }
 }
