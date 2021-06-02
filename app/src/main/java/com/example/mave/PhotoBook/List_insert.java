@@ -46,6 +46,7 @@ public class List_insert extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_insert);
+        getSupportActionBar().hide();
 
         selectImage = findViewById(R.id.selectImage);
         edtTitle = findViewById(R.id.addTitle);

@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="15sp"
-        android:backgroundTint="#9500ff"
+        android:backgroundTint="#59886B"
         android:src="@drawable/settings"
         android:contentDescription="@string/todo" />
 </FrameLayout>

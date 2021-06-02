@@ -39,7 +39,6 @@
         </intent-filter>
         </activity>
         <activity android:name=".PhotoBook.List_insert" />
-        <activity android:name=".PhotoBook.List_item" />
         <activity android:name=".Diary.Page2_sub" />
         <activity android:name=".Diary.Page2_sub_answer" />
         <activity android:name=".Settings.StateOfFlower" />

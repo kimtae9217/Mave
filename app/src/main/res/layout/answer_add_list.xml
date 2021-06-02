@@ -14,7 +14,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:background="@drawable/answer_circle"
-            android:fontFamily="@font/app_main_font"
+            android:fontFamily="@font/ant"
             android:textColor="#FFF"
             android:textSize="30sp" />
 
