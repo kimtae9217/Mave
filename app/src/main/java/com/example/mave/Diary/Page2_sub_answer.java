@@ -29,10 +29,12 @@ import com.example.mave.PreferenceManager;
 import com.example.mave.R;
 import com.example.mave.repository.AnswerRepository;
 import com.example.mave.repository.GroupRepository;
+import com.example.mave.repository.MemberRepository;
 import com.example.mave.repository.QuestionRepository;
 import com.example.mave.service.AnswerRetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 import retrofit2.Call;
@@ -95,7 +97,8 @@ public class Page2_sub_answer extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.addItem(edt_title.getText().toString());
+                MemberRepository.getInstance().setUserId("hello1");
+                adapter.addItem(MemberRepository.getInstance().getUserId(),edt_title.getText().toString());
                 registAnswer(edt_title);
                 edt_title.setText("");
                 count++;
@@ -122,6 +125,13 @@ public class Page2_sub_answer extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     RegistAnswerResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
+                    if(body.getFinish()){
+                        Level_Up_Dialog dig_2 = new Level_Up_Dialog(Page2_sub_answer.this, Level_Up_Dialog.class);
+                        // 커스텀 다이얼로그 배경 투명
+                        dig_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dig_2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dig_2.show();
+                    }
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
@@ -151,7 +161,8 @@ public class Page2_sub_answer extends AppCompatActivity {
                     Log.d(TAG, "response 성공!!");
                     for (AllAnswerResponse allAnswerResponse : body) {
                         String answerContent = allAnswerResponse.getAnswerContent();
-                        adapter.addItem(answerContent);
+                        String userId = allAnswerResponse.getUserId();
+                        adapter.addItem(userId,answerContent);
 
                     }
                     adapter.notifyDataSetChanged();

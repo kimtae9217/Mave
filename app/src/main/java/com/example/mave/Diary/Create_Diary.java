@@ -1,49 +1,41 @@
 package com.example.mave.Diary;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.groupDto.CreateGroupRequest;
 import com.example.mave.Dto.groupDto.CreateGroupResponse;
+import com.example.mave.Dto.questionDto.TakeQuestionRequest;
+import com.example.mave.Dto.questionDto.TakeQuestionResponse;
 import com.example.mave.R;
 import com.example.mave.repository.GroupRepository;
 import com.example.mave.repository.MemberRepository;
+import com.example.mave.repository.QuestionRepository;
 import com.example.mave.service.GroupRetrofitService;
+import com.example.mave.service.QuestionRetrofitService;
 
-import java.security.acl.Group;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.HEAD;
+
 
 public class Create_Diary extends Dialog implements View.OnClickListener {
 
@@ -57,6 +49,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     TimePickerDialog timePickerDialog;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+
 
     public Create_Diary(Context context) {
         super(context);
@@ -85,6 +78,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
         //버튼 클릭 리스너 등록
         positiveButton.setOnClickListener(this);
         negativeButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -116,7 +110,9 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                 requestCreateGroup(hourOfDay, minute);
 
 
-                                requestCreateGroup(hourOfDay, minute);
+                                Log.d(TAG, "초기 질문 생성 !! - ");
+
+
 
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }
@@ -132,6 +128,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
         }
 
         Log.d(TAG, "설정한 그룹 이름은!? - " + diaryName);
+
 
     }
 
@@ -173,6 +170,8 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                     GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
                     Log.d(TAG, "그룹 D-Day 내부 db에 저장 완료!");
 
+                    questionRequest();
+
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
 
@@ -181,6 +180,41 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<CreateGroupResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure => " + t.getMessage());
+            }
+        });
+    }
+
+    private void questionRequest() {
+        // 서버에서 질문 받아오기
+        QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
+        GroupRepository groupDB = GroupRepository.getInstance();
+        QuestionRepository questionDB = QuestionRepository.getInstance();
+
+        Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + groupDB.getGroupId());
+        Log.d(TAG, "우리 그룹은 며칠째인가!? - " + groupDB.getDiaryDate());
+
+        TakeQuestionRequest request = new TakeQuestionRequest(groupDB.getGroupId());
+        Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(groupDB.getDiaryDate(), request);
+
+        call.enqueue(new Callback<TakeQuestionResponse>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<TakeQuestionResponse> call, Response<TakeQuestionResponse> response) {
+                if (response.isSuccessful()) {
+                    TakeQuestionResponse body = response.body();
+                    Log.d(TAG, "response 성공!!");
+                    questionDB.setTodayQuestion(body.getQuestionContent());
+
+                } else {
+                    Log.d(TAG, "response 실패 ㅠㅠ");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<TakeQuestionResponse> call, Throwable t) {
                 Log.d(TAG, "onFailure => " + t.getMessage());
             }
         });
