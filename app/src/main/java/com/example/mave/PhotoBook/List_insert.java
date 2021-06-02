@@ -1,13 +1,16 @@
 package com.example.mave.PhotoBook;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -15,6 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mave.R;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -23,98 +31,75 @@ import java.io.InputStream;
 
 public class List_insert extends AppCompatActivity {
 
-    ImageView List_insert_family_image;
-    Context mcontext;
-    EditText List_insert_addTitle, List_insert_addContent;
-    Button List_insert_btn_UploadPicture, List_insert_btn_go;
-    Bitmap bm;
-    private static final int REQUEST_CODE = 0;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mRef;
+    FirebaseStorage mStorage;
+    ImageButton selectImage;
+    EditText edtTitle, edtContent;
+    Button insertBtn;
+    private static final int Gallery_Code = 1;
+    Uri imageUrl = null;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_insert);
-        mcontext = this;
 
-        List_insert_family_image = (ImageView) findViewById(R.id.list_insert_family_image);
-        List_insert_addContent = (EditText) findViewById(R.id.list_insert_addContent);
-        List_insert_addTitle = (EditText) findViewById(R.id.list_insert_addTitle);
-        List_insert_btn_UploadPicture = (Button) findViewById(R.id.list_insert_btn_UploadPicture);
+        selectImage = findViewById(R.id.selectImage);
+        edtTitle = findViewById(R.id.addTitle);
+        edtContent = findViewById(R.id.addContent);
+        insertBtn = findViewById(R.id.insertBtn);
 
+        mDatabase = FirebaseDatabase.getInstance(); // firebaseDatabase 인스턴스 생성
+        mRef = mDatabase.getReference().child("mave"); // 생성된 database 를 참조하는 ref 생성
+        mStorage = FirebaseStorage.getInstance(); // firebaseStorage 인스턴스 생성
+        progressDialog = new ProgressDialog(this);
 
-        List_insert_btn_go = (Button) findViewById(R.id.list_insert_btn_insert);
-        List_insert_btn_go.setOnClickListener(new View.OnClickListener() {
+        selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mcontext, FragmentPage1.class);
-
-                intent.putExtra("Enroll_user_image",bitmapToByteArray(bm));
-                intent.putExtra("addTitle", List_insert_addTitle.getText().toString());
-                intent.putExtra("addContent", List_insert_addContent.getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, Gallery_Code);
             }
         });
-        List_insert_btn_UploadPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                doTakeAlbumAction();
-            }
-        });
-    }
-
-    public void doTakeAlbumAction() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,REQUEST_CODE);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                try {
-                    InputStream in = getContentResolver().openInputStream(data.getData());
 
-                    bm = BitmapFactory.decodeStream(in);
-                    in.close();
-                    List_insert_family_image.setImageBitmap(bm);
-
-                } catch (Exception e) {
-
-                }
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
-            }
+        if (requestCode == Gallery_Code && resultCode == RESULT_OK) {
+            imageUrl = data.getData();
+            selectImage.setImageURI(imageUrl);
         }
+        insertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String fn = edtTitle.getText().toString().trim();
+                final String ln = edtContent.getText().toString().trim();
+
+                if (!(fn.isEmpty() && ln.isEmpty() && imageUrl != null)){
+                    progressDialog.setTitle("업로딩중..");
+                    progressDialog.show();
+
+                    StorageReference filepath = mStorage.getReference().child("이미지 post").child(imageUrl.getLastPathSegment());
+                    filepath.putFile(imageUrl).addOnSuccessListener(taskSnapshot -> {
+                        Task<Uri> downloadUrl =taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
+                            String t = task.getResult().toString();
+
+                            DatabaseReference newPost = mRef.push();
+
+                            newPost.child("Title").setValue(fn);
+                            newPost.child("Content").setValue(ln);
+                            newPost.child("image").setValue(task.getResult().toString());
+
+                            progressDialog.dismiss();
+                        });
+                    });
+                }
+            }
+        });
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        InputStream is = null;
-//        try {
-//            is = getContentResolver().openInputStream(data.getData());
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        bm = BitmapFactory.decodeStream(is);
-//        try {
-//            is.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        List_insert_family_image.setImageBitmap(bm);
-//    }
-
-    public byte[] bitmapToByteArray( Bitmap bitmap ) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream() ;
-        bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream) ;
-        byte[] byteArray = stream.toByteArray() ;
-        return byteArray ;
-    }
-
 }

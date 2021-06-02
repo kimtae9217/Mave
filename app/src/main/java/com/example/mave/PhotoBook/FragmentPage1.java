@@ -51,15 +51,6 @@ public class FragmentPage1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
-        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
-        Page1_content = (TextView) viewGroup.findViewById(R.id.list_item_content);
-        Page1_title = (TextView) viewGroup.findViewById(R.id.list_item_title);
-        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_insert_family_image);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        arrayList = new ArrayList<>();
-        recycleAdapter = new MyRecyclerAdapter(arrayList);
-        recyclerView.setAdapter(recycleAdapter);
 
         Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
         button.setOnClickListener(new View.OnClickListener() {
@@ -71,48 +62,5 @@ public class FragmentPage1 extends Fragment {
         });
 
         return viewGroup;
-    }
-
-    /*public void startActivityForResult(Intent intent, int requestCode, @Nullable Intent data) {
-        switch (requestCode) {
-            case CODE:
-                ItemData itemData = new ItemData(R.drawable.family,"제목", "내용");
-                *//*itemData.setFamilyphoto(data.getStringExtra("groupName"));*//*
-                itemData.setTitle(data.getStringExtra("groupContents"));
-                itemData.setContent(data.getStringExtra("groupNumbers"));
-                setString(getContext(),"rebuild",data.getStringExtra("groupName"));
-                setString(getContext(),"number",data.getStringExtra("groupNumbers"));
-                arrayList.add(itemData);
-                recycleAdapter.notifyDataSetChanged();
-        }
-    }*/
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        switch (requestCode) {
-            case CODE:
-                ItemData itemData = new ItemData(R.id.list_insert_family_image, "제목", "내용");
-
-//                PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
-//                PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
-//                PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
-
-                bm = byteArrayToBitmap(data.getByteArrayExtra("Enroll_user_image"));
-                Log.d("Test","값없움???"+bm);
-                Page1_family_picture.setImageBitmap(bm);
-
-                Log.d("Test","값들어감?"+bm);
-
-                itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));
-                itemData.setTitle(data.getStringExtra("addTitle"));
-                itemData.setContent(data.getStringExtra("addContent"));
-                arrayList.add(itemData);
-                recycleAdapter.notifyDataSetChanged();
-                break;
-        }
-    }
-    public Bitmap byteArrayToBitmap(byte[] $byteArray ) {
-        Bitmap bitmap = BitmapFactory.decodeByteArray( $byteArray, 0, $byteArray.length ) ;
-        return bitmap ;
     }
 }
