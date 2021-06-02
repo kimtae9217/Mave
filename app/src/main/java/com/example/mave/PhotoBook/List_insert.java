@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mave.R;
+import com.example.mave.activities.MainActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -96,6 +97,10 @@ public class List_insert extends AppCompatActivity {
                             newPost.child("image").setValue(task.getResult().toString());
 
                             progressDialog.dismiss();
+
+                            Intent intent = new Intent(List_insert.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         });
                     });
                 }

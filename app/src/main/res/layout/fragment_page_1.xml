@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:id="@+id/photolist"
+        android:id="@+id/photolist_recyclerview"
         android:background="#F0F0F0" />
 
     <LinearLayout

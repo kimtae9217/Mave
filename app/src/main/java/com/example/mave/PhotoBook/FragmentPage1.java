@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,35 +23,48 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mave.Dto.groupDto.FindGroupResponse;
 import com.example.mave.PreferenceManager;
 import com.example.mave.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class FragmentPage1 extends Fragment {
 
 
     final static int CODE = 1;
-    private ArrayList<ItemData> arrayList;
-    private MyRecyclerAdapter recycleAdapter;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
-    private GridLayoutManager gridLayoutManager;
     ViewGroup viewGroup;
-    TextView Page1_content, Page1_title;
-    ImageView Page1_family_picture;
-    String Image;
-    Bitmap bm;
-
+    FirebaseDatabase mDatabase;
+    DatabaseReference mRef;
+    FirebaseStorage mStorage;
+    RecyclerView recyclerView;
+    MyRecyclerAdapter myRecyclerAdapter;
+    List<ItemData> itemdata;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
+        mDatabase = FirebaseDatabase.getInstance(); // firebaseDatabase 인스턴스 생성
+        mRef = mDatabase.getReference().child("mave"); // 생성된 database 를 참조하는 ref 생성
+        mStorage = FirebaseStorage.getInstance(); // firebaseStorage 인스턴스 생성
+        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        itemdata = new ArrayList<ItemData>();
+        myRecyclerAdapter = new MyRecyclerAdapter(getActivity(),itemdata);
+        recyclerView.setAdapter(myRecyclerAdapter);
 
         Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
         button.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +72,40 @@ public class FragmentPage1 extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), List_insert.class);
                 startActivityForResult(intent, CODE);
+
             }
         });
+
+        mRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
+                ItemData itemData = snapshot.getValue(ItemData.class);
+                itemdata.add(itemData);
+                myRecyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
         return viewGroup;
     }
