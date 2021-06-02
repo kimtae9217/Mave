@@ -55,7 +55,7 @@ public class FragmentPage2 extends Fragment {
     private Animation fab_open, fab_close;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
-    private TextView DiaryName;
+    private TextView DiaryName,diaryDate;
     private ImageView flower;
     final int[] flower_num = {R.drawable.state_1, R.drawable.state_2, R.drawable.state_3, R.drawable.state_4, R.drawable.state_5, R.drawable.yellowflower};
 
@@ -71,12 +71,10 @@ public class FragmentPage2 extends Fragment {
         fab1 = (FloatingActionButton) viewGroup.findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) viewGroup.findViewById(R.id.fab2);
         DiaryName = (TextView) viewGroup.findViewById(R.id.diarytitle);
+        diaryDate = (TextView) viewGroup.findViewById(R.id.diaryDate);
         flower = (ImageView) viewGroup.findViewById(R.id.diary_flower);
 
         flower.setVisibility(View.INVISIBLE);
-
-
-
 
 
         // 가입된 그룹이 있는지 찾아온다.
@@ -109,6 +107,7 @@ public class FragmentPage2 extends Fragment {
                             @Override
                             public void onPositiveClicked(String diaryname) {
                                 DiaryName.setText(diaryname);
+                                diaryDate.setText(" D + 1 ");
                                 flower.setVisibility(View.VISIBLE);
                                 flower.setImageResource(flower_num[0]);
                             }
@@ -127,7 +126,8 @@ public class FragmentPage2 extends Fragment {
                 FloatingButton3.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "다이어리에 초대", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "그룹 id = " + GroupRepository.getInstance().getGroupId(), Toast.LENGTH_SHORT).show();
+
                         anim();
                     }
                 });
@@ -135,7 +135,7 @@ public class FragmentPage2 extends Fragment {
         });
 
 
-        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.diary);
+        ImageButton button = (ImageButton) viewGroup.findViewById(R.id.diary);
 
         button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
             @Override
@@ -164,7 +164,7 @@ public class FragmentPage2 extends Fragment {
             flower.setImageResource(R.drawable.state_3);
         } else if (level == 4) {
             flower.setImageResource(R.drawable.state_4);
-        } else if (level >= 5) {
+        } else if (level > 5) {
             flower.setImageResource(R.drawable.state_5);
         }
         return viewGroup;
@@ -190,16 +190,33 @@ public class FragmentPage2 extends Fragment {
                 if (response.isSuccessful()) {
                     FindGroupResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
+                  
                     if(body.getGroupName() != null) {
+                        GroupRepository.getInstance().setGroupId(body.getGroupId());
+
                         GroupRepository.getInstance().setGroupName(body.getGroupName());
                         GroupRepository.getInstance().setFlowerStatus(body.getFlowerStatus());
+                        GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
+
+                        Log.d(TAG,"Day가 바뀌었나 !? - "  + body.getDateChanged());
+
+                        if(body.getDateChanged()){
+                            Page2_sub.isAlarmed = false;
+                            Page2_sub.isCalled = false;
+                        }
+
                         DiaryName.setText(GroupRepository.getInstance().getGroupName());
                         flower.setVisibility(View.VISIBLE);
                         flower.setImageResource(flower_num[GroupRepository.getInstance().getFlowerStatus()]);
                         LocalDateTime parse = LocalDateTime.parse(body.getQuestionTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         LocalTime questionTime = LocalTime.of(parse.getHour(), parse.getMinute());
+
+
                         Log.d(TAG,"설정 시간은 !? - " + questionTime );
                         Log.d(TAG,"D-day는 !? - " + body.getDiaryDate());
+
+
+                        diaryDate.setText(" D + " + body.getDiaryDate());
 
                     }
 
@@ -216,14 +233,13 @@ public class FragmentPage2 extends Fragment {
         });
     }
 
+    
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
-
 
     public void anim() {
 

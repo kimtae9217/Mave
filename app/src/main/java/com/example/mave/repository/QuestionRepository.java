@@ -12,7 +12,6 @@ public class QuestionRepository {
     private static Map<String, List<String>> questionInfo = new HashMap<>();
     private static Map<String, String> todayQuestionInfo = new HashMap<>();
 
-    ArrayList<String> questionList = new ArrayList<>();
 
     private QuestionRepository() {
     }
@@ -28,5 +27,13 @@ public class QuestionRepository {
    public void setTodayQuestion(String questionContent){
        todayQuestionInfo.put("questionContent",questionContent);
 
+   }
+
+   public void setQuestionList(List<String> questionList){
+        questionInfo.put("questionList", questionList);
+   }
+
+   public List<String> getQuestionList(){
+        return questionInfo.get("questionList");
    }
 }

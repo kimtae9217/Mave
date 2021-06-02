@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Fragment fragment;
     LocalTime questionTime;
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         questionTime = GroupRepository.getInstance().getQuestionTime();
+
 
         Intent intent = getIntent();
         if(intent != null) {//푸시알림을 선택해서 실행한것이 아닌경우 예외처리
