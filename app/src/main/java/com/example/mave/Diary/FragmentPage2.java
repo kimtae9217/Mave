@@ -75,6 +75,10 @@ public class FragmentPage2 extends Fragment {
 
         flower.setVisibility(View.INVISIBLE);
 
+
+
+
+
         // 가입된 그룹이 있는지 찾아온다.
         findGroup();
 
