@@ -32,7 +32,8 @@
                 android:layout_height="220dp"
                 android:fontFamily="@font/yanolja"
                 android:gravity="center"
-                android:text="1단계"
+                android:text="1단계
+                                      우측[->]으로 넘기세요"
                 android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,8 @@
 
                 android:fontFamily="@font/yanolja"
                 android:gravity="center"
-                android:text="2단계"
+                android:text="2단계
+                                      우측[->]으로 넘기세요"
                 android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +97,8 @@
 
                 android:fontFamily="@font/yanolja"
                 android:gravity="center"
-                android:text="3단계"
+                android:text="3단계
+                                      우측[->]으로 넘기세요"
                 android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +128,8 @@
                 android:layout_height="220dp"
                 android:fontFamily="@font/yanolja"
                 android:gravity="center"
-                android:text="4단계"
+                android:text="4단계
+                                      우측[->]으로 넘기세요"
                 android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,36 +1,18 @@
 package com.example.mave.PhotoBook;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.mave.Dto.groupDto.FindGroupResponse;
-import com.example.mave.PreferenceManager;
 import com.example.mave.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,11 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
+
 public class FragmentPage1 extends Fragment {
 
 
     final static int CODE = 1;
     ViewGroup viewGroup;
+
     FirebaseDatabase mDatabase;
     DatabaseReference mRef;
     FirebaseStorage mStorage;
@@ -104,9 +88,6 @@ public class FragmentPage1 extends Fragment {
 
             }
         });
-
-
-
         return viewGroup;
     }
 }

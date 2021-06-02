@@ -120,9 +120,9 @@ public class Page2_sub_answer extends AppCompatActivity {
                     dig_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dig_2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dig_2.show();
+                    count = 0;
                 }
                 adapter.notifyDataSetChanged();
-
             }
         });
     }
