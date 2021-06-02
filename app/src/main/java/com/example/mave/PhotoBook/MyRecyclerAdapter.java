@@ -1,7 +1,7 @@
 package com.example.mave.PhotoBook;
 
+
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,58 +12,55 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mave.R;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.CustomViewHolder> {
+public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
 
-    private Context context;
-    private ArrayList<ItemData> arrayList;
+    Context context;
+    List<ItemData> itemdata;
 
-    public MyRecyclerAdapter(ArrayList<ItemData> arrayList) {
-        this.arrayList = arrayList;
+    public MyRecyclerAdapter(Context context, List<ItemData> familyPhoto) {
+        this.context = context;
+        this.itemdata = familyPhoto;
     }
 
     @NonNull
     @Override
-    public MyRecyclerAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent,false);
-        CustomViewHolder holder = new CustomViewHolder(view);
-        context = parent.getContext();
-        return holder;
+    public MyRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent,false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyRecyclerAdapter.CustomViewHolder holder, int position) {
-        holder.familypicture.setImageResource(arrayList.get(position).getFamilyphoto());
-        holder.content.setText(arrayList.get(position).getContent());
-        holder.title.setText(arrayList.get(position).getTitle());
+    public void onBindViewHolder(@NonNull MyRecyclerAdapter.ViewHolder holder, int position) {
+        ItemData itemData = itemdata.get(position);
+        holder.tvTitle.setText(itemData.getTitle());
+        holder.tvContent.setText(itemData.getContent());
 
-        holder.itemView.setTag(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), FragmentPage1.class);
-                context.startActivity(intent);
-            }
-        });
+        String imageUri = null;
+        imageUri = itemData.getImage();
+        Picasso.get().load(imageUri).into(holder.imageView);
     }
+
     @Override
     public int getItemCount() {
-        return (null != arrayList? arrayList.size():0);
+        return itemdata.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView familypicture;
-        protected TextView content;
-        protected TextView title;
+        ImageView imageView;
+        TextView tvTitle, tvContent;
 
-        public CustomViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            this.familypicture = (ImageView)itemView.findViewById(R.id.list_item_familypicture);
-            this.content = (TextView)itemView.findViewById(R.id.list_item_content);
-            this.title = (TextView)itemView.findViewById(R.id.list_item_title);
+
+            imageView = itemView.findViewById(R.id.list_item_familypicture);
+            tvTitle = itemView.findViewById(R.id.list_item_title);
+            tvContent = itemView.findViewById(R.id.list_item_content);
+
         }
     }
 }

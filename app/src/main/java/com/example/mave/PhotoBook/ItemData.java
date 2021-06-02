@@ -1,34 +1,29 @@
 package com.example.mave.PhotoBook;
 
 public class ItemData {
-    private int Item_Data_family_photo;
-    private String Item_Data_txt_content;
-    private String Item_Data_txt_title;
+    String image;
+    String Title;
+    String Content;
 
-    public ItemData(int familyphoto, String title, String content) {
-        this.Item_Data_family_photo = familyphoto;
-        this.Item_Data_txt_title = title;
-        this.Item_Data_txt_content = content;
+    public ItemData(){
+
     }
 
-    public int getFamilyphoto() { return Item_Data_family_photo; }
+    public ItemData(String title, String content, String image) {
+        Title = title;
+        Content = content;
+        this.image = image;
+    }
 
-    public void setFamilyphoto(String image) { this.Item_Data_family_photo = Item_Data_family_photo; }
+    public String getImage() {
+        return image;
+    }
 
     public String getTitle() {
-        return Item_Data_txt_title;
-    }
-
-    public void setTitle(String title) {
-        this.Item_Data_txt_title = title;
+        return Title;
     }
 
     public String getContent() {
-        return Item_Data_txt_content;
+        return Content;
     }
-
-    public void setContent(String content) {
-        this.Item_Data_txt_content = content;
-    }
-
 }
