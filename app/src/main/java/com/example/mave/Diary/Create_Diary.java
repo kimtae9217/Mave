@@ -109,10 +109,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
                                 requestCreateGroup(hourOfDay, minute);
 
-
                                 Log.d(TAG, "초기 질문 생성 !! - ");
-
-
 
                                 Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
                             }

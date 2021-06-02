@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,44 +23,48 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mave.Dto.groupDto.FindGroupResponse;
 import com.example.mave.PreferenceManager;
 import com.example.mave.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class FragmentPage1 extends Fragment {
 
 
     final static int CODE = 1;
-    private ArrayList<ItemData> arrayList;
-    private MyRecyclerAdapter recycleAdapter;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
-    private GridLayoutManager gridLayoutManager;
     ViewGroup viewGroup;
-    TextView Page1_content, Page1_title;
-    ImageView Page1_family_picture;
-    String Image;
-    Bitmap bm;
-
+    FirebaseDatabase mDatabase;
+    DatabaseReference mRef;
+    FirebaseStorage mStorage;
+    RecyclerView recyclerView;
+    MyRecyclerAdapter myRecyclerAdapter;
+    List<ItemData> itemdata;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
-        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist);
-        Page1_content = (TextView) viewGroup.findViewById(R.id.list_item_content);
-        Page1_title = (TextView) viewGroup.findViewById(R.id.list_item_title);
-        Page1_family_picture = (ImageView) viewGroup.findViewById(R.id.list_insert_family_image);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        arrayList = new ArrayList<>();
-        recycleAdapter = new MyRecyclerAdapter(arrayList);
-        recyclerView.setAdapter(recycleAdapter);
+        mDatabase = FirebaseDatabase.getInstance(); // firebaseDatabase 인스턴스 생성
+        mRef = mDatabase.getReference().child("mave"); // 생성된 database 를 참조하는 ref 생성
+        mStorage = FirebaseStorage.getInstance(); // firebaseStorage 인스턴스 생성
+        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        itemdata = new ArrayList<ItemData>();
+        myRecyclerAdapter = new MyRecyclerAdapter(getActivity(),itemdata);
+        recyclerView.setAdapter(myRecyclerAdapter);
 
         Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
         button.setOnClickListener(new View.OnClickListener() {
@@ -67,52 +72,41 @@ public class FragmentPage1 extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), List_insert.class);
                 startActivityForResult(intent, CODE);
+
             }
         });
 
+        mRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
+                ItemData itemData = snapshot.getValue(ItemData.class);
+                itemdata.add(itemData);
+                myRecyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
         return viewGroup;
-    }
-
-    /*public void startActivityForResult(Intent intent, int requestCode, @Nullable Intent data) {
-        switch (requestCode) {
-            case CODE:
-                ItemData itemData = new ItemData(R.drawable.family,"제목", "내용");
-                *//*itemData.setFamilyphoto(data.getStringExtra("groupName"));*//*
-                itemData.setTitle(data.getStringExtra("groupContents"));
-                itemData.setContent(data.getStringExtra("groupNumbers"));
-                setString(getContext(),"rebuild",data.getStringExtra("groupName"));
-                setString(getContext(),"number",data.getStringExtra("groupNumbers"));
-                arrayList.add(itemData);
-                recycleAdapter.notifyDataSetChanged();
-        }
-    }*/
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        switch (requestCode) {
-            case CODE:
-                ItemData itemData = new ItemData(R.id.list_insert_family_image, "제목", "내용");
-
-//                PreferenceManager.setString(getContext(), "Enroll_user_image", data.getStringExtra("Image"));
-//                PreferenceManager.setString(getContext(), "addTitle", data.getStringExtra("Title"));
-//                PreferenceManager.setString(getContext(), "addContent", data.getStringExtra("Content"));
-
-                bm = byteArrayToBitmap(data.getByteArrayExtra("Enroll_user_image"));
-                Log.d("Test","값없움???"+bm);
-                Page1_family_picture.setImageBitmap(bm);
-
-                Log.d("Test","값들어감?"+bm);
-
-                itemData.setFamilyphoto((data.getStringExtra("Enroll_user_image")));
-                itemData.setTitle(data.getStringExtra("addTitle"));
-                itemData.setContent(data.getStringExtra("addContent"));
-                arrayList.add(itemData);
-                recycleAdapter.notifyDataSetChanged();
-                break;
-        }
-    }
-    public Bitmap byteArrayToBitmap(byte[] $byteArray ) {
-        Bitmap bitmap = BitmapFactory.decodeByteArray( $byteArray, 0, $byteArray.length ) ;
-        return bitmap ;
     }
 }

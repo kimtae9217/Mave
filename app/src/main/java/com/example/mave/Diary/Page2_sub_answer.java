@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class Page2_sub_answer extends AppCompatActivity {
     private ImageView flower;
     private Context mContext;
     private TextView TodayQuestion;
+    private ImageButton calendar;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -71,6 +73,7 @@ public class Page2_sub_answer extends AppCompatActivity {
         flower = (ImageView) findViewById(R.id.diary_flower);
         TodayQuestion = (TextView) findViewById(R.id.todayQuestion);
         //btn_custom = (Button) findViewById(R.id.customquestion);
+        calendar = (ImageButton) findViewById(R.id.imageButton2);
         mContext = this;
         Intent intent = getIntent();
         String todayQuestion = intent.getStringExtra("todayQuestion");
@@ -85,13 +88,17 @@ public class Page2_sub_answer extends AppCompatActivity {
         Log.d(TAG,"답변 화면 - 답변 가져오자!!");
         takeAllAnswer(adapter);
 
-//        if(listView != null) {
-//            Level_Up_Dialog dig = new Level_Up_Dialog(getApplication(), Level_Up_Dialog.class);
-//            // 커스텀 다이얼로그 배경 투명
-//            dig.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dig.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//            dig.show();
-//        }
+        /*calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Level_Up_Dialog dig_2 = new Level_Up_Dialog(Page2_sub_answer.this, Level_Up_Dialog.class);
+                // 커스텀 다이얼로그 배경 투명
+                dig_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dig_2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dig_2.show();
+            }
+        });*/
+
 
         // 데이터 추가하기
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +114,13 @@ public class Page2_sub_answer extends AppCompatActivity {
                 editor.putInt("addcount", count);
                 editor.commit();*/
                 PreferenceManager.setInt(mContext, "test", count);
+                if(count > 3) {
+                    Level_Up_Dialog dig_2 = new Level_Up_Dialog(Page2_sub_answer.this, Level_Up_Dialog.class);
+                    // 커스텀 다이얼로그 배경 투명
+                    dig_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dig_2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dig_2.show();
+                }
                 adapter.notifyDataSetChanged();
 
             }

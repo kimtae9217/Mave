@@ -1,61 +1,79 @@
 package com.example.mave.PhotoBook;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
-import android.view.LayoutInflater;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mave.PreferenceManager;
 import com.example.mave.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class List_item extends AppCompatActivity {
-    GridLayout container;
-    TextView List_item_title, List_item_content;
-    ImageView List_item_family_picture;
-    Context mcontext;
-    Bitmap bm;
-    private static final int REQUEST_CODE = 0;
+
+    ViewGroup viewGroup;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mRef;
+    FirebaseStorage mStorage;
+    RecyclerView recyclerView;
+    MyRecyclerAdapter myRecyclerAdapter;
+    List<ItemData> itemdata;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        mDatabase = FirebaseDatabase.getInstance(); // firebaseDatabase 인스턴스 생성
+        mRef = mDatabase.getReference().child("mave"); // 생성된 database 를 참조하는 ref 생성
+        mStorage = FirebaseStorage.getInstance(); // firebaseStorage 인스턴스 생성
+        recyclerView = (RecyclerView) viewGroup.findViewById(R.id.photolist_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        itemdata = new ArrayList<ItemData>();
+        myRecyclerAdapter = new MyRecyclerAdapter(this, itemdata);
+        recyclerView.setAdapter(myRecyclerAdapter);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page_1);
-        container = (GridLayout) findViewById(R.id.photolist);
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.list_item, container, true);
+        mRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
+                ItemData itemData = snapshot.getValue(ItemData.class);
+                itemdata.add(itemData);
+                myRecyclerAdapter.notifyDataSetChanged();
+            }
 
-        mcontext = this;
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-        List_item_title = (TextView)findViewById(R.id.list_item_title);
-        List_item_content = (TextView)findViewById(R.id.list_item_content);
-//        List_item_family_picture = (ImageView) findViewById(R.id.list_item_familypicture);
-        bm = StringToBitmap(getIntent().getStringExtra("Enroll_user_image"));
-        List_item_family_picture.setImageBitmap(bm);
-        List_item_title.setText(""+ PreferenceManager.getString(mcontext,"addTitle"));
-        List_item_content.setText(""+PreferenceManager.getString(mcontext,"addContent"));
-    }
-    public static Bitmap StringToBitmap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
