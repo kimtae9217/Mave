@@ -76,9 +76,6 @@ public class FragmentPage2 extends Fragment {
         flower.setVisibility(View.INVISIBLE);
 
 
-
-
-
         // 가입된 그룹이 있는지 찾아온다.
         findGroup();
 
@@ -135,7 +132,7 @@ public class FragmentPage2 extends Fragment {
         });
 
 
-        ImageButton button = (ImageButton)viewGroup.findViewById(R.id.diary);
+        ImageButton button = (ImageButton) viewGroup.findViewById(R.id.diary);
 
         button.setOnClickListener(new OnClickListener() { // 다이어리를 눌렀을 때 이벤트
             @Override
@@ -164,7 +161,7 @@ public class FragmentPage2 extends Fragment {
             flower.setImageResource(R.drawable.state_3);
         } else if (level == 4) {
             flower.setImageResource(R.drawable.state_4);
-        } else if (level >= 5) {
+        } else if (level > 5) {
             flower.setImageResource(R.drawable.state_5);
         }
         return viewGroup;
@@ -190,7 +187,7 @@ public class FragmentPage2 extends Fragment {
                 if (response.isSuccessful()) {
                     FindGroupResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
-                    if(body.getGroupName() != null) {
+                    if (body.getGroupName() != null) {
                         GroupRepository.getInstance().setGroupName(body.getGroupName());
                         GroupRepository.getInstance().setFlowerStatus(body.getFlowerStatus());
                         DiaryName.setText(GroupRepository.getInstance().getGroupName());
@@ -198,8 +195,8 @@ public class FragmentPage2 extends Fragment {
                         flower.setImageResource(flower_num[GroupRepository.getInstance().getFlowerStatus()]);
                         LocalDateTime parse = LocalDateTime.parse(body.getQuestionTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         LocalTime questionTime = LocalTime.of(parse.getHour(), parse.getMinute());
-                        Log.d(TAG,"설정 시간은 !? - " + questionTime );
-                        Log.d(TAG,"D-day는 !? - " + body.getDiaryDate());
+                        Log.d(TAG, "설정 시간은 !? - " + questionTime);
+                        Log.d(TAG, "D-day는 !? - " + body.getDiaryDate());
 
                     }
 
@@ -220,10 +217,7 @@ public class FragmentPage2 extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
-
 
     public void anim() {
 

@@ -110,6 +110,8 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                                 GroupRepository instance = GroupRepository.getInstance();
                                 // 질문 받을 시간 내부 db에 저장
                                 instance.setQuestionTime(questionTime);
+                                instance.setuser_Set_hour(hourOfDay);
+                                instance.setuser_Set_minute(minute);
 
                                 Log.d(TAG, "질문 받을 시간은 !? - " + instance.getQuestionTime().toString());
 
