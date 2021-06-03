@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.royrodriguez.transitionbutton.utils.WindowUtils;
 
 
 public class FragmentPage1 extends Fragment {
@@ -45,6 +46,7 @@ public class FragmentPage1 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        WindowUtils.makeStatusbarTransparent(getActivity());
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
         mDatabase = FirebaseDatabase.getInstance(); // firebaseDatabase 인스턴스 생성
         mRef = mDatabase.getReference().child("mave"); // 생성된 database 를 참조하는 ref 생성

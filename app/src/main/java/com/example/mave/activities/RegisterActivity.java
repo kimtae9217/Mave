@@ -15,6 +15,7 @@ import com.example.mave.Dto.memeberDto.JoinMemberRequest;
 import com.example.mave.Dto.memeberDto.JoinMemberResponse;
 import com.example.mave.R;
 import com.example.mave.service.MemberRetrofitService;
+import com.royrodriguez.transitionbutton.utils.WindowUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
+        WindowUtils.makeStatusbarTransparent(this);
 
         registerBtn = findViewById(R.id.registerBtn);
         userID = findViewById(R.id.userID);

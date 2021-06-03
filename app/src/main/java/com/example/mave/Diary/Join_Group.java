@@ -105,6 +105,7 @@ public class Join_Group extends Dialog implements View.OnClickListener {
                     getContext().startActivity(intent);
 
 
+
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
                     Toast.makeText(getContext(),"찾으시는 그룹이 없습니다 ㅠㅠ",Toast.LENGTH_SHORT).show();

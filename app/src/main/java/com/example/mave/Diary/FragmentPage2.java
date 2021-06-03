@@ -32,6 +32,7 @@ import com.example.mave.repository.GroupRepository;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.GroupRetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.royrodriguez.transitionbutton.utils.WindowUtils;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -47,6 +48,7 @@ public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
 
+
     public static Boolean isJoined = false;
     public static Boolean isChanged = false;
 
@@ -55,7 +57,7 @@ public class FragmentPage2 extends Fragment {
     private FloatingActionButton fab, fab1, fab2;
     private TextView DiaryName, diaryDate;
     private ImageView flower;
-    final int[] flower_num = {R.drawable.state_1, R.drawable.state_2, R.drawable.state_3, R.drawable.state_4, R.drawable.state_5, R.drawable.yellowflower};
+    final int[] flower_num = {R.drawable.state_1, R.drawable.state_2, R.drawable.state_3, R.drawable.state_4, R.drawable.state_5, R.drawable.state_6,R.drawable.state_7,R.drawable.state_8};
 
 
     @Nullable
@@ -63,6 +65,7 @@ public class FragmentPage2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         setHasOptionsMenu(true);
+        WindowUtils.makeStatusbarTransparent(getActivity());
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_2, container, false);
         fab_open = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
@@ -156,30 +159,7 @@ public class FragmentPage2 extends Fragment {
             }
         });
 
-        //int level = sf.getInt("ansewercount", 0);
-        int level = PreferenceManager.getInt(getContext(), "test");
-        if (level == 1) {
-            flower.setImageResource(R.drawable.state_1);
-        } else if (level == 2) {
-            flower.setImageResource(R.drawable.state_2);
-        } else if (level == 3) {
-            flower.setImageResource(R.drawable.state_3);
-        } else if (level == 4) {
-            flower.setImageResource(R.drawable.state_4);
-        } else if (level > 5) {
-            flower.setImageResource(R.drawable.state_5);
-        }
         return viewGroup;
-    }
-
-    private void firstComeCheck() {
-        if (GroupRepository.getInstance().getGroupName() == null) {
-
-        } else {
-            findGroup();
-
-
-        }
     }
 
     private void findGroup() {

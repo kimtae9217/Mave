@@ -21,6 +21,7 @@ import com.example.mave.Settings.FragmentPage3;
 import com.example.mave.R;
 import com.example.mave.repository.GroupRepository;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.royrodriguez.transitionbutton.utils.WindowUtils;
 
 import java.time.LocalTime;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowUtils.makeStatusbarTransparent(this);
 
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
