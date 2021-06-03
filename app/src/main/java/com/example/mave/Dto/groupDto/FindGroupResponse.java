@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class FindGroupResponse {
+    @SerializedName("groupId")
+    private Long groupId;
     @SerializedName("groupName")
     private String groupName;
     @SerializedName("flowerCount")
@@ -15,18 +17,31 @@ public class FindGroupResponse {
     @SerializedName("questionTime")
     private String questionTime;
     @SerializedName("diaryDate")
-    private int diaryDate;
+    private Long diaryDate;
+    @SerializedName("isDateChanged")
+    private Boolean isDateChanged;
+
 
 
     public FindGroupResponse() {
     }
 
-    public FindGroupResponse(String groupName, int flowerCount, int flowerStatus, String questionTime, int diaryDate) {
+    public FindGroupResponse(Long groupId, String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate, Boolean isDateChanged) {
+        this.groupId = groupId;
         this.groupName = groupName;
         this.flowerCount = flowerCount;
         this.flowerStatus = flowerStatus;
         this.questionTime = questionTime;
         this.diaryDate = diaryDate;
+        this.isDateChanged = isDateChanged;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getGroupName() {
@@ -61,11 +76,19 @@ public class FindGroupResponse {
         this.questionTime = questionTime;
     }
 
-    public int getDiaryDate() {
+    public Long getDiaryDate() {
         return diaryDate;
     }
 
-    public void setDiaryDate(int diaryDate) {
+    public void setDiaryDate(Long diaryDate) {
         this.diaryDate = diaryDate;
+    }
+
+    public Boolean getDateChanged() {
+        return isDateChanged;
+    }
+
+    public void setDateChanged(Boolean dateChanged) {
+        isDateChanged = dateChanged;
     }
 }

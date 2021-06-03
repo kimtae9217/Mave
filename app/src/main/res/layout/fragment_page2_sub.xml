@@ -56,24 +56,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/alarm"
-                android:textSize="20sp"
-                android:fontFamily="@font/app_main_font"
-                android:id="@+id/notifi"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:baselineAligned="false">
 
@@ -99,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="15sp"
-        android:backgroundTint="#9500ff"
-        android:src="@drawable/settings"
+        android:backgroundTint="#B48FEF"
+        android:src="@drawable/floating_pencil"
         android:contentDescription="@string/todo" />
 </FrameLayout>

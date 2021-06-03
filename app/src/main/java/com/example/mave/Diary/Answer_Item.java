@@ -2,8 +2,9 @@ package com.example.mave.Diary;
 
 public class Answer_Item {
 
+    private String userId;
     private String Answer;
-    private int Answer_Count;
+
 
     public void setAnswer(String answer) {
         this.Answer = answer;
@@ -13,4 +14,11 @@ public class Answer_Item {
         return Answer;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

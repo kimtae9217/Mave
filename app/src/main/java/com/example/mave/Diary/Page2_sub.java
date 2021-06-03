@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import com.example.mave.CreateRetrofit;
+import com.example.mave.Dto.questionDto.TakeAllQuestionRequest;
+import com.example.mave.Dto.questionDto.TakeAllQuestionResponse;
 import com.example.mave.Dto.questionDto.TakeQuestionRequest;
 import com.example.mave.Dto.questionDto.TakeQuestionResponse;
 import com.example.mave.R;
@@ -32,6 +34,9 @@ import com.example.mave.service.QuestionRetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,15 +46,20 @@ import static com.example.mave.Diary.Create_Diary.TAG;
 
 public class Page2_sub extends AppCompatActivity {
 
-    LocalTime questionTime;
-    static Boolean isCalled = false;
-    static Boolean isAlarmed = false;
 
+    public static Boolean isCalled = false;
+    public static Boolean isAlarmed = false;
+
+    private LocalTime questionTime;
+    private TextView todayQuestion;
     private ListView listView;
     private ListViewAdapterForSub2 adapter;
     private Context mContext;
+    GroupRepository groupDB;
+    QuestionRepository questionDB;
 
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -64,17 +74,19 @@ public class Page2_sub extends AppCompatActivity {
         adapter = new ListViewAdapterForSub2(Page2_sub.this);
         listView.setAdapter(adapter);
 
+        groupDB = GroupRepository.getInstance();
+        questionDB = QuestionRepository.getInstance();
+
 
 //        adapter.addItem(변수); << 아답타에 아이템 넣는 코드
 //        adapter.notifyDataSetChanged(); << 아답타 새로고침 해주는 기능
 
-        TextView todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
-        Button notibutton = (Button) findViewById(R.id.notifi);
+        todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
 
         questionTimeCheck();
 
         // 질문을 받아왔는지 체크
-        isCalledCheck(todayQuestion);
+        isCalledCheck();
 
 
         todayQuestion.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +99,6 @@ public class Page2_sub extends AppCompatActivity {
             }
         });
 
-        notibutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionTimeCheck();
-
-            }
-        });
 
         FloatingActionButton FloatingButton = (FloatingActionButton) findViewById(R.id.customquestion);
         FloatingButton.setOnClickListener(new View.OnClickListener() { //플로팅버튼 눌렀을 때 이벤트
@@ -120,51 +125,41 @@ public class Page2_sub extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void isAlarmCheck() {
-        if (!isAlarmed) {
-            Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isAlarmed));
-            NotificationSomethings();
-            isAlarmed = true;
-        } else {
-            Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isCalled));
-
-        }
-    }
-
-    private void isCalledCheck(TextView todayQuestion) {
-        if (!isCalled) {
-            Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
-            questionRequest(todayQuestion);
-            isCalled = true;
-        } else {
-            Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
-
-            todayQuestion.setText(QuestionRepository.getInstance().getTodayQuestion());
-        }
-    }
-
-    private void questionRequest(TextView todayQuestion) {
+    private void allQuestionRequest(Long questionNumber) {
         // 서버에서 질문 받아오기
-        GroupRepository instance = GroupRepository.getInstance();
+        GroupRepository groupDB = GroupRepository.getInstance();
+        QuestionRepository questionDB = QuestionRepository.getInstance();
         QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
 
-        Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + instance.getGroupId().toString());
-        Log.d(TAG, "우리 그룹은 며칠째인가!? - " + instance.getDiaryDate().toString());
+        Log.d(TAG, "질문 받아옵니다!!");
+        Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + groupDB.getGroupId().toString());
+        Log.d(TAG, "우리 그룹은 며칠째인가!? - " + questionNumber);
 
-        TakeQuestionRequest request = new TakeQuestionRequest(instance.getGroupId());
-        Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(instance.getDiaryDate(), request);
+        TakeAllQuestionRequest request = new TakeAllQuestionRequest(groupDB.getGroupId());
+        Call<List<TakeAllQuestionResponse>> call = questionRetrofitService.takeAllQuestion(2l, request);
 
-        call.enqueue(new Callback<TakeQuestionResponse>() {
+        call.enqueue(new Callback<List<TakeAllQuestionResponse>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<TakeQuestionResponse> call, Response<TakeQuestionResponse> response) {
+            public void onResponse(Call<List<TakeAllQuestionResponse>> call, Response<List<TakeAllQuestionResponse>> response) {
                 if (response.isSuccessful()) {
-                    TakeQuestionResponse body = response.body();
+                    List<TakeAllQuestionResponse> body = response.body();
                     Log.d(TAG, "response 성공!!");
-                    Log.d(TAG, "오늘의 질문은 !? - " + body.getQuestionContent());
-                    QuestionRepository.getInstance().setTodayQuestion(body.getQuestionContent());
 
-                    todayQuestion.setText(body.getQuestionContent());
+                    Log.d(TAG,body.get(body.size()-1).getQuestionContent());
+                    Log.d(TAG, String.valueOf(body.size()));
+
+                    questionDB.setTodayQuestion(body.get(body.size()-1).getQuestionContent());
+                    todayQuestion.setText(questionDB.getTodayQuestion());
+
+                    List<String> questionList = new ArrayList<>();
+                    for (int i = 0; i <body.size()-1; i++) {
+                        Log.d(TAG,body.get(i).getQuestionContent());
+                        adapter.addItem(body.get(i).getQuestionContent());
+                        questionList.add(body.get(i).getQuestionContent());
+                    }
+                    adapter.notifyDataSetChanged();
+                    questionDB.setQuestionList(questionList);
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
@@ -173,55 +168,124 @@ public class Page2_sub extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TakeQuestionResponse> call, Throwable t) {
+            public void onFailure(Call<List<TakeAllQuestionResponse>> call, Throwable t) {
                 Log.d(TAG, "onFailure => " + t.getMessage());
             }
+
         });
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void questionTimeCheck() {
-        questionTime = GroupRepository.getInstance().getQuestionTime();
-        Log.d(TAG, "설정한 시간은?? - " + questionTime);
-        LocalTime nowTime = LocalTime.now();
-        Log.d(TAG, "지금 시간은?? - " + nowTime);
+            private void questionRequest(Long diaryDate) {
+                if(diaryDate ==1){
+                    return;
+                }
+                // 서버에서 질문 받아오기
+                QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
 
-        Log.d(TAG, String.valueOf(nowTime.isAfter(questionTime)));
-        if (nowTime.isAfter(questionTime)) {
-            isAlarmCheck();
-        } else {
-            Log.d(TAG, "아직 질문이 도착하지 않았습니다!"); // 아니면 말고 코드 넣으면 될 거 같습니다.
-            Toast.makeText(getApplicationContext(), "아직 질문이 도착하지 않았습니다 ㅠㅠ", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "질문 생성합니다!!");
+                Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + groupDB.getGroupId());
+                Log.d(TAG, "우리 그룹은 며칠째인가!? - " + diaryDate );
+
+                TakeQuestionRequest request = new TakeQuestionRequest(groupDB.getGroupId());
+                Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(diaryDate, request);
+
+                call.enqueue(new Callback<TakeQuestionResponse>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onResponse(Call<TakeQuestionResponse> call, Response<TakeQuestionResponse> response) {
+                        if (response.isSuccessful()) {
+                            TakeQuestionResponse body = response.body();
+                            Log.d(TAG, "response 성공!!");
+
+
+                        } else {
+                            Log.d(TAG, "response 실패 ㅠㅠ");
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<TakeQuestionResponse> call, Throwable t) {
+                        Log.d(TAG, "onFailure => " + t.getMessage());
+                    }
+                });
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            private void isAlarmCheck() {
+                if (!isAlarmed) {
+                    Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isAlarmed));
+                    NotificationSomethings();
+                    questionRequest(groupDB.getDiaryDate());
+                    allQuestionRequest(groupDB.getDiaryDate());
+                    isAlarmed = true;
+                } else {
+                    Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isCalled));
+
+                }
+            }
+
+            private void isCalledCheck() {
+                if (!isCalled) {
+                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
+                    allQuestionRequest(groupDB.getDiaryDate());
+                    isCalled = true;
+                } else {
+                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
+                    todayQuestion.setText(questionDB.getTodayQuestion());
+                    for (String question : questionDB.getQuestionList()) {
+                        adapter.addItem(question);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            private void questionTimeCheck() {
+                questionTime = GroupRepository.getInstance().getQuestionTime();
+                Log.d(TAG, "설정한 시간은?? - " + questionTime);
+                LocalTime nowTime = LocalTime.now();
+                Log.d(TAG, "지금 시간은?? - " + nowTime);
+
+                Log.d(TAG, String.valueOf(nowTime.isAfter(questionTime)));
+                if (nowTime.isAfter(questionTime)) {
+                    isAlarmCheck();
+                } else {
+                    Log.d(TAG, "아직 질문이 도착하지 않았습니다!"); // 아니면 말고 코드 넣으면 될 거 같습니다.
+                    Toast.makeText(getApplicationContext(), "아직 질문이 도착하지 않았습니다 ㅠㅠ", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            public void NotificationSomethings() {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mave_logo)) //BitMap 이미지 요구
+                        .setContentTitle("다이어리에 질문이 도착했습니다!")
+                        .setContentText("알림바를 눌러 확인하고 답장 해보세요!")
+                        // 더 많은 내용이라서 일부만 보여줘야 하는 경우 아래 주석을 제거하면 setContentText에 있는 문자열 대신 아래 문자열을 보여줌
+                        //.setStyle(new NotificationCompat.BigTextStyle().bigText("더 많은 내용을 보여줘야 하는 경우..."))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true);
+                //OREO API 26 이상에서는 채널 필요
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    builder.setSmallIcon(R.drawable.mave_logo2); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
+                    CharSequence channelName = "노티페케이션 채널";
+                    String description = "오레오 이상을 위한 것임";
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, importance);
+                    channel.setDescription(description);
+                    // 노티피케이션 채널을 시스템에 등록
+                    assert notificationManager != null;
+                    notificationManager.createNotificationChannel(channel);
+                } else
+                    builder.setSmallIcon(R.mipmap.ic_launcher); // Oreo 이하에서 mipmap 사용하지 않으면 Couldn't create icon: StatusBarIcon 에러남
+                assert notificationManager != null;
+                notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
+            }
         }
-    }
-
-    public void NotificationSomethings() {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.mave_logo)) //BitMap 이미지 요구
-                .setContentTitle("다이어리에 질문이 도착했습니다!")
-                .setContentText("알림바를 눌러 확인하고 답장 해보세요!")
-                // 더 많은 내용이라서 일부만 보여줘야 하는 경우 아래 주석을 제거하면 setContentText에 있는 문자열 대신 아래 문자열을 보여줌
-                //.setStyle(new NotificationCompat.BigTextStyle().bigText("더 많은 내용을 보여줘야 하는 경우..."))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-        //OREO API 26 이상에서는 채널 필요
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setSmallIcon(R.drawable.mave_logo2); //mipmap 사용시 Oreo 이상에서 시스템 UI 에러남
-            CharSequence channelName = "노티페케이션 채널";
-            String description = "오레오 이상을 위한 것임";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, importance);
-            channel.setDescription(description);
-            // 노티피케이션 채널을 시스템에 등록
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(channel);
-        } else
-            builder.setSmallIcon(R.mipmap.ic_launcher); // Oreo 이하에서 mipmap 사용하지 않으면 Couldn't create icon: StatusBarIcon 에러남
-        assert notificationManager != null;
-        notificationManager.notify(1234, builder.build()); // 고유숫자로 노티피케이션 동작시킴
-    }
-}
 
 
