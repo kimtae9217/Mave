@@ -3,6 +3,7 @@ package com.example.mave.Diary;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.example.mave.Dto.groupDto.CreateGroupResponse;
 import com.example.mave.Dto.questionDto.TakeQuestionRequest;
 import com.example.mave.Dto.questionDto.TakeQuestionResponse;
 import com.example.mave.R;
+import com.example.mave.activities.MainActivity;
 import com.example.mave.repository.GroupRepository;
 import com.example.mave.repository.MemberRepository;
 import com.example.mave.repository.QuestionRepository;
@@ -113,7 +115,9 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
                                 Log.d(TAG, "초기 질문 생성 !! - ");
 
-                                Toast.makeText(getContext(), hourOfDay + "시" + minute + "분", Toast.LENGTH_SHORT).show();
+
+
+
                             }
                         }, mHour, mMinute, false);
 
@@ -145,7 +149,6 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
 
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
-        MemberRepository.getInstance().setUserId("hello1");
         String userId = MemberRepository.getInstance().getUserId();
         CreateGroupRequest request = new CreateGroupRequest(userId, diaryName,format);
 
@@ -168,6 +171,9 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
 
                     GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
                     Log.d(TAG, "그룹 D-Day 내부 db에 저장 완료!");
+
+                    GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
+                    Log.d(TAG, "그룹 CompleteDate 내부 db에 저장 완료!");
 
                     questionRequest();
 
@@ -204,6 +210,10 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                     TakeQuestionResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
                     questionDB.setTodayQuestion(body.getQuestionContent());
+                    FragmentPage2.isJoined = true;
+                    Intent intent = new Intent(getContext(),MainActivity.class);
+                    getContext().startActivity(intent);
+
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");

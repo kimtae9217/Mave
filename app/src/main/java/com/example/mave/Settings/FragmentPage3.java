@@ -12,10 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mave.R;
+import com.example.mave.repository.MemberRepository;
 
 public class FragmentPage3 extends Fragment {
     ViewGroup viewGroup;
-    private TextView FlowerState;
+    private TextView FlowerState,nickName;
 
     @Nullable
     @Override
@@ -25,6 +26,9 @@ public class FragmentPage3 extends Fragment {
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_3, container, false);
 
         FlowerState = (TextView) viewGroup.findViewById(R.id.flowerState);
+        nickName = viewGroup.findViewById(R.id.NickName);
+
+        nickName.setText(MemberRepository.getInstance().getUserId());
 
         FlowerState.setOnClickListener(new View.OnClickListener() {
             @Override

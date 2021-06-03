@@ -1,10 +1,12 @@
 package com.example.mave.Diary;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mave.R;
@@ -47,6 +49,13 @@ public class ListViewAdapterForSub2 extends BaseAdapter {
         Question_Item listItem = listItems.get(position);
         // 가져온 데이터를 텍스트뷰에 입력
         txt_question.setText(listItem.getQuestion());
+//        LinearLayout question_linear = (LinearLayout)convertView.findViewById(R.id.question_linear);
+//        question_linear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("1123", "클릭된다");
+//            }
+//        });
         return convertView;
     }
 
