@@ -146,7 +146,6 @@ public class Page2_sub_answer extends AppCompatActivity {
                         dig_2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         dig_2.show();
                     } else {
-
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);

@@ -80,7 +80,6 @@ public class Page2_sub extends AppCompatActivity {
 
 
         todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
-        Button notibutton = (Button) findViewById(R.id.notifi);
 
         // 설정 시간 넘었는지 체크
         questionTimeCheck();
@@ -99,13 +98,6 @@ public class Page2_sub extends AppCompatActivity {
             }
         });
 
-        notibutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionTimeCheck();
-
-            }
-        });
 
         FloatingActionButton FloatingButton = (FloatingActionButton) findViewById(R.id.customquestion);
         FloatingButton.setOnClickListener(new View.OnClickListener() { //플로팅버튼 눌렀을 때 이벤트
@@ -163,10 +155,8 @@ public class Page2_sub extends AppCompatActivity {
                     for (int i = 1; i <body.size(); i++) {
                         Log.d(TAG,body.get(i).getQuestionContent());
                         adapter.addItem(body.get(i).getQuestionContent());
-                        questionList.add(body.get(i).getQuestionContent());
                     }
                     adapter.notifyDataSetChanged();
-                    questionDB.setQuestionList(questionList);
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
@@ -195,22 +185,6 @@ public class Page2_sub extends AppCompatActivity {
 
                 }
             }
-
-//
-//    private void isCalledCheck() {
-//                if (!isCalled) {
-//                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
-//                    allQuestionRequest(groupDB.getDiaryDate());
-//                    isCalled = true;
-//                } else {
-//                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
-//                    todayQuestion.setText(questionDB.getTodayQuestion());
-//                    for (String question : questionDB.getQuestionList()) {
-//                        adapter.addItem(question);
-//                    }
-//                    adapter.notifyDataSetChanged();
-//                }
-//            }
 
 
             @RequiresApi(api = Build.VERSION_CODES.O)

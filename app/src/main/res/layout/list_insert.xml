@@ -1,10 +1,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="4dp"
-    android:orientation="vertical">
+    android:layout_gravity="center"
+    android:background="@drawable/regtangle"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+
+    <EditText
+        android:id="@+id/addTitle"
+        android:layout_width="388dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/app_main_font"
+        android:hint="제목"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+
 
     <ImageButton
         android:id="@+id/selectImage"
@@ -12,54 +28,49 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:scaleType="centerInside"
         android:background="@android:color/transparent"
+        android:scaleType="centerInside"
         android:src="@drawable/flowerdaisy" />
+
+    <View
+        android:layout_width="388dp"
+        android:layout_marginStart="5dp"
+        android:layout_height="1dp"
+        android:background="#B8B8B8" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/addContent"
+            android:layout_width="388dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/addTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="제목"
-                android:textSize="23dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/addContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="내용"
-                android:textSize="15dp"
-                android:textColor="@android:color/darker_gray"/>
-        </LinearLayout>
-
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/app_main_font"
+            android:hint="내용"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="3dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/insertBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="398dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="입력" />
+            android:backgroundTint="#59886B"
+            android:fontFamily="@font/app_main_font"
+            android:text="입력"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

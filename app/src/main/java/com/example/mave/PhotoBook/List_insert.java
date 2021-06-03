@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class List_insert extends AppCompatActivity {
 
@@ -46,6 +47,7 @@ public class List_insert extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_insert);
+        getSupportActionBar().hide();
 
         selectImage = findViewById(R.id.selectImage);
         edtTitle = findViewById(R.id.addTitle);
@@ -82,7 +84,7 @@ public class List_insert extends AppCompatActivity {
                 final String ln = edtContent.getText().toString().trim();
 
                 if (!(fn.isEmpty() && ln.isEmpty() && imageUrl != null)){
-                    progressDialog.setTitle("업로딩중..");
+                    progressDialog.setTitle("업로딩 중..");
                     progressDialog.show();
 
                     StorageReference filepath = mStorage.getReference().child("이미지 post").child(imageUrl.getLastPathSegment());
@@ -100,7 +102,7 @@ public class List_insert extends AppCompatActivity {
 
                             Intent intent = new Intent(List_insert.this, MainActivity.class);
                             startActivity(intent);
-                            finish();
+                            List_insert.this.finish();
                         });
                     });
                 }

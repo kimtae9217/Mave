@@ -1,7 +1,5 @@
 package com.example.mave.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.memeberDto.JoinMemberRequest;
 import com.example.mave.Dto.memeberDto.JoinMemberResponse;
 import com.example.mave.R;
-import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.MemberRetrofitService;
 
 import retrofit2.Call;
@@ -34,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().hide();
 
         registerBtn = findViewById(R.id.registerBtn);
         userID = findViewById(R.id.userID);
@@ -52,15 +52,19 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JoinMemberResponse> call, Response<JoinMemberResponse> response) {
                         if (response.isSuccessful()) {
-                            JoinMemberResponse body = response.body();
-                            Log.d(TAG,"response 성공!!");
-                            Log.d(TAG,"회원가입 성공!!");
-                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                            getApplicationContext().startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
 
-                        }else{
-                            Log.d(TAG,"response 실패 ㅠㅠ");
-                            Log.d(TAG,"회원가입 실패 ㅠㅠ");
+                            JoinMemberResponse body = response.body();
+                            Log.d(TAG, "response 성공!!");
+                            Log.d(TAG, "회원가입 성공!!");
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            getApplicationContext().startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(intent);
+                            finish();
+
+
+                        } else {
+                            Log.d(TAG, "response 실패 ㅠㅠ");
+                            Log.d(TAG, "회원가입 실패 ㅠㅠ");
                             Toast.makeText(RegisterActivity.this, "다시 시도해주세요!!!", Toast.LENGTH_SHORT).show();
 
                         }
@@ -68,11 +72,19 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<JoinMemberResponse> call, Throwable t) {
-                        Log.d(TAG,"onFailure => " + t.getMessage());
+                        Log.d(TAG, "onFailure => " + t.getMessage());
                     }
                 });
 
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

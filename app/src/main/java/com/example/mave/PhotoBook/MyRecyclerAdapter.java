@@ -34,7 +34,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemData itemData = itemdata.get(position);
         holder.tvTitle.setText(itemData.getTitle());
         holder.tvContent.setText(itemData.getContent());
@@ -42,6 +42,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         String imageUri = null;
         imageUri = itemData.getImage();
         Picasso.get().load(imageUri).into(holder.imageView);
+
     }
 
     @Override
