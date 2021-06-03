@@ -68,7 +68,7 @@ public class Join_Group extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnPositive: //확인 버튼을 눌렀을 때
 
-                long groupId = Long.parseLong(String.valueOf(joinGroupId.getText()));
+                Long groupId = Long.parseLong(joinGroupId.getText().toString());
                 joinGroup(groupId);
 
                 Log.d(TAG, "그룹 가입 완료!! ");
