@@ -52,13 +52,6 @@ import java.util.ArrayList;
             txt_title.setText(listItem.getAnswer());
             txt_userId.setText(listItem.getUserId());
 
-            LinearLayout  question_linear = (LinearLayout)convertView.findViewById(R.id.question_linear);
-            question_linear.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("1123", "클릭된다");
-                }
-            });
             return convertView;
         }
 

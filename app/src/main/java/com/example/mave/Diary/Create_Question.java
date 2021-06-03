@@ -1,16 +1,11 @@
 package com.example.mave.Diary;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mave.R;
 
@@ -21,8 +16,6 @@ public class Create_Question extends Dialog implements View.OnClickListener {
     private EditText editName;
     private Context context;
     private CustomDialogListener customDialogListener;
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
 
     public Create_Question(Context context) {
         super(context);

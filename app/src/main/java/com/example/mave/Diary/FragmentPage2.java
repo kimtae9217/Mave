@@ -1,7 +1,6 @@
 package com.example.mave.Diary;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +24,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.mave.CreateRetrofit;
-import com.example.mave.Dto.groupDto.CreateGroupRequest;
-import com.example.mave.Dto.groupDto.CreateGroupResponse;
 import com.example.mave.Dto.groupDto.FindGroupResponse;
 import com.example.mave.Dto.groupDto.JoinGroupRequest;
 import com.example.mave.PreferenceManager;
@@ -44,20 +41,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.example.mave.Diary.Create_Diary.TAG;
 
 public class FragmentPage2 extends Fragment {
 
     ViewGroup viewGroup;
 
+    public static Boolean isJoined = false;
+    public static Boolean isChanged = false;
 
     private Animation fab_open, fab_close;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
-    private TextView DiaryName,diaryDate;
+    private TextView DiaryName, diaryDate;
     private ImageView flower;
     final int[] flower_num = {R.drawable.state_1, R.drawable.state_2, R.drawable.state_3, R.drawable.state_4, R.drawable.state_5, R.drawable.yellowflower};
+
 
     @Nullable
     @Override
@@ -77,11 +76,11 @@ public class FragmentPage2 extends Fragment {
         flower.setVisibility(View.INVISIBLE);
 
 
-        // 가입된 그룹이 있는지 찾아온다.
         findGroup();
 
-        // 가입된 그룹이 없다면 그룹 이름에 가입하라고 띄워준다.
-        firstComeCheck();
+        if (isJoined) {
+            fab.setVisibility(View.GONE);
+        }
 
 
         FloatingActionButton FloatingButton = (FloatingActionButton) viewGroup.findViewById(R.id.fab);
@@ -126,8 +125,11 @@ public class FragmentPage2 extends Fragment {
                 FloatingButton3.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "그룹 id = " + GroupRepository.getInstance().getGroupId(), Toast.LENGTH_SHORT).show();
-
+                        Join_Group dig_3 = new Join_Group(getActivity(), Join_Group.class);
+                        // 커스텀 다이얼로그 배경 투명
+                        dig_3.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dig_3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dig_3.show();
                         anim();
                     }
                 });
@@ -172,13 +174,17 @@ public class FragmentPage2 extends Fragment {
 
     private void firstComeCheck() {
         if (GroupRepository.getInstance().getGroupName() == null) {
-            DiaryName.setText("그룹에 가입해주세욤");
+
+        } else {
+            findGroup();
+
+
         }
     }
 
     private void findGroup() {
+
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
-        MemberRepository.getInstance().setUserId("hello1");
         String userId = MemberRepository.getInstance().getUserId();
         JoinGroupRequest request = new JoinGroupRequest(userId);
         Call<FindGroupResponse> call = groupRetrofitService.findGroup(request);
@@ -190,38 +196,41 @@ public class FragmentPage2 extends Fragment {
                 if (response.isSuccessful()) {
                     FindGroupResponse body = response.body();
                     Log.d(TAG, "response 성공!!");
-                  
-                    if(body.getGroupName() != null) {
-                        GroupRepository.getInstance().setGroupId(body.getGroupId());
 
+                    if (!isChanged) {
+                        GroupRepository.getInstance().setGroupId(body.getGroupId());
                         GroupRepository.getInstance().setGroupName(body.getGroupName());
                         GroupRepository.getInstance().setFlowerStatus(body.getFlowerStatus());
                         GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
-
-                        Log.d(TAG,"Day가 바뀌었나 !? - "  + body.getDateChanged());
-
-                        if(body.getDateChanged()){
-                            Page2_sub.isAlarmed = false;
-                            Page2_sub.isCalled = false;
-                        }
+                        GroupRepository.getInstance().setCompleteDate(body.getCompleteDate());
 
                         DiaryName.setText(GroupRepository.getInstance().getGroupName());
                         flower.setVisibility(View.VISIBLE);
                         flower.setImageResource(flower_num[GroupRepository.getInstance().getFlowerStatus()]);
+
                         LocalDateTime parse = LocalDateTime.parse(body.getQuestionTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                         LocalTime questionTime = LocalTime.of(parse.getHour(), parse.getMinute());
+                        GroupRepository.getInstance().setQuestionTime(questionTime);
 
-
-                        Log.d(TAG,"설정 시간은 !? - " + questionTime );
-                        Log.d(TAG,"D-day는 !? - " + body.getDiaryDate());
-
+                        Log.d(TAG, "설정 시간은 !? - " + questionTime);
+                        Log.d(TAG, "D-day는 !? - " + body.getDiaryDate());
 
                         diaryDate.setText(" D + " + body.getDiaryDate());
 
+                        isJoined = true;
+
                     }
+                    Log.d(TAG, "Day가 바뀌었나 !? - " + body.getDateChanged());
+
+                    if (body.getDateChanged()) {
+                        Page2_sub.isAlarmed = false;
+                        Page2_sub.isCalled = false;
+                    }
+
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
+                    DiaryName.setText("그룹에 가입해주세욤");
 
                 }
             }
@@ -232,8 +241,6 @@ public class FragmentPage2 extends Fragment {
             }
         });
     }
-
-    
 
 
     @Override
@@ -258,4 +265,6 @@ public class FragmentPage2 extends Fragment {
             isFabOpen = true;
         }
     }
+
+
 }

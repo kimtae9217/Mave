@@ -1,6 +1,5 @@
 package com.example.mave.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,15 +7,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mave.BackPressCloseHandler;
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.memeberDto.LoginRequest;
 import com.example.mave.Dto.memeberDto.LoginResponse;
 import com.example.mave.R;
+import com.example.mave.repository.MemberRepository;
 import com.example.mave.service.MemberRetrofitService;
 import com.royrodriguez.transitionbutton.TransitionButton;
 import com.royrodriguez.transitionbutton.utils.WindowUtils;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,7 +30,6 @@ import static com.example.mave.activities.RegisterActivity.TAG;
 public class LoginActivity extends AppCompatActivity {
 
     private TransitionButton transitionLoginBtn;
-    boolean isSuccessful;
     private BackPressCloseHandler backPressCloseHandler;
 
     @Override
@@ -64,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if (response.isSuccessful()) {
                                     LoginResponse body = response.body();
                                     Log.d(TAG, "response 성공!!");
+                                    Log.d(TAG, "Login 성공!!");
+                                    MemberRepository.getInstance().setUserId(userID.getText().toString());
                                     transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
                                         @Override
                                         public void onAnimationStopEnd() {
@@ -73,12 +78,13 @@ public class LoginActivity extends AppCompatActivity {
                                             finish();
                                         }
                                     });
-//                                    isSuccessful = true;
 
                                 } else {
                                     Log.d(TAG, "response 실패 ㅠㅠ");
                                     transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-//                                    isSuccessful = false;
+                                    Log.d(TAG, "Login 실패 ㅠㅠ");
+                                    Toast.makeText(LoginActivity.this, "다시 시도해주세요!!", Toast.LENGTH_SHORT).show();
+
                                 }
                             }
 
@@ -86,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                             public void onFailure(Call<LoginResponse> call, Throwable t) {
                                 Log.d(TAG, "onFailure => " + t.getMessage());
                                 transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-//                                isSuccessful = false;
                             }
                         });
                     }
@@ -94,16 +99,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-        SignUp.setOnClickListener(new View.OnClickListener() {@Override
-        public void onClick(View v) {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        SignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
 
     }
+
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
