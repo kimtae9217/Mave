@@ -9,7 +9,7 @@ public class QuestionRepository {
 
     private static final QuestionRepository questionRepository = new QuestionRepository();
 
-    private static Map<String, List<String>> questionInfo = new HashMap<>();
+    private static Map<String, String> customQuestionInfo = new HashMap<>();
     private static Map<String, String> todayQuestionInfo = new HashMap<>();
 
 
@@ -29,11 +29,11 @@ public class QuestionRepository {
 
    }
 
-   public void setQuestionList(List<String> questionList){
-        questionInfo.put("questionList", questionList);
+   public void setQuestion(String customQuestion){
+       customQuestionInfo.put("customQuestion", customQuestion);
    }
 
-   public List<String> getQuestionList(){
-        return questionInfo.get("questionList");
+   public String getQuestion(){
+        return customQuestionInfo.get("customQuestion");
    }
 }

@@ -215,6 +215,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                     getContext().startActivity(intent);
 
 
+
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
 

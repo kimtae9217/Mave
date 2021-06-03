@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mave.R;
 import com.example.mave.repository.MemberRepository;
+import com.royrodriguez.transitionbutton.utils.WindowUtils;
 
 public class FragmentPage3 extends Fragment {
     ViewGroup viewGroup;
@@ -25,6 +26,7 @@ public class FragmentPage3 extends Fragment {
 
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_3, container, false);
 
+        WindowUtils.makeStatusbarTransparent(getActivity());
         FlowerState = (TextView) viewGroup.findViewById(R.id.flowerState);
         nickName = viewGroup.findViewById(R.id.NickName);
 
