@@ -69,7 +69,7 @@ public class Join_Group extends Dialog implements View.OnClickListener {
             case R.id.btnPositive: //확인 버튼을 눌렀을 때
 
                 long groupId = Long.parseLong(String.valueOf(joinGroupId.getText()));
-                joinGroup(groupId);
+                joinGroup(groupId); //joinGroup 동작
 
                 Log.d(TAG, "그룹 가입 완료!! ");
 
@@ -86,7 +86,7 @@ public class Join_Group extends Dialog implements View.OnClickListener {
 
     }
 
-    private void joinGroup(Long groupId) {
+    private void joinGroup(Long groupId) { // 그룹에 가입하는 API 서버에 저장된 그룹 ID값을 입력해야 함
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
         String userId = MemberRepository.getInstance().getUserId();
         JoinGroupRequest request = new JoinGroupRequest(userId);

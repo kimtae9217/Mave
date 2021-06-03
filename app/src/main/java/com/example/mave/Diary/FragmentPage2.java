@@ -182,7 +182,7 @@ public class FragmentPage2 extends Fragment {
         }
     }
 
-    private void findGroup() {
+    private void findGroup() { // 다이어리 프래그먼트 띄울 때 내가 어떤 그룹에 가입되어 있는지를 확인하기 위한 API
 
         GroupRetrofitService groupRetrofitService = CreateRetrofit.createRetrofit().create(GroupRetrofitService.class);
         String userId = MemberRepository.getInstance().getUserId();
