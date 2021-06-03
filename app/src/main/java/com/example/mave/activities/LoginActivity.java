@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mave.BackPressCloseHandler;
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.memeberDto.LoginRequest;
 import com.example.mave.Dto.memeberDto.LoginResponse;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private TransitionButton transitionLoginBtn;
     boolean isSuccessful;
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText userPW = findViewById(R.id.userPW);
         transitionLoginBtn = findViewById(R.id.transition_button);
         TextView SignUp = findViewById(R.id.SignUp);
-
+        backPressCloseHandler = new BackPressCloseHandler(this);
         transitionLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,22 +89,6 @@ public class LoginActivity extends AppCompatActivity {
 //                                isSuccessful = false;
                             }
                         });
-
-//                        // Choose a stop animation if your call was succesful or not
-//                        if (isSuccessful) {
-//                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
-//                                @Override
-//                                public void onAnimationStopEnd() {
-//                                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
-//                            });
-//
-//                        } else {
-//                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-//                        }
                     }
                 }, 1000);
             }
@@ -117,5 +103,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 }

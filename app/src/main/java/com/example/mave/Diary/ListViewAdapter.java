@@ -1,13 +1,17 @@
 package com.example.mave.Diary;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mave.R;
+import com.example.mave.repository.GroupRepository;
 
 import java.util.ArrayList;
 
@@ -47,6 +51,14 @@ import java.util.ArrayList;
             // 가져온 데이터를 텍스트뷰에 입력
             txt_title.setText(listItem.getAnswer());
             txt_userId.setText(listItem.getUserId());
+
+            LinearLayout  question_linear = (LinearLayout)convertView.findViewById(R.id.question_linear);
+            question_linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("1123", "클릭된다");
+                }
+            });
             return convertView;
         }
 
