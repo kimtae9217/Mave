@@ -16,17 +16,15 @@
     </FrameLayout>
 
 
-
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/nav_view_chip"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#FFF"
         android:layout_gravity="center"
+        android:background="#FFF"
         android:elevation="16dp"
         app:cnb_menuResource="@menu/bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 
 
 </LinearLayout>
