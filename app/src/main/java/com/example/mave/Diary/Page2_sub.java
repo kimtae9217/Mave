@@ -249,8 +249,9 @@ public class Page2_sub extends AppCompatActivity {
                     QuestionRepository.getInstance().setQuestion(customQuestion);
 
                 } else {
-                    Log.d(TAG, "response 실패 ㅠㅠ");
 
+                    Log.d(TAG, "아직 질문이 도착하지 않았습니다!");
+                    Toast.makeText(getApplicationContext(), "아직 질문이 도착하지 않았습니다 ㅠㅠ", Toast.LENGTH_LONG).show();
                 }
             }
 
