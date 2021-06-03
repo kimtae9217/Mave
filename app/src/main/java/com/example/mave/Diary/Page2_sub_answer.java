@@ -97,19 +97,6 @@ public class Page2_sub_answer extends AppCompatActivity {
         Log.d(TAG, "답변 화면 - 답변 가져오자!!");
         takeAllAnswer(adapter);
 
-
-        /*calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Level_Up_Dialog dig_2 = new Level_Up_Dialog(Page2_sub_answer.this, Level_Up_Dialog.class);
-                // 커스텀 다이얼로그 배경 투명
-                dig_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dig_2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dig_2.show();
-            }
-        });*/
-
-
         // 데이터 추가하기
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
