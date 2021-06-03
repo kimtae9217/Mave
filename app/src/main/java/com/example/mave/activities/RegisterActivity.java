@@ -2,6 +2,8 @@ package com.example.mave.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,10 +51,15 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JoinMemberResponse> call, Response<JoinMemberResponse> response) {
                         if (response.isSuccessful()) {
+
                             JoinMemberResponse body = response.body();
                             Log.d(TAG,"response 성공!!");
                             MemberRepository instance = MemberRepository.getInstance();
                             instance.setUserId(userID.getText().toString());
+
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
 
                         }else{
                             Log.d(TAG,"response 실패 ㅠㅠ");

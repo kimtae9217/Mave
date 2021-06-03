@@ -84,7 +84,7 @@ public class List_insert extends AppCompatActivity {
                 final String ln = edtContent.getText().toString().trim();
 
                 if (!(fn.isEmpty() && ln.isEmpty() && imageUrl != null)){
-                    progressDialog.setTitle("업로딩중..");
+                    progressDialog.setTitle("업로딩 중..");
                     progressDialog.show();
 
                     StorageReference filepath = mStorage.getReference().child("이미지 post").child(imageUrl.getLastPathSegment());
