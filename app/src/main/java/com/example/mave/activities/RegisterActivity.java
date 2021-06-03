@@ -1,7 +1,6 @@
 package com.example.mave.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JoinMemberResponse> call, Response<JoinMemberResponse> response) {
                         if (response.isSuccessful()) {
+
                             JoinMemberResponse body = response.body();
                             Log.d(TAG,"response 성공!!");
                             MemberRepository instance = MemberRepository.getInstance();

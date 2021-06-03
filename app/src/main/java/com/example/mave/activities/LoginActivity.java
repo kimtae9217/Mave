@@ -89,22 +89,6 @@ public class LoginActivity extends AppCompatActivity {
 //                                isSuccessful = false;
                             }
                         });
-
-//                        // Choose a stop animation if your call was succesful or not
-//                        if (isSuccessful) {
-//                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
-//                                @Override
-//                                public void onAnimationStopEnd() {
-//                                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
-//                            });
-//
-//                        } else {
-//                            transitionLoginBtn.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-//                        }
                     }
                 }, 1000);
             }
