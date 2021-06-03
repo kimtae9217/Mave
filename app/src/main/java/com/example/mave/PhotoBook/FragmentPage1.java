@@ -67,6 +67,7 @@ public class FragmentPage1 extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), List_insert.class);
                 startActivityForResult(intent, CODE);
+                getActivity().finish();
             }
         });
 

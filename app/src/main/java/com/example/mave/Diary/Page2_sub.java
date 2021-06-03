@@ -82,7 +82,6 @@ public class Page2_sub extends AppCompatActivity {
 //        adapter.notifyDataSetChanged(); << 아답타 새로고침 해주는 기능
 
         todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
-        Button notibutton = (Button) findViewById(R.id.notifi);
 
         questionTimeCheck();
 
@@ -100,13 +99,6 @@ public class Page2_sub extends AppCompatActivity {
             }
         });
 
-        notibutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                questionTimeCheck();
-
-            }
-        });
 
         FloatingActionButton FloatingButton = (FloatingActionButton) findViewById(R.id.customquestion);
         FloatingButton.setOnClickListener(new View.OnClickListener() { //플로팅버튼 눌렀을 때 이벤트
