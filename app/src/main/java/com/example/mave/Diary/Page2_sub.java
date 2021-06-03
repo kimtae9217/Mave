@@ -50,6 +50,7 @@ public class Page2_sub extends AppCompatActivity {
     public static Boolean isCalled = false;
     public static Boolean isAlarmed = false;
 
+
     private LocalTime questionTime;
     private TextView todayQuestion;
     private ListView listView;
@@ -78,16 +79,14 @@ public class Page2_sub extends AppCompatActivity {
         questionDB = QuestionRepository.getInstance();
 
 
-//        adapter.addItem(변수); << 아답타에 아이템 넣는 코드
-//        adapter.notifyDataSetChanged(); << 아답타 새로고침 해주는 기능
-
         todayQuestion = (TextView) findViewById(R.id.todayQuestion); // 오늘의 질문 버튼
         Button notibutton = (Button) findViewById(R.id.notifi);
 
+        // 설정 시간 넘었는지 체크
         questionTimeCheck();
 
         // 질문을 받아왔는지 체크
-        isCalledCheck();
+        allQuestionRequest(groupDB.getDiaryDate());
 
 
         todayQuestion.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +143,7 @@ public class Page2_sub extends AppCompatActivity {
         Log.d(TAG, "우리 그룹은 며칠째인가!? - " + questionNumber);
 
         TakeAllQuestionRequest request = new TakeAllQuestionRequest(groupDB.getGroupId());
-        Call<List<TakeAllQuestionResponse>> call = questionRetrofitService.takeAllQuestion(2l, request);
+        Call<List<TakeAllQuestionResponse>> call = questionRetrofitService.takeAllQuestion(questionNumber, request);
 
         call.enqueue(new Callback<List<TakeAllQuestionResponse>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -154,14 +153,14 @@ public class Page2_sub extends AppCompatActivity {
                     List<TakeAllQuestionResponse> body = response.body();
                     Log.d(TAG, "response 성공!!");
 
-                    Log.d(TAG,body.get(body.size()-1).getQuestionContent());
+                    Log.d(TAG,body.get(0).getQuestionContent());
                     Log.d(TAG, String.valueOf(body.size()));
 
-                    questionDB.setTodayQuestion(body.get(body.size()-1).getQuestionContent());
+                    questionDB.setTodayQuestion(body.get(0).getQuestionContent());
                     todayQuestion.setText(questionDB.getTodayQuestion());
 
                     List<String> questionList = new ArrayList<>();
-                    for (int i = 0; i <body.size()-1; i++) {
+                    for (int i = 1; i <body.size(); i++) {
                         Log.d(TAG,body.get(i).getQuestionContent());
                         adapter.addItem(body.get(i).getQuestionContent());
                         questionList.add(body.get(i).getQuestionContent());
@@ -184,50 +183,12 @@ public class Page2_sub extends AppCompatActivity {
     }
 
 
-            private void questionRequest(Long diaryDate) {
-                if(diaryDate ==1){
-                    return;
-                }
-                // 서버에서 질문 받아오기
-                QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
-
-                Log.d(TAG, "질문 생성합니다!!");
-                Log.d(TAG, "서버에 질문을 요청한 그룹 id는!? - " + groupDB.getGroupId());
-                Log.d(TAG, "우리 그룹은 며칠째인가!? - " + diaryDate );
-
-                TakeQuestionRequest request = new TakeQuestionRequest(groupDB.getGroupId());
-                Call<TakeQuestionResponse> call = questionRetrofitService.takeQuestion(diaryDate, request);
-
-                call.enqueue(new Callback<TakeQuestionResponse>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onResponse(Call<TakeQuestionResponse> call, Response<TakeQuestionResponse> response) {
-                        if (response.isSuccessful()) {
-                            TakeQuestionResponse body = response.body();
-                            Log.d(TAG, "response 성공!!");
-
-
-                        } else {
-                            Log.d(TAG, "response 실패 ㅠㅠ");
-
-                        }
-                    }
-
-
-                    @Override
-                    public void onFailure(Call<TakeQuestionResponse> call, Throwable t) {
-                        Log.d(TAG, "onFailure => " + t.getMessage());
-                    }
-                });
-            }
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             private void isAlarmCheck() {
                 if (!isAlarmed) {
                     Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isAlarmed));
                     NotificationSomethings();
-                    questionRequest(groupDB.getDiaryDate());
-                    allQuestionRequest(groupDB.getDiaryDate());
                     isAlarmed = true;
                 } else {
                     Log.d(TAG, "알람이 울렸는가!? - " + String.valueOf(isCalled));
@@ -235,21 +196,21 @@ public class Page2_sub extends AppCompatActivity {
                 }
             }
 
-            private void isCalledCheck() {
-                if (!isCalled) {
-                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
-                    allQuestionRequest(groupDB.getDiaryDate());
-                    isCalled = true;
-                } else {
-                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
-                    todayQuestion.setText(questionDB.getTodayQuestion());
-                    for (String question : questionDB.getQuestionList()) {
-                        adapter.addItem(question);
-                    }
-                    adapter.notifyDataSetChanged();
-
-                }
-            }
+//
+//    private void isCalledCheck() {
+//                if (!isCalled) {
+//                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
+//                    allQuestionRequest(groupDB.getDiaryDate());
+//                    isCalled = true;
+//                } else {
+//                    Log.d(TAG, "질문을 가져왔었나!? - " + String.valueOf(isCalled));
+//                    todayQuestion.setText(questionDB.getTodayQuestion());
+//                    for (String question : questionDB.getQuestionList()) {
+//                        adapter.addItem(question);
+//                    }
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
 
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -261,7 +222,7 @@ public class Page2_sub extends AppCompatActivity {
 
                 Log.d(TAG, String.valueOf(nowTime.isAfter(questionTime)));
                 if (nowTime.isAfter(questionTime)) {
-                    isAlarmCheck();
+                        isAlarmCheck();
                 } else {
                     Log.d(TAG, "아직 질문이 도착하지 않았습니다!"); // 아니면 말고 코드 넣으면 될 거 같습니다.
                     Toast.makeText(getApplicationContext(), "아직 질문이 도착하지 않았습니다 ㅠㅠ", Toast.LENGTH_LONG).show();

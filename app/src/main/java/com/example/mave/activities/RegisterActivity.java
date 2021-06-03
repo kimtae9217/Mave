@@ -2,11 +2,13 @@ package com.example.mave.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.memeberDto.JoinMemberRequest;
@@ -18,6 +20,8 @@ import com.example.mave.service.MemberRetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -50,11 +54,14 @@ public class RegisterActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             JoinMemberResponse body = response.body();
                             Log.d(TAG,"response 성공!!");
-                            MemberRepository instance = MemberRepository.getInstance();
-                            instance.setUserId(userID.getText().toString());
+                            Log.d(TAG,"회원가입 성공!!");
+                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                            getApplicationContext().startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
 
                         }else{
                             Log.d(TAG,"response 실패 ㅠㅠ");
+                            Log.d(TAG,"회원가입 실패 ㅠㅠ");
+                            Toast.makeText(RegisterActivity.this, "다시 시도해주세요!!!", Toast.LENGTH_SHORT).show();
 
                         }
                     }
