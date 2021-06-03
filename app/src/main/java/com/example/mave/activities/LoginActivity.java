@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mave.BackPressCloseHandler;
 import com.example.mave.CreateRetrofit;
 import com.example.mave.Dto.memeberDto.LoginRequest;
 import com.example.mave.Dto.memeberDto.LoginResponse;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private TransitionButton transitionLoginBtn;
     boolean isSuccessful;
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText userPW = findViewById(R.id.userPW);
         transitionLoginBtn = findViewById(R.id.transition_button);
         TextView SignUp = findViewById(R.id.SignUp);
-
+        backPressCloseHandler = new BackPressCloseHandler(this);
         transitionLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,8 +115,14 @@ public class LoginActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
+            finish();
         }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 }

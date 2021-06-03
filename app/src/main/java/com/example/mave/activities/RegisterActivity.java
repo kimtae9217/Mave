@@ -2,6 +2,7 @@ package com.example.mave.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d(TAG,"response 성공!!");
                             MemberRepository instance = MemberRepository.getInstance();
                             instance.setUserId(userID.getText().toString());
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
 
                         }else{
                             Log.d(TAG,"response 실패 ㅠㅠ");
@@ -68,5 +72,13 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
