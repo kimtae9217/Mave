@@ -42,6 +42,8 @@ public class ListViewAdapterForSub2 extends BaseAdapter {
 
         // 참조 획득
         TextView txt_question = (TextView)convertView.findViewById(R.id.txt_question);
+        TextView txt_userId = (TextView)convertView.findViewById(R.id.txt_name);
+
         Question_Item listItem = listItems.get(position);
         // 가져온 데이터를 텍스트뷰에 입력
         txt_question.setText(listItem.getQuestion());

@@ -66,9 +66,9 @@
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="160dp"
             android:layout_marginEnd="15sp"
-            android:src="@drawable/family"
             android:visibility="invisible"
-            app:backgroundTint="#ffffff"
+            android:src="@drawable/floating_invite"
+            app:backgroundTint="#82BFC5"
             app:elevation="6dp"
             app:pressedTranslationZ="12dp" />
 
@@ -80,9 +80,9 @@
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="90dp"
             android:layout_marginEnd="15sp"
-            android:src="@drawable/profile"
             android:visibility="invisible"
-            app:backgroundTint="#ffffff"
+            android:src="@drawable/floating_diary"
+            app:backgroundTint="#E47B9F"
             app:elevation="6dp"
             app:pressedTranslationZ="12dp" />
 
@@ -92,8 +92,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="15sp"
-            android:backgroundTint="#9500ff"
-            android:src="@drawable/settings" />
+            android:backgroundTint="#82C59C"
+            android:elevation="10dp"
+            android:src="@drawable/floating_flower" />
 
 
 

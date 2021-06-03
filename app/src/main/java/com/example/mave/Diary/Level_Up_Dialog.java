@@ -41,4 +41,3 @@ public class Level_Up_Dialog extends Dialog {
         this.mContext = mContext;
     }
 }
-

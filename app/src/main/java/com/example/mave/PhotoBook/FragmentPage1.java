@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.mave.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,13 +51,23 @@ public class FragmentPage1 extends Fragment {
         myRecyclerAdapter = new MyRecyclerAdapter(getActivity(),itemdata);
         recyclerView.setAdapter(myRecyclerAdapter);
 
-        Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
-        button.setOnClickListener(new View.OnClickListener() {
+//        Button button = (Button) viewGroup.findViewById(R.id.page1_btn_add_picture);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), List_insert.class);
+//                startActivityForResult(intent, CODE);
+//
+//            }
+//        });
+
+        FloatingActionButton FloatingButton3 = (FloatingActionButton) viewGroup.findViewById(R.id.page1_btn_add_picture);
+        FloatingButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), List_insert.class);
                 startActivityForResult(intent, CODE);
-
+                getActivity().finish();
             }
         });
 

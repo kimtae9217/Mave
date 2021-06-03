@@ -42,15 +42,18 @@ import java.util.ArrayList;
 
             // 참조 획득
             TextView txt_title = (TextView)convertView.findViewById(R.id.txt_title);
+            TextView txt_userId = (TextView)convertView.findViewById(R.id.txt_name);
             Answer_Item listItem = listItems.get(position);
             // 가져온 데이터를 텍스트뷰에 입력
             txt_title.setText(listItem.getAnswer());
+            txt_userId.setText(listItem.getUserId());
             return convertView;
         }
 
-        public void addItem(String answer){
+        public void addItem(String userId, String answer){
             Answer_Item listItem = new Answer_Item();
             listItem.setAnswer(answer);
+            listItem.setUserId(userId);
             listItems.add(listItem);
         }
     }
