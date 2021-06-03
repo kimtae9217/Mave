@@ -185,7 +185,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
     }
 
     private void questionRequest() {
-        // 서버에서 질문 받아오기
+        // 서버에서 질문 받아오기 서버 DB에 질문을 넣는다.
         QuestionRetrofitService questionRetrofitService = CreateRetrofit.createRetrofit().create(QuestionRetrofitService.class);
         GroupRepository groupDB = GroupRepository.getInstance();
         QuestionRepository questionDB = QuestionRepository.getInstance();
