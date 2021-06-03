@@ -172,7 +172,7 @@ public class Create_Diary extends Dialog implements View.OnClickListener {
                     GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
                     Log.d(TAG, "그룹 D-Day 내부 db에 저장 완료!");
 
-                    GroupRepository.getInstance().setDiaryDate(body.getDiaryDate());
+                    GroupRepository.completeDate = body.getDiaryDate();
                     Log.d(TAG, "그룹 CompleteDate 내부 db에 저장 완료!");
 
                     questionRequest();
