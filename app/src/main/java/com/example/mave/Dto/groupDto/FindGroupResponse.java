@@ -18,6 +18,8 @@ public class FindGroupResponse {
     private String questionTime;
     @SerializedName("diaryDate")
     private Long diaryDate;
+    @SerializedName("completeDate")
+    private Long completeDate;
     @SerializedName("isDateChanged")
     private Boolean isDateChanged;
 
@@ -26,13 +28,14 @@ public class FindGroupResponse {
     public FindGroupResponse() {
     }
 
-    public FindGroupResponse(Long groupId, String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate, Boolean isDateChanged) {
+    public FindGroupResponse(Long groupId, String groupName, int flowerCount, int flowerStatus, String questionTime, Long diaryDate,Long completeDate, Boolean isDateChanged) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.flowerCount = flowerCount;
         this.flowerStatus = flowerStatus;
         this.questionTime = questionTime;
         this.diaryDate = diaryDate;
+        this.completeDate = completeDate;
         this.isDateChanged = isDateChanged;
     }
 
@@ -90,5 +93,13 @@ public class FindGroupResponse {
 
     public void setDateChanged(Boolean dateChanged) {
         isDateChanged = dateChanged;
+    }
+
+    public Long getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(Long completeDate) {
+        this.completeDate = completeDate;
     }
 }
