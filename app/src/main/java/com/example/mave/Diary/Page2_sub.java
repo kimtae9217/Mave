@@ -68,7 +68,7 @@ public class Page2_sub extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub);
         getSupportActionBar().hide();
-        WindowUtils.makeStatusbarTransparent(this);
+//        WindowUtils.makeStatusbarTransparent(this);
         listView = findViewById(R.id.questionlist);
 
         mContext = this;
@@ -96,6 +96,7 @@ public class Page2_sub extends AppCompatActivity {
                 Log.d(TAG, "답변 화면으로 가기 전!! " + todayQuestion.getText().toString());
                 intent.putExtra("todayQuestion", todayQuestion.getText().toString());
                 startActivity(intent);
+                finish();
             }
         });
 

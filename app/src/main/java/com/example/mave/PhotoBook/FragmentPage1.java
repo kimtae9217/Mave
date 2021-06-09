@@ -46,7 +46,7 @@ public class FragmentPage1 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        WindowUtils.makeStatusbarTransparent(getActivity());
+//        WindowUtils.makeStatusbarTransparent(getActivity());
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_1, container, false);
         mDatabase = FirebaseDatabase.getInstance(); // firebaseDatabase 인스턴스 생성
         mRef = mDatabase.getReference().child("mave"); // 생성된 database 를 참조하는 ref 생성

@@ -65,7 +65,7 @@ public class FragmentPage2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         setHasOptionsMenu(true);
-        WindowUtils.makeStatusbarTransparent(getActivity());
+//        WindowUtils.makeStatusbarTransparent(getActivity());
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_page_2, container, false);
         fab_open = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);

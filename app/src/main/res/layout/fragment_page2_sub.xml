@@ -14,16 +14,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/imageButton2"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginStart="355dp"-->
-<!--            android:background="#00ff0000"-->
-<!--            android:contentDescription="@string/calender"-->
-<!--            android:onClick="showDataPicker"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            app:srcCompat="@drawable/calendar" />-->
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="355dp"
+            android:background="#00ff0000"
+            android:contentDescription="@string/calender"
+            android:onClick="showDataPicker"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/calendar" />
 
 
         <FrameLayout
@@ -33,7 +33,6 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="90dp"
                 android:background="@drawable/backgroundwall"
                 android:orientation="horizontal">
@@ -60,10 +59,13 @@
             </LinearLayout>
         </FrameLayout>
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#B8B8B8" />
+            android:elevation="10dp"
+            android:background="#B8B8B8"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,8 +73,10 @@
             android:baselineAligned="false"
             android:orientation="horizontal">
 
+
             <ListView
                 android:id="@+id/questionlist"
+                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

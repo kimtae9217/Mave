@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowUtils.makeStatusbarTransparent(this);
+//        WindowUtils.makeStatusbarTransparent(this);
 
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
