@@ -47,13 +47,15 @@
                 android:gravity="start"
                 android:text="@string/todayquestion"
                 android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:elevation="10dp"
             android:background="#B8B8B8"/>
 
         <LinearLayout
@@ -62,8 +64,10 @@
             android:baselineAligned="false"
             android:orientation="horizontal">
 
+
             <ListView
                 android:id="@+id/questionlist"
+                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
