@@ -15,6 +15,7 @@
             android:id="@+id/diaryDate"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/portsmooth"
             android:text="D+ day"

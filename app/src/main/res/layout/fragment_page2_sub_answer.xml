@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
     tools:context=".Diary.Page2_sub_answer">
 
     <LinearLayout
@@ -86,6 +87,8 @@
         <ListView
             android:id="@+id/listMemo"
             android:paddingTop="30dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/flower_wallpaper" />
