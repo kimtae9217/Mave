@@ -14,10 +14,11 @@
         <TextView
             android:id="@+id/diaryDate"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/app_main_font"
+            android:fontFamily="@font/portsmooth"
             android:text="D+ day"
+            android:textColor="@color/black"
             android:textSize="50sp"
             android:gravity="center"
             />

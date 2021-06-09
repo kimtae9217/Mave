@@ -102,7 +102,6 @@ public class List_insert extends AppCompatActivity {
 
                             Intent intent = new Intent(List_insert.this, MainActivity.class);
                             startActivity(intent);
-                            List_insert.this.finish();
                         });
                     });
                 }
