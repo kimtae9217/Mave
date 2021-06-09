@@ -44,7 +44,7 @@
                 android:textColor="@color/black"
                 android:gravity="start"
                 android:text="@string/todayquestion"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -84,6 +84,7 @@
 
         <ListView
             android:id="@+id/listMemo"
+            android:paddingTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/flower_wallpaper" />

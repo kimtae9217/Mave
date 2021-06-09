@@ -82,14 +82,14 @@ public class Page2_sub_answer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_page2_sub_answer);
         getSupportActionBar().hide();
-        WindowUtils.makeStatusbarTransparent(this);
+//        WindowUtils.makeStatusbarTransparent(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); // EditText 사용시 키보드 자판이 UI 가릴 때 영향 안주는 것
         edt_title = (EditText) findViewById(R.id.edt_answer);
         btn_add = (Button) findViewById(R.id.btn_answer);
         listView = (ListView) findViewById(R.id.listMemo);
         flower = (ImageView) findViewById(R.id.diary_flower);
         TodayQuestion = (TextView) findViewById(R.id.todayQuestion);
-        //btn_custom = (Button) findViewById(R.id.customquestion);
+        btn_custom = (Button) findViewById(R.id.customquestion);
         calendar = (ImageButton) findViewById(R.id.imageButton2);
         mContext = this;
         Intent intent = getIntent();
