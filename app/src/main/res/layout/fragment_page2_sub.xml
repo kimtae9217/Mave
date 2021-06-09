@@ -9,52 +9,61 @@
         android:id="@+id/Sample_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background=""
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="355dp"
-            android:background="#00ff0000"
-            android:contentDescription="@string/calender"
-            android:onClick="showDataPicker"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/calendar" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton2"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginStart="355dp"-->
+<!--            android:background="#00ff0000"-->
+<!--            android:contentDescription="@string/calender"-->
+<!--            android:onClick="showDataPicker"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            app:srcCompat="@drawable/calendar" />-->
 
-        <LinearLayout
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:background="@drawable/backgroundwall"
-            android:orientation="horizontal">
+            android:layout_height="100dp"
+            android:background="@drawable/status_rectangle">
 
-            <ImageView
-                android:layout_width="108dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:contentDescription="@string/questionflower"
-                android:src="@drawable/flowerdaisy" />
+            <LinearLayout
+                android:layout_width="match_parent"
 
-            <TextView
-                android:id="@+id/todayQuestion"
-                android:layout_width="278dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/ant"
-                android:gravity="start"
-                android:text="@string/todayquestion"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:layout_height="90dp"
+                android:background="@drawable/backgroundwall"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="108dp"
+                    android:layout_height="95dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:contentDescription="@string/questionflower"
+                    android:src="@drawable/flowerdaisy" />
+
+                <TextView
+                    android:id="@+id/todayQuestion"
+                    android:layout_width="278dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/ant"
+                    android:gravity="start"
+                    android:text="@string/todayquestion"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#B8B8B8"/>
+            android:background="#B8B8B8" />
 
         <LinearLayout
             android:layout_width="match_parent"
