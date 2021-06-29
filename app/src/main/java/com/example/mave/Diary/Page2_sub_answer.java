@@ -120,7 +120,7 @@ public class Page2_sub_answer extends AppCompatActivity {
         });
     }
 
-    public void registAnswer() { // 답변 등록하는 api 그룹 아이디 유저 아이디를 보내준다 어떤 그룹의 누가 질문에 답변했는지
+    public void registAnswer() {
 
         AnswerRetrofitService answerRetrofitService = CreateRetrofit.createRetrofit().create(AnswerRetrofitService.class);
         RegistAnswerRequest request = new RegistAnswerRequest(MemberRepository.getInstance().getUserId(), getInstance().getGroupId(), edt_title.getText().toString());
@@ -135,10 +135,8 @@ public class Page2_sub_answer extends AppCompatActivity {
 
 
                     if (body.getFinish()) {
-
-                        completeDate++; // 이렇게 되려면 모든 구성원이 답변을 완료해야함 //DB에서 질문을 만들어서 다음 날 보여준다. > questionRequest가 동작
-                        questionRequest(completeDate);
-                      
+                        completeDate++;
+                        checkCustom();
                         Level_Up_Dialog dig_2 = new Level_Up_Dialog(Page2_sub_answer.this, Level_Up_Dialog.class);
                         // 커스텀 다이얼로그 배경 투명
                         dig_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -166,7 +164,7 @@ public class Page2_sub_answer extends AppCompatActivity {
 
     }
 
-    public void takeAllAnswer(ListViewAdapter adapter) { // 답변에 참여한 유저들의 답을 모두 보여줌.
+    public void takeAllAnswer(ListViewAdapter adapter) {
         AnswerRetrofitService answerRetrofitService = CreateRetrofit.createRetrofit().create(AnswerRetrofitService.class);
         AllAnswerRequest request = new AllAnswerRequest(getInstance().getGroupId());
         Call<List<AllAnswerResponse>> call = answerRetrofitService.allAnswer(getInstance().getDiaryDate(), request);
@@ -174,7 +172,7 @@ public class Page2_sub_answer extends AppCompatActivity {
         call.enqueue(new Callback<List<AllAnswerResponse>>() {
             @Override
             public void onResponse(Call<List<AllAnswerResponse>> call, Response<List<AllAnswerResponse>> response) {
-                if (response.isSuccessful()) { //id로 구분해서 내용을 표시하고 표시됐으면 답변을 또 하지 못하게 답변 버튼 삭제
+                if (response.isSuccessful()) {
                     List<AllAnswerResponse> body = response.body();
                     Log.d(TAG, "response 성공!!");
                     for (AllAnswerResponse allAnswerResponse : body) {
@@ -309,4 +307,3 @@ public class Page2_sub_answer extends AppCompatActivity {
 
 
 }
-
