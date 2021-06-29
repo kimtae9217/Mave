@@ -211,7 +211,7 @@ public class FragmentPage2 extends Fragment {
 
                 } else {
                     Log.d(TAG, "response 실패 ㅠㅠ");
-                    DiaryName.setText("그룹에 가입해주세욤");
+                    DiaryName.setText("그룹에 가입해주세요!");
 
                 }
             }
