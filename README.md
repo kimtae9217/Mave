@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/55828162/128677128-21ddce66-f6f0-4ade-9484-d9bcfb7f5e07.png)
+
+
 # 2021학년도 1학기 기업연계프로젝트
 <br>
 
